@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ListService} from "./list.service";
+import {GenericApiResource} from "../generic-api-resource";
 
 @Component({
   selector: 'generic-api-resource-list',
@@ -12,23 +13,11 @@ import {ListService} from "./list.service";
   styleUrls: [],
   providers: [ListService]
 })
-export class ListComponent implements OnInit, OnDestroy {
+export class ListComponent extends GenericApiResource implements OnInit, OnDestroy {
 
-  _resourceNameSingular: string;
-  _resourceNamePlural: string;
-
-  _apiUrl;
   _defaultQuery: {};
-
-  _resourceIndexUri: string;
-  _resourceNewUri: string;
-  _resourceShowUri: string;
-
-  _pageTitle: string;
-  _displayTitle: boolean = false;
   _enableFilters: boolean = false;
 
-  _enableDetail: boolean = true;
   _resources: any[];
   _resourcesSubscription: Subscription;
   _displayedColumns: string[];
@@ -39,6 +28,7 @@ export class ListComponent implements OnInit, OnDestroy {
   _filtersSubscription: Subscription;
 
   constructor(private apiListService: ListService, private router: Router, private sanitizer: DomSanitizer, private formBuilder: FormBuilder) {
+    super();
   }
 
   ngOnInit(): void {
@@ -72,26 +62,6 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   @Input()
-  set resourceNameSingular(resourceNameSingular: string) {
-    this._resourceNameSingular = resourceNameSingular;
-  }
-
-  @Input()
-  set resourceNamePlural(resourceNamePlural: string) {
-    this._resourceNamePlural = resourceNamePlural;
-  }
-
-  @Input()
-  set pageTitle(pageTitle: string) {
-    this._pageTitle = pageTitle;
-  }
-
-  @Input()
-  set resourceIndexUri(resourceIndexUri: string) {
-    this._resourceIndexUri = resourceIndexUri;
-  }
-
-  @Input()
   set defaultQuery(defaultQuery: {}) {
     this._defaultQuery = defaultQuery;
   }
@@ -101,64 +71,10 @@ export class ListComponent implements OnInit, OnDestroy {
     this._displayedColumns = displayedColumns;
   }
 
-  @Input()
-  set resourceShowUri(resourceShowUri: string) {
-    this._resourceShowUri = resourceShowUri;
-  }
-
-  @Input()
-  set displayTitle(displayTitle: boolean) {
-    this._displayTitle = displayTitle;
-  }
 
   @Input()
   set enableFilters(enableFilters: boolean) {
     this._enableFilters = enableFilters;
-  }
-
-  @Input()
-  set enableDetail(enableDetail: boolean) {
-    this._enableDetail = enableDetail;
-  }
-
-  @Input()
-  set resourceNewUri(resourceNewUri) {
-    this._resourceNewUri = resourceNewUri;
-    console.log('set');
-  }
-
-  @Input()
-  set apiUrl(apiUrl) {
-    this._apiUrl = apiUrl;
-    this.apiListService.url = apiUrl;
-  }
-
-  get resourceNewUri() {
-    if (this._resourceNewUri == null) {
-      return '/' + this.resourceNamePlural + '/new';
-    } else {
-      return this._resourceNewUri;
-    }
-  }
-
-  get resourceNameSingular(): string {
-    return this._resourceNameSingular;
-  }
-
-  get resourceNamePlural(): string {
-    if (this._resourceNamePlural == null) {
-      return this._resourceNameSingular + 's';
-    } else {
-      return this._resourceNamePlural;
-    }
-  }
-
-  get resourceIndexUri(): string {
-    if (this._resourceIndexUri == null) {
-      return `/${this.resourceNamePlural}`;
-    } else {
-      return this._resourceIndexUri;
-    }
   }
 
   get defaultQuery(): {} {
@@ -173,14 +89,6 @@ export class ListComponent implements OnInit, OnDestroy {
     return this._resources;
   }
 
-  get pageTitle(): string {
-    if (this._pageTitle == null) {
-      return this.pageTitle = this.resourceNamePlural.charAt(0).toUpperCase() + this.resourceNamePlural.slice(1);
-    } else {
-      return this._pageTitle;
-    }
-  }
-
   get displayedColumns(): string[] {
     if (this._displayedColumns == null) {
       if (this.resources && this.resources.length > 0) {
@@ -190,26 +98,6 @@ export class ListComponent implements OnInit, OnDestroy {
       }
     } else {
       return this._displayedColumns;
-    }
-  }
-
-  get resourceShowUri(): string {
-    if (this._resourceShowUri == null) {
-      return `/${this.resourceNamePlural}/:id`;
-    } else {
-      return this._resourceShowUri;
-    }
-  }
-
-  get displayTitle() {
-    return this._displayTitle;
-  }
-
-  get apiUrl() {
-    if (this._apiUrl == null) {
-      return `http://loclahost:3000`;
-    } else {
-      return this._apiUrl;
     }
   }
 
