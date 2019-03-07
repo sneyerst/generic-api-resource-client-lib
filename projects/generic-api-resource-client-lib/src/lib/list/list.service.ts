@@ -28,10 +28,6 @@ export class ListService {
     return this._filters.asObservable();
   }
 
-  get url() {
-    return this._url;
-  }
-
   set resources(resources) {
     this._resources.next(resources);
   }
@@ -43,11 +39,6 @@ export class ListService {
   set filters(filters) {
     this._filters.next(filters);
   }
-
-  set url(url) {
-    this._url = url;
-  }
-
 
   constructor(private http: HttpClient, private router: Router, private tokenService: AngularTokenService) {
   }
@@ -74,7 +65,8 @@ export class ListService {
     return this.http.get(url, httpOptions);
   }
 
-  setApiEndpoint(apiEndpointUri: string, defaultQuery: {}) {
+  setApiEndpoint(url: string, apiEndpointUri: string, defaultQuery: {}) {
+    this._url = url;
     this._apiEndpointUri = apiEndpointUri;
     this._defaultQuery = defaultQuery;
     this.getResources();
@@ -95,11 +87,11 @@ export class ListService {
       apiEndpointUri += '?' + querystring;
     }
 
-    return `${this.url}${apiEndpointUri}`;
+    return `${this._url}${apiEndpointUri}`;
   }
 
   createResource(resourceAttributes) {
-    const url = `${this.url}/${this._apiEndpointUri}`
+    const url = `${this._url}/${this._apiEndpointUri}`;
     return this.http.post(url, resourceAttributes).toPromise();
   }
 

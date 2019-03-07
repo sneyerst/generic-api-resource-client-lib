@@ -33,7 +33,9 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
   }
 
   ngOnInit(): void {
-    this._apiUrlSubscription = this.apiUrlObservable.subscribe((apiUrl: string) => this.apiListService.url = apiUrl);
+    this._apiUrlSubscription = this.apiUrlObservable.subscribe((apiUrl: string) => {
+      this.apiListService.setApiEndpoint(apiUrl, this.resourceIndexUri, this.defaultQuery);
+    });
     this._resourcesSubscription = this.apiListService.resourcesObservable.subscribe((resources: any[]) => this._resources = resources);
     this._filtersSubscription = this.apiListService.filtersObservable.subscribe((filters) => {
         this._filters = filters;
@@ -56,7 +58,6 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
         }, []);
       }
     );
-    this.apiListService.setApiEndpoint(this.resourceIndexUri, this.defaultQuery);
   }
 
   ngOnDestroy(): void {
