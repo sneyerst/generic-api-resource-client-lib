@@ -220,7 +220,7 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   newResource() {
-   this.router.navigateByUrl(this.resourceNewUri);
+    this.router.navigateByUrl(this.resourceNewUri);
   }
 
 }
