@@ -17,7 +17,7 @@ export class ListComponent implements OnInit, OnDestroy {
   _resourceNameSingular: string;
   _resourceNamePlural: string;
 
-  _apiUrl: string = 'http://localhost:3000';
+  _apiUrl;
   _defaultQuery: {};
 
   _resourceIndexUri: string;
@@ -206,7 +206,11 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   get apiUrl() {
-    return this._apiUrl;
+    if (this._apiUrl == null) {
+      return `http://loclahost:3000`;
+    } else {
+      return this._apiUrl;
+    }
   }
 
   resourceClicked(resource: any) {
