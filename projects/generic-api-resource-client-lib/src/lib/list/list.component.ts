@@ -39,7 +39,6 @@ export class ListComponent implements OnInit, OnDestroy {
   _filtersSubscription: Subscription;
 
   constructor(private apiListService: ListService, private router: Router, private sanitizer: DomSanitizer, private formBuilder: FormBuilder) {
-    this.apiListService.url = this.apiUrl;
   }
 
   ngOnInit(): void {
@@ -131,6 +130,7 @@ export class ListComponent implements OnInit, OnDestroy {
   @Input()
   set apiUrl(apiUrl) {
     this._apiUrl = apiUrl;
+    this.apiListService.url = apiUrl;
   }
 
   get resourceNewUri() {
