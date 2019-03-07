@@ -44,6 +44,7 @@ export class GenericApiResource {
   @Input() set enableDestroy(enableDestroy: boolean) { this._enableDestroy = enableDestroy; }
 
   get apiUrlObservable(): BehaviorSubject<string> { return this._apiUrlObservable; }
+  get apiUrl(): string { return this._apiUrlObservable.getValue(); }
   get resourceNameSingular(): string { return this._resourceNameSingular; }
   get resourceNamePlural(): string { return this._resourceNamePlural == null ? this._resourceNameSingular + 's' : this._resourceNamePlural; }
   get resourceIndexUri(): string { return this._resourceIndexUri == null ? `/${this.resourceNamePlural}` : this._resourceIndexUri; }

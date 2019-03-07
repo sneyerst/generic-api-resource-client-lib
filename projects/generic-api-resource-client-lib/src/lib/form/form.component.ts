@@ -4,15 +4,15 @@ import {Router} from "@angular/router";
 import {DomSanitizer} from "@angular/platform-browser";
 import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {MatSnackBar} from "@angular/material";
-import {DetailService} from "../detail/detail.service";
 import {GenericApiResource} from "../generic-api-resource";
+import {FormService} from "./form.service";
 
 
 @Component({
   selector: 'generic-api-resource-form',
   templateUrl: 'form.component.html',
   styleUrls: [],
-  providers: [DetailService]
+  providers: [FormService]
 })
 export class FormComponent extends GenericApiResource {
 
@@ -30,21 +30,21 @@ export class FormComponent extends GenericApiResource {
   _values: any;
   _apiUrlSubscription: Subscription;
 
-  constructor(private apiDetailService: DetailService, private router: Router, private sanitizer: DomSanitizer, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
+  constructor(private formService: FormService, private router: Router, private sanitizer: DomSanitizer, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
     super();
   }
 
   ngOnInit(): void {
     this._apiUrlSubscription = this.apiUrlObservable.subscribe((apiUrl: string) => {
-      this.apiDetailService.setApiEndpoint(apiUrl, this.resourceIndexUri);
+      this.setApiEndpoint(apiUrl, this.resourceId);
     });
-    this._resourceSubscription = this.apiDetailService.resourceObservable.subscribe((resource: any) => this._resource = resource);
-    this._valuesSubscription = this.apiDetailService.valuesObservable.subscribe((values: any) => {
+    this._resourceSubscription = this.formService.resourceObservable.subscribe((resource: any) => this._resource = resource);
+    this._valuesSubscription = this.formService.valuesObservable.subscribe((values: any) => {
         this._values = values;
         this._resourceFormGroup = (this.parseFormGroup(values));
       }
     );
-    this._fieldsSubscription = this.apiDetailService.fieldsObservable.subscribe((fields: any) => {
+    this._fieldsSubscription = this.formService.fieldsObservable.subscribe((fields: any) => {
       this._fields = fields;
       this._resourceFormComponents = Object.keys(fields).reduce((acc, value) => {
         acc.push({
@@ -113,6 +113,7 @@ export class FormComponent extends GenericApiResource {
   @Input()
   set resourceId(resourceId: number) {
     this._resourceId = resourceId;
+    this.setApiEndpoint(this.apiUrl, resourceId);
   }
 
   @Input()
@@ -128,6 +129,10 @@ export class FormComponent extends GenericApiResource {
     return this._resource;
   }
 
+  get isNew(): boolean {
+    return this._resourceId == null;
+  }
+
   getResourceAttributes() {
     return JSON.parse(`{"${this.resourceNameSingular}":${JSON.stringify(this._resourceFormGroup['value'])}}`);
   }
@@ -137,8 +142,30 @@ export class FormComponent extends GenericApiResource {
     this.router.navigateByUrl(this.resourceIndexUri);
   }
 
+  showSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {duration: 2500});
+  }
+
+  getFormArray(formGroup, name): FormArray {
+    return formGroup.get(name);
+  }
+
+  setApiEndpoint(apiUrl, resourceId) {
+    if(apiUrl) {
+      if(resourceId) {
+        this.formService.setApiEndpoint(apiUrl, this.resourceEditUri.replace(':id', resourceId.toString()));
+      } else {
+        this.formService.setApiEndpoint(apiUrl, this.resourceNewUri);
+      }
+    }
+  }
+
+  createResource() {
+    console.log('createResource()');
+  }
+
   updateResource() {
-    this.apiDetailService.updateResource(this.getResourceAttributes()).then(
+    this.formService.updateResource(this.getResourceAttributes()).then(
       (response) => {
         this.router.navigateByUrl(this.resourceIndexUri);
         this.showSnackBar("Your changes have been updated.", 'Ok');
@@ -164,7 +191,7 @@ export class FormComponent extends GenericApiResource {
 
   deleteResource() {
     if (confirm('Are you sure? This action is irreversible!')) {
-      this.apiDetailService.deleteResource().then(
+      this.formService.deleteResource().then(
         (response) => {
           this.router.navigateByUrl(this.resourceIndexUri);
           this.showSnackBar("Item has been deleted.", 'Ok');
@@ -183,14 +210,6 @@ export class FormComponent extends GenericApiResource {
         }
       );
     }
-  }
-
-  showSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action, {duration: 2500});
-  }
-
-  getFormArray(formGroup, name): FormArray {
-    return formGroup.get(name);
   }
 
 }
