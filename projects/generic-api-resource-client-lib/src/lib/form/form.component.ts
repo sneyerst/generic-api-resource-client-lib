@@ -13,11 +13,11 @@ import {ListService} from "../list/list.service";
   selector: 'generic-api-resource-form',
   templateUrl: 'form.component.html',
   styleUrls: [],
-  providers: [FormService]
+  providers: [FormService, ListService]
 })
-export class FormComponent extends GenericApiResource {
+export class FormComponent extends GenericApiResource implements OnInit, OnDestroy {
 
-  _resourceId: number;    // Required
+  _resourceId: number;
   _displayedFields: string[];
 
   _resourceFormGroup: FormGroup;
@@ -37,7 +37,8 @@ export class FormComponent extends GenericApiResource {
 
   ngOnInit(): void {
     this._apiUrlSubscription = this.apiUrlObservable.subscribe((apiUrl: string) => {
-      this.setApiEndpoint(apiUrl, this.resourceId);
+      this.listService.setApiEndpoint(apiUrl, this.resourceCreateUri, {});
+      this.setApiEndpoint(apiUrl, this._resourceId);
     });
     this._resourceSubscription = this.formService.resourceObservable.subscribe((resource: any) => this._resource = resource);
     this._valuesSubscription = this.formService.valuesObservable.subscribe((values: any) => {
@@ -152,6 +153,9 @@ export class FormComponent extends GenericApiResource {
   }
 
   setApiEndpoint(apiUrl, resourceId) {
+    console.log('setApiEndpoint()');
+    console.log('apiUrl: ' + apiUrl);
+    console.log('resourceId: ' + resourceId);
     if(apiUrl) {
       if(resourceId) {
         this.formService.setApiEndpoint(apiUrl, this.resourceEditUri.replace(':id', resourceId.toString()));
