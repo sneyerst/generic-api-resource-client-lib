@@ -2,7 +2,7 @@ import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 import {DomSanitizer} from "@angular/platform-browser";
-import {FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {MatSnackBar} from "@angular/material";
 import {DetailService} from "../detail/detail.service";
 
@@ -15,24 +15,24 @@ import {DetailService} from "../detail/detail.service";
 })
 export class EditComponent {
 
-  private _resourceId: number;
-  private _resourceNameSingular: string;
-  private _resourceNamePlural: string;
-  private _apiEndpointUri: string;
-  private _pageTitle: string;
-  private _displayedFields: string[];
-  private _displayTitle: boolean = false;
-  private _resourcesListUri: string;
+  _resourceId: number;
+  _resourceNameSingular: string;
+  _resourceNamePlural: string;
+  _apiEndpointUri: string;
+  _pageTitle: string;
+  _displayedFields: string[];
+  _displayTitle: boolean = false;
+  _resourcesListUri: string;
 
-  protected _resourceFormGroup: FormGroup;
-  protected _resourceFormComponents: any[];
+  _resourceFormGroup: FormGroup;
+  _resourceFormComponents: any[];
 
-  private _fieldsSubscription: Subscription;
-  private _fields: any;
-  private _resourceSubscription: Subscription;
-  private _resource: any;
-  private _valuesSubscription: Subscription;
-  private _values: any;
+  _fieldsSubscription: Subscription;
+  _fields: any;
+  _resourceSubscription: Subscription;
+  _resource: any;
+  _valuesSubscription: Subscription;
+  _values: any;
 
   constructor(private apiDetailService: DetailService, private router: Router, private sanitizer: DomSanitizer, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
   }
@@ -258,6 +258,10 @@ export class EditComponent {
 
   showSnackBar(message: string, action: string) {
     this.snackBar.open(message, action, {duration: 2500});
+  }
+
+  getFormArray(formGroup, name): FormArray {
+    return formGroup.get(name);
   }
 
 }

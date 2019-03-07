@@ -14,25 +14,25 @@ import {ListService} from "./list.service";
 })
 export class ListComponent implements OnInit, OnDestroy {
 
-  private _resourceNameSingular: string;
-  private _resourceNamePlural: string;
-  private _apiEndpointUri: string;
-  private _resourceNewUri: string;
-  private _defaultQuery: {};
-  private _pageTitle: string;
-  private _displayTitle: boolean = false;
-  private _enableFilters: boolean = false;
-  private _enableDetail: boolean = true;
+  _resourceNameSingular: string;
+  _resourceNamePlural: string;
+  _apiEndpointUri: string;
+  _resourceNewUri: string;
+  _defaultQuery: {};
+  _pageTitle: string;
+  _displayTitle: boolean = false;
+  _enableFilters: boolean = false;
+  _enableDetail: boolean = true;
 
-  private _resources: any[];
-  private _resourcesSubscription: Subscription;
-  private _displayedColumns: string[];
-  private _resourceDetailUri: string;
+  _resources: any[];
+  _resourcesSubscription: Subscription;
+  _displayedColumns: string[];
+  _resourceDetailUri: string;
 
-  private _filters;
-  private _filtersFormGroup: FormGroup;
-  private _filtersFormComponents: any[];
-  private _filtersSubscription: Subscription;
+  _filters;
+  _filtersFormGroup: FormGroup;
+  _filtersFormComponents: any[];
+  _filtersSubscription: Subscription;
 
   constructor(private apiListService: ListService, private router: Router, private sanitizer: DomSanitizer, private formBuilder: FormBuilder) {
   }

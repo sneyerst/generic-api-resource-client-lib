@@ -16,21 +16,21 @@ import {DetailService} from "../detail/detail.service";
 })
 export class NewComponent {
 
-  private _resourceNameSingular: string;
-  private _resourceNamePlural: string;
-  private _apiEndpointUri: string;
-  private _pageTitle: string;
-  private _displayedFields: string[];
-  private _displayTitle: boolean = false;
-  private _resourcesListUri: string;
+  _resourceNameSingular: string;
+  _resourceNamePlural: string;
+  _apiEndpointUri: string;
+  _pageTitle: string;
+  _displayedFields: string[];
+  _displayTitle: boolean = false;
+  _resourcesListUri: string;
 
-  protected _resourceFormGroup: FormGroup;
-  protected _resourceFormComponents: any[];
+  _resourceFormGroup: FormGroup;
+  _resourceFormComponents: any[];
 
-  private _fieldsSubscription: Subscription;
-  private _fields: any;
-  private _resourceSubscription: Subscription;
-  private _resource: any;
+  _fieldsSubscription: Subscription;
+  _fields: any;
+  _resourceSubscription: Subscription;
+  _resource: any;
 
   constructor(private apiDetailService: DetailService, private apiListService: ListService, private router: Router, private sanitizer: DomSanitizer, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
   }

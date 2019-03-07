@@ -1,6 +1,5 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
-import {ListService} from "../list/api-list.service";
 import {Router} from "@angular/router";
 import {DomSanitizer} from "@angular/platform-browser";
 import {FormBuilder} from "@angular/forms";
@@ -14,20 +13,20 @@ import {DetailService} from "./detail.service";
 })
 export class DetailComponent {
 
-  private _resourceId: number;
-  private _resourceNameSingular: string;
-  private _resourceNamePlural: string;
-  private _apiEndpointUri: string;
-  private _pageTitle: string;
-  private _displayedFields: string[];
-  private _displayTitle: boolean = false;
-  private _resourceEditUri: string;
+  _resourceId: number;
+  _resourceNameSingular: string;
+  _resourceNamePlural: string;
+  _apiEndpointUri: string;
+  _pageTitle: string;
+  _displayedFields: string[];
+  _displayTitle: boolean = false;
+  _resourceEditUri: string;
 
-  private _resource: any;
-  private _fields: any;
-  private _resourceSubscription: Subscription;
-  private _fieldsSubscription: Subscription;
-  private _resourcesListUri: string;
+  _resource: any;
+  _fields: any;
+  _resourceSubscription: Subscription;
+  _fieldsSubscription: Subscription;
+  _resourcesListUri: string;
 
   constructor(private apiDetailService: DetailService, private router: Router, private sanitizer: DomSanitizer, private formBuilder: FormBuilder) {
   }
