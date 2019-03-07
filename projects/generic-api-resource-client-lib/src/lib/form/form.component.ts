@@ -6,6 +6,7 @@ import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
 import {MatSnackBar} from "@angular/material";
 import {GenericApiResource} from "../generic-api-resource";
 import {FormService} from "./form.service";
+import {ListService} from "../list/list.service";
 
 
 @Component({
@@ -30,7 +31,7 @@ export class FormComponent extends GenericApiResource {
   _values: any;
   _apiUrlSubscription: Subscription;
 
-  constructor(private formService: FormService, private router: Router, private sanitizer: DomSanitizer, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
+  constructor(private listService: ListService, private formService: FormService, private router: Router, private sanitizer: DomSanitizer, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
     super();
   }
 
@@ -161,7 +162,28 @@ export class FormComponent extends GenericApiResource {
   }
 
   createResource() {
-    console.log('createResource()');
+    this.listService.createResource(this.getResourceAttributes()).then(
+      (response) => {
+        this.router.navigateByUrl(this.resourceIndexUri);
+        this.showSnackBar("Your changes have been updated.", 'Ok');
+      },
+      (response) => {
+        switch (response.status) {
+          case 403: {
+            this.showSnackBar("You do not have permission for this action.", 'Ok');
+            break;
+          }
+          case 422: {
+            this.showSnackBar("Couldn't save your changes because of validation errors.", 'Ok');
+            break;
+          }
+          default: {
+            this.showSnackBar("An error occured. Couldn't save your changes.", 'Ok');
+            break;
+          }
+        }
+      }
+    );
   }
 
   updateResource() {
