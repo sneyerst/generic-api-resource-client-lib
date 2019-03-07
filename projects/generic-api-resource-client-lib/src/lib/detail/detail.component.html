@@ -1,0 +1,12 @@
+<h1 *ngIf="displayTitle">{{pageTitle}}</h1>
+
+<ng-container *ngIf="resource">
+  <div *ngFor="let field of fields">
+    <strong>{{field}}:</strong>
+    <br/>
+    {{resource[field]}}<br/><br/>
+  </div>
+
+  <button mat-raised-button color="primary" (click)="editButtonClicked()">Edit</button>
+
+</ng-container>

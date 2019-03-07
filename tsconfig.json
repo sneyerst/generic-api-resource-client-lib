@@ -17,6 +17,14 @@
     "lib": [
       "es2018",
       "dom"
-    ]
+    ],
+    "paths": {
+      "generic-api-resource-client-lib": [
+        "dist/generic-api-resource-client-lib"
+      ],
+      "generic-api-resource-client-lib/*": [
+        "dist/generic-api-resource-client-lib/*"
+      ]
+    }
   }
 }

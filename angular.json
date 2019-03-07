@@ -2,5 +2,170 @@
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
   "newProjectRoot": "projects",
-  "projects": {}
+  "projects": {
+    "generic-api-resource-client-lib": {
+      "root": "projects/generic-api-resource-client-lib",
+      "sourceRoot": "projects/generic-api-resource-client-lib/src",
+      "projectType": "library",
+      "prefix": "sc",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/generic-api-resource-client-lib/tsconfig.lib.json",
+            "project": "projects/generic-api-resource-client-lib/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/generic-api-resource-client-lib/src/test.ts",
+            "tsConfig": "projects/generic-api-resource-client-lib/tsconfig.spec.json",
+            "karmaConfig": "projects/generic-api-resource-client-lib/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/generic-api-resource-client-lib/tsconfig.lib.json",
+              "projects/generic-api-resource-client-lib/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "generic-api-resource-client-tester": {
+      "root": "projects/generic-api-resource-client-tester/",
+      "sourceRoot": "projects/generic-api-resource-client-tester/src",
+      "projectType": "application",
+      "prefix": "app",
+      "schematics": {},
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/generic-api-resource-client-tester",
+            "index": "projects/generic-api-resource-client-tester/src/index.html",
+            "main": "projects/generic-api-resource-client-tester/src/main.ts",
+            "polyfills": "projects/generic-api-resource-client-tester/src/polyfills.ts",
+            "tsConfig": "projects/generic-api-resource-client-tester/tsconfig.app.json",
+            "assets": [
+              "projects/generic-api-resource-client-tester/src/favicon.ico",
+              "projects/generic-api-resource-client-tester/src/assets"
+            ],
+            "styles": [
+              "projects/generic-api-resource-client-tester/src/styles.css"
+            ],
+            "scripts": [],
+            "es5BrowserSupport": true
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/generic-api-resource-client-tester/src/environments/environment.ts",
+                  "with": "projects/generic-api-resource-client-tester/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "aot": true,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "generic-api-resource-client-tester:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "generic-api-resource-client-tester:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "generic-api-resource-client-tester:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/generic-api-resource-client-tester/src/test.ts",
+            "polyfills": "projects/generic-api-resource-client-tester/src/polyfills.ts",
+            "tsConfig": "projects/generic-api-resource-client-tester/tsconfig.spec.json",
+            "karmaConfig": "projects/generic-api-resource-client-tester/karma.conf.js",
+            "styles": [
+              "projects/generic-api-resource-client-tester/src/styles.css"
+            ],
+            "scripts": [],
+            "assets": [
+              "projects/generic-api-resource-client-tester/src/favicon.ico",
+              "projects/generic-api-resource-client-tester/src/assets"
+            ]
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/generic-api-resource-client-tester/tsconfig.app.json",
+              "projects/generic-api-resource-client-tester/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    },
+    "generic-api-resource-client-tester-e2e": {
+      "root": "projects/generic-api-resource-client-tester-e2e/",
+      "projectType": "application",
+      "prefix": "",
+      "architect": {
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/generic-api-resource-client-tester-e2e/protractor.conf.js",
+            "devServerTarget": "generic-api-resource-client-tester:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "generic-api-resource-client-tester:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": "projects/generic-api-resource-client-tester-e2e/tsconfig.e2e.json",
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "generic-api-resource-client-lib"
 }
