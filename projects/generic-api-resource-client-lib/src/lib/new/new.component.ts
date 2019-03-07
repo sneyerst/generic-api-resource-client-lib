@@ -55,7 +55,7 @@ export class NewComponent {
       }, []);
     });
     this.apiDetailService.setApiEndpoint(this.apiEndpointUri + '/new');
-    this.apiListService.setApiEndpoint(this.apiEndpointUri, {});
+    this.apiListService.setApiEndpoint('', this.apiEndpointUri, {});
   }
 
   ngOnDestroy(): void {

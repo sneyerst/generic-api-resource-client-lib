@@ -1,8 +1,5 @@
 import {NgModule} from '@angular/core';
-import {NewComponent} from "./new/new.component";
-import {EditComponent} from "./edit/edit.component";
 import {ListComponent} from "./list/list.component";
-import {DetailComponent} from "./detail/detail.component";
 import {MomentModule} from "ngx-moment";
 import {ReactiveFormsModule} from "@angular/forms";
 import {
@@ -14,13 +11,12 @@ import {
   MatTableModule
 } from "@angular/material";
 import {CommonModule} from "@angular/common";
+import {FormComponent} from "./form/form.component";
 
 @NgModule({
   declarations: [
-    NewComponent,
-    EditComponent,
-    ListComponent,
-    DetailComponent
+    FormComponent,
+    ListComponent
   ],
   imports: [
     CommonModule,
@@ -42,10 +38,8 @@ import {CommonModule} from "@angular/common";
     MatCardModule
   ],
   exports: [
-    NewComponent,
-    EditComponent,
     ListComponent,
-    DetailComponent
+    FormComponent
   ]
 })
 export class GenericApiResourceClientLibModule {

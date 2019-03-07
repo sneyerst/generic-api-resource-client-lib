@@ -9,14 +9,14 @@ import {GenericApiResource} from "../generic-api-resource";
 
 
 @Component({
-  selector: 'generic-api-resource-edit',
-  templateUrl: 'edit.component.html',
+  selector: 'generic-api-resource-form',
+  templateUrl: 'form.component.html',
   styleUrls: [],
   providers: [DetailService]
 })
-export class EditComponent extends GenericApiResource {
+export class FormComponent extends GenericApiResource {
 
-  _resourceId: number;
+  _resourceId: number;    // Required
   _displayedFields: string[];
 
   _resourceFormGroup: FormGroup;
@@ -114,8 +114,6 @@ export class EditComponent extends GenericApiResource {
   set resourceId(resourceId: number) {
     this._resourceId = resourceId;
   }
-
-
 
   @Input()
   set displayedFields(displayedFields: string[]) {

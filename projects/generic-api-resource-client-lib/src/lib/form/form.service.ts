@@ -5,7 +5,7 @@ import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 
 @Injectable()
-export class DetailService {
+export class FormService {
 
   private _url: string;
   private _apiEndpointUri: string;
