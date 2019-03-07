@@ -16,18 +16,22 @@ export class ListComponent implements OnInit, OnDestroy {
 
   _resourceNameSingular: string;
   _resourceNamePlural: string;
-  _apiEndpointUri: string;
-  _resourceNewUri: string;
+
+  _apiUrl: string = 'http://localhost:3000';
   _defaultQuery: {};
+
+  _resourceIndexUri: string;
+  _resourceNewUri: string;
+  _resourceShowUri: string;
+
   _pageTitle: string;
   _displayTitle: boolean = false;
   _enableFilters: boolean = false;
-  _enableDetail: boolean = true;
 
+  _enableDetail: boolean = true;
   _resources: any[];
   _resourcesSubscription: Subscription;
   _displayedColumns: string[];
-  _resourceDetailUri: string;
 
   _filters;
   _filtersFormGroup: FormGroup;
@@ -35,6 +39,7 @@ export class ListComponent implements OnInit, OnDestroy {
   _filtersSubscription: Subscription;
 
   constructor(private apiListService: ListService, private router: Router, private sanitizer: DomSanitizer, private formBuilder: FormBuilder) {
+    this.apiListService.url = this.apiUrl;
   }
 
   ngOnInit(): void {
@@ -60,7 +65,7 @@ export class ListComponent implements OnInit, OnDestroy {
         }, []);
       }
     );
-    this.apiListService.setApiEndpoint(this.apiEndpointUri, this.defaultQuery);
+    this.apiListService.setApiEndpoint(this.resourceIndexUri, this.defaultQuery);
   }
 
   ngOnDestroy(): void {
@@ -83,8 +88,8 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   @Input()
-  set apiEndpointUri(apiEndpointUri: string) {
-    this._apiEndpointUri = apiEndpointUri;
+  set resourceIndexUri(resourceIndexUri: string) {
+    this._resourceIndexUri = resourceIndexUri;
   }
 
   @Input()
@@ -98,8 +103,8 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   @Input()
-  set resourceDetailUri(resourceDetailUri: string) {
-    this._resourceDetailUri = resourceDetailUri;
+  set resourceShowUri(resourceShowUri: string) {
+    this._resourceShowUri = resourceShowUri;
   }
 
   @Input()
@@ -123,6 +128,11 @@ export class ListComponent implements OnInit, OnDestroy {
     console.log('set');
   }
 
+  @Input()
+  set apiUrl(apiUrl) {
+    this._apiUrl = apiUrl;
+  }
+
   get resourceNewUri() {
     if (this._resourceNewUri == null) {
       return '/' + this.resourceNamePlural + '/new';
@@ -143,11 +153,11 @@ export class ListComponent implements OnInit, OnDestroy {
     }
   }
 
-  get apiEndpointUri(): string {
-    if (this._apiEndpointUri == null) {
+  get resourceIndexUri(): string {
+    if (this._resourceIndexUri == null) {
       return `/${this.resourceNamePlural}`;
     } else {
-      return this._apiEndpointUri;
+      return this._resourceIndexUri;
     }
   }
 
@@ -183,11 +193,11 @@ export class ListComponent implements OnInit, OnDestroy {
     }
   }
 
-  get resourceDetailUri(): string {
-    if (this._resourceDetailUri == null) {
+  get resourceShowUri(): string {
+    if (this._resourceShowUri == null) {
       return `/${this.resourceNamePlural}/:id`;
     } else {
-      return this._resourceDetailUri;
+      return this._resourceShowUri;
     }
   }
 
@@ -195,8 +205,12 @@ export class ListComponent implements OnInit, OnDestroy {
     return this._displayTitle;
   }
 
+  get apiUrl() {
+    return this._apiUrl;
+  }
+
   resourceClicked(resource: any) {
-    this.router.navigateByUrl(this.resourceDetailUri.replace(':id', resource.id));
+    this.router.navigateByUrl(this.resourceShowUri.replace(':id', resource.id));
   }
 
   loadResources() {
