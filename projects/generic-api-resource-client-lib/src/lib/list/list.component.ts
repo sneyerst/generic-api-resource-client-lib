@@ -26,12 +26,14 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
   _filtersFormGroup: FormGroup;
   _filtersFormComponents: any[];
   _filtersSubscription: Subscription;
+  _apiUrlSubscription: Subscription;
 
   constructor(private apiListService: ListService, private router: Router, private sanitizer: DomSanitizer, private formBuilder: FormBuilder) {
     super();
   }
 
   ngOnInit(): void {
+    this._apiUrlSubscription = this.apiUrlObservable.subscribe((apiUrl: string) => this.apiListService.url = apiUrl);
     this._resourcesSubscription = this.apiListService.resourcesObservable.subscribe((resources: any[]) => this._resources = resources);
     this._filtersSubscription = this.apiListService.filtersObservable.subscribe((filters) => {
         this._filters = filters;
@@ -59,6 +61,8 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
 
   ngOnDestroy(): void {
     this._resourcesSubscription.unsubscribe();
+    this._filtersSubscription.unsubscribe();
+    this._apiUrlSubscription.unsubscribe();
   }
 
   @Input()
