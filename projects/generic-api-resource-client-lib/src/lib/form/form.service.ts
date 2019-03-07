@@ -52,13 +52,13 @@ export class FormService {
       });
   }
 
-  updateResource(resourceAttributes) {
-    const url = `${this._url}/${this._apiEndpointUri}`
+  updateResource(uri, resourceAttributes) {
+    const url = `${this._url}/${uri}`;
     return this.http.patch(url, resourceAttributes).toPromise();
   }
 
-  deleteResource() {
-    const url = `${this._url}/${this._apiEndpointUri}`
+  deleteResource(uri) {
+    const url = `${this._url}/${uri}`;
     return this.http.delete(url).toPromise();
   }
 
