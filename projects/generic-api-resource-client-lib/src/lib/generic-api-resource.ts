@@ -61,6 +61,6 @@ export class GenericApiResource {
   get enableNew(): boolean { return this._enableNew == null ? true : this._enableNew; }
   get enableEdit(): boolean { return this._enableEdit == null ? true : this._enableEdit; }
   get enableDestroy(): boolean { return this._enableDestroy == null ? true : this._enableDestroy; }
-  get namespace(): string { return this._namespace == null ? '/' : `/${this._namespace}`; }
+  get namespace(): string { return this._namespace == null ? '/' : `/${this._namespace}/`; }
 
 }
