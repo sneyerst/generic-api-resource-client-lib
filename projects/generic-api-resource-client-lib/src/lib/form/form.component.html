@@ -37,6 +37,13 @@
               </mat-expansion-panel-header>
 
               <ng-container *ngFor="let childComponent of formComponent.children[i].fields">
+
+                <mat-form-field *ngIf="childComponent.type == 'textfield'">
+                  <mat-label>{{childComponent.label}}</mat-label>
+                  <input matInput formControlName="{{childComponent.name}}">
+                </mat-form-field>
+
+
                 <mat-form-field *ngIf="childComponent.type == 'textarea'">
                   <mat-label>{{childComponent.label}}</mat-label>
                   <textarea matInput [formControlName]="childComponent.name"></textarea>
