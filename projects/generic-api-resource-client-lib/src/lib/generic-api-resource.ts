@@ -53,7 +53,7 @@ export class GenericApiResource {
   get resourceShowUri(): string { return this._resourceShowUri == null ? `${this.namespace}${this.resourceNamePlural}/:id` : this._resourceShowUri; }
   get resourceNewUri(): string { return this._resourceNewUri == null ? `${this.namespace}${this.resourceNamePlural}/new` : this._resourceNewUri; }
   get resourceCreateUri(): string { return this._resourceCreateUri == null ? `${this.namespace}${this.resourceNamePlural}` : this._resourceCreateUri; }
-  get resourceEditUri(): string { return this._resourceEditUri == null ? `${this.namespace}${this.resourceNamePlural}/edit` : this._resourceEditUri; }
+  get resourceEditUri(): string { return this._resourceEditUri == null ? `${this.namespace}${this.resourceNamePlural}/:id/edit` : this._resourceEditUri; }
   get resourceUpdateUri(): string { return this._resourceUpdateUri == null ? `${this.namespace}${this.resourceNamePlural}/:id` : this._resourceUpdateUri; }
   get resourceDestroyUri(): string { return this._resourceDestroyUri == null ? `${this.namespace}${this.resourceNamePlural}/:id` : this._resourceDestroyUri; }
   get enableIndex(): boolean { return this._enableIndex == null ? true : this._enableIndex; }
