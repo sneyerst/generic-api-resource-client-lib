@@ -47,7 +47,7 @@ import {Field} from "./field";
 
       </mat-accordion>
 
-      <button mat-raised-button color="primary" (click)="addChild(formComponent.new)" *ngIf="formComponent.new">Add
+      <button mat-raised-button color="primary" (click)="addChild(formComponent.new, formComponent.fields)" *ngIf="formComponent.new">Add
         item
       </button>
 
@@ -63,10 +63,10 @@ export class AccordionComponent extends Field {
     super();
   }
 
-  addChild(data) {
+  addChild(data, fields) {
     console.log('addChild()');
     (this.parentFormGroup.get(this.formComponent.name) as FormArray).push(this.formBuilder.group(data));
-    this.formComponent.children.push({label: 'New item', fields: [this.formComponent]});
+    this.formComponent.children.push({label: 'New item', fields: fields});
     console.log('this.parentFormGroup');
     console.log(this.parentFormGroup);
     console.log('this.formComponent');
