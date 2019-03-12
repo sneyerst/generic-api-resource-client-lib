@@ -14,10 +14,10 @@ import {Field} from "./field";
           <ng-container [formGroupName]="i">
             <mat-expansion-panel>
               <mat-expansion-panel-header>
-                <span *ngIf="formComponent.children[i] && formComponent.children[i].trigger && item.value[formComponent.children[i].trigger]"
+                <span *ngIf="formComponent.children[i].trigger && item.value[formComponent.children[i].trigger]"
                       style="text-decoration: line-through">{{formComponent.children[i].label}}</span>
                 <span
-                  *ngIf="!formComponent.children[i] || !formComponent.children[i].trigger || !item.value[formComponent.children[i].trigger]">{{formComponent.children[i].label}}</span>
+                  *ngIf="!formComponent.children[i].trigger || !item.value[formComponent.children[i].trigger]">{{formComponent.children[i].label}}</span>
 
               </mat-expansion-panel-header>
 
@@ -66,7 +66,9 @@ export class AccordionComponent extends Field {
   addChild(data) {
     console.log('addChild()');
     (this.parentFormGroup.get(this.formComponent.name) as FormArray).push(this.formBuilder.group(data));
+    this.formComponent.children.push(this.formComponent.fields);
     console.log(this.parentFormGroup);
+    console.log({label: 'New item', fields: [this.formComponent]});
   }
 
 }
