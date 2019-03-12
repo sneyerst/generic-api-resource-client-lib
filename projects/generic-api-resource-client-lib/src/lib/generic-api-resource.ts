@@ -19,6 +19,7 @@ export class GenericApiResource {
   _enableEdit: boolean;
   _enableDestroy: boolean;
   _namespace: string;
+  _showIsEdit: boolean;
 
   @Input() set apiUrl(apiUrl: string) { this._apiUrlObservable.next(apiUrl); }
   @Input() set resourceNameSingular(resourceNameSingular: string) {
@@ -44,13 +45,14 @@ export class GenericApiResource {
   @Input() set enableEdit(enableEdit: boolean) { this._enableEdit = enableEdit; }
   @Input() set enableDestroy(enableDestroy: boolean) { this._enableDestroy = enableDestroy; }
   @Input() set namespace(namespace: string) { this._namespace = namespace; }
+  @Input() set showIsEdit(showIsEdit: boolean) { this._showIsEdit = showIsEdit; }
 
   get apiUrlObservable(): BehaviorSubject<string> { return this._apiUrlObservable; }
   get apiUrl(): string { return this._apiUrlObservable.getValue(); }
   get resourceNameSingular(): string { return this._resourceNameSingular; }
   get resourceNamePlural(): string { return this._resourceNamePlural == null ? this._resourceNameSingular + 's' : this._resourceNamePlural; }
   get resourceIndexUri(): string { return this._resourceIndexUri == null ? `${this.namespace}${this.resourceNamePlural}` : this._resourceIndexUri; }
-  get resourceShowUri(): string { return this._resourceShowUri == null ? `${this.namespace}${this.resourceNamePlural}/:id` : this._resourceShowUri; }
+  get resourceShowUri(): string { return this.showIsEdit ? this.resourceEditUri : (this._resourceShowUri == null ? `${this.namespace}${this.resourceNamePlural}/:id` : this._resourceShowUri); }
   get resourceNewUri(): string { return this._resourceNewUri == null ? `${this.namespace}${this.resourceNamePlural}/new` : this._resourceNewUri; }
   get resourceCreateUri(): string { return this._resourceCreateUri == null ? `${this.namespace}${this.resourceNamePlural}` : this._resourceCreateUri; }
   get resourceEditUri(): string { return this._resourceEditUri == null ? `${this.namespace}${this.resourceNamePlural}/:id/edit` : this._resourceEditUri; }
@@ -62,5 +64,6 @@ export class GenericApiResource {
   get enableEdit(): boolean { return this._enableEdit == null ? true : this._enableEdit; }
   get enableDestroy(): boolean { return this._enableDestroy == null ? true : this._enableDestroy; }
   get namespace(): string { return this._namespace == null ? '/' : `/${this._namespace}/`; }
+  get showIsEdit(): boolean { return this._showIsEdit == null ? true : this._showIsEdit; }
 
 }
