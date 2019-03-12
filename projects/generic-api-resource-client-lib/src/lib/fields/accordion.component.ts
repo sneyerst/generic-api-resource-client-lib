@@ -36,6 +36,10 @@ import {Field} from "./field";
         </ng-container>
 
       </mat-accordion>
+
+      <!--<button mat-raised-button color="primary" (click)="addChild()" *ngIf="formComponent.addChildren">Add item</button>-->
+      
+      
     </div>
   `,
   styleUrls: [],
@@ -45,6 +49,12 @@ export class AccordionComponent extends Field {
 
   constructor(private formBuilder: FormBuilder) {
     super();
+  }
+
+  addChild() {
+    console.log('addChild()');
+    console.log(this.formComponent);
+    console.log(this.parentFormGroup);
   }
 
 }
