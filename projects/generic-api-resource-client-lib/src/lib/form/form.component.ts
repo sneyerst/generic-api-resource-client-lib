@@ -132,7 +132,7 @@ export class FormComponent extends GenericApiResource implements OnInit, OnDestr
   }
 
   get isNew(): boolean {
-    return this._resourceId == null;
+    return this._resourceId == null || isNaN(this._resourceId);
   }
 
   getResourceAttributes() {
