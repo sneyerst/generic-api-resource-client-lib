@@ -66,9 +66,11 @@ export class AccordionComponent extends Field {
   addChild(data) {
     console.log('addChild()');
     (this.parentFormGroup.get(this.formComponent.name) as FormArray).push(this.formBuilder.group(data));
-    this.formComponent.children.push(this.formComponent.fields);
+    this.formComponent.children.push({label: 'New item', fields: [this.formComponent]});
+    console.log('this.parentFormGroup');
     console.log(this.parentFormGroup);
-    console.log({label: 'New item', fields: [this.formComponent]});
+    console.log('this.formComponent');
+    console.log(this.formComponent);
   }
 
 }
