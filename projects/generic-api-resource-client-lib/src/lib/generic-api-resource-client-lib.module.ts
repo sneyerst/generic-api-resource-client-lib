@@ -12,11 +12,23 @@ import {
 } from "@angular/material";
 import {CommonModule} from "@angular/common";
 import {FormComponent} from "./form/form.component";
+import {AccordionComponent} from "./fields/accordion.component";
+import {CheckboxComponent} from "./fields/checkbox.component";
+import {DropdownComponent} from "./fields/dropdown.component";
+import {FilesComponent} from "./fields/files.component";
+import {TextareaComponent} from "./fields/textarea.component";
+import {TextfieldComponent} from "./fields/textfield.component";
 
 @NgModule({
   declarations: [
     FormComponent,
-    ListComponent
+    ListComponent,
+    AccordionComponent,
+    CheckboxComponent,
+    DropdownComponent,
+    FilesComponent,
+    TextareaComponent,
+    TextfieldComponent
   ],
   imports: [
     CommonModule,
