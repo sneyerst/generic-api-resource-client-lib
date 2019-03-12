@@ -191,7 +191,7 @@ export class FormComponent extends GenericApiResource implements OnInit, OnDestr
   }
 
   updateResource() {
-    this.formService.updateResource(this.resourceUpdateUri, this.getResourceAttributes()).then(
+    this.formService.updateResource(this.resourceUpdateUri.replace(':id', this._resourceId.toString()), this.getResourceAttributes()).then(
       (response) => {
         this.router.navigateByUrl(this.resourceIndexUri);
         this.showSnackBar("Your changes have been updated.", 'Ok');
@@ -217,7 +217,7 @@ export class FormComponent extends GenericApiResource implements OnInit, OnDestr
 
   deleteResource() {
     if (confirm('Are you sure? This action is irreversible!')) {
-      this.formService.deleteResource(this.resourceDestroyUri).then(
+      this.formService.deleteResource(this.resourceDestroyUri.replace(':id', this._resourceId.toString())).then(
         (response) => {
           this.router.navigateByUrl(this.resourceIndexUri);
           this.showSnackBar("Item has been deleted.", 'Ok');

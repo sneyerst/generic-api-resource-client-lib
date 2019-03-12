@@ -107,7 +107,6 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
   }
 
   resourceClicked(resource: any) {
-    console.log('resourceClicked');
     this.router.navigateByUrl(this.resourceShowUri.replace(':id', resource.id));
   }
 
