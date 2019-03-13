@@ -159,9 +159,9 @@ export class FormComponent extends GenericApiResource implements OnInit, OnDestr
     console.log('resourceId: ' + resourceId);
     if(apiUrl) {
       if(resourceId) {
-        this.formService.setApiEndpoint(apiUrl, this.resourceEditUri.replace(':id', resourceId.toString()));
+        this.formService.setApiEndpoint(apiUrl, this.apiEditUri.replace(':id', resourceId.toString()));
       } else {
-        this.formService.setApiEndpoint(apiUrl, this.resourceNewUri);
+        this.formService.setApiEndpoint(apiUrl, this.apiNewUri);
       }
     }
   }
