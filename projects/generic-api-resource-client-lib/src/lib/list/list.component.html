@@ -1,9 +1,19 @@
 <div class="filters" [formGroup]="_filtersFormGroup" *ngIf="_filtersFormComponents.length > 0 && _enableFilters">
   <ng-container *ngFor="let formComponent of _filtersFormComponents">
+
     <mat-form-field *ngIf="formComponent.type == 'textfield'">
       <mat-label>{{formComponent.label}}</mat-label>
       <input matInput formControlName="{{formComponent.name}}" (keyup)="filterKeyup($event)">
     </mat-form-field>&nbsp;
+
+    <mat-form-field *ngIf="formComponent.type == 'dropdown'">
+      <mat-select placeholder="{{formComponent.label}}" formControlName="{{formComponent.name}}">
+        <mat-option *ngFor="let option of formComponent.options" [value]="option.id">
+          {{option.label}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
   </ng-container>
 
   <button mat-raised-button color="primary" (click)="loadResources()">Filter</button>&nbsp;

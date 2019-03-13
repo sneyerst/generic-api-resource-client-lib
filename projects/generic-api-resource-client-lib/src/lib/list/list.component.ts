@@ -51,7 +51,8 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
               name: value,
               label: this._filters[value]['label'],
               type: this._filters[value]['type'],
-              initial_value: this._filters[value]['initial_value']
+              initial_value: this._filters[value]['initial_value'],
+              options: this._filters[value]['options']
             });
           }
           return acc;
