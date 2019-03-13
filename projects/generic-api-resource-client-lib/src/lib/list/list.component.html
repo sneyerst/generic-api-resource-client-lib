@@ -46,6 +46,6 @@
   No items found.
 </div>
 <br/>
-<button mat-raised-button color="primary" (click)="newResource()">
+<button mat-raised-button color="primary" (click)="newResource()" *ngIf="enableNew">
   Create
 </button>
