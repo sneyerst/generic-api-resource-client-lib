@@ -18,6 +18,7 @@ import {DropdownComponent} from "./fields/dropdown.component";
 import {FilesComponent} from "./fields/files.component";
 import {TextareaComponent} from "./fields/textarea.component";
 import {TextfieldComponent} from "./fields/textfield.component";
+import {TableComponent} from "./fields/table.component";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import {TextfieldComponent} from "./fields/textfield.component";
     DropdownComponent,
     FilesComponent,
     TextareaComponent,
-    TextfieldComponent
+    TextfieldComponent,
+    TableComponent
   ],
   imports: [
     CommonModule,

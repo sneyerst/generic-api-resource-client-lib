@@ -2,7 +2,7 @@
 
   <ng-container *ngFor="let formComponent of _resourceFormComponents">
     <generic-api-resource-textfield [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
-                       *ngIf="formComponent.type == 'textfield'"></generic-api-resource-textfield>
+                      *ngIf="formComponent.type == 'textfield'"></generic-api-resource-textfield>
     <generic-api-resource-textarea [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
                       *ngIf="formComponent.type == 'textarea'"></generic-api-resource-textarea>
     <generic-api-resource-checkbox [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
@@ -10,7 +10,9 @@
     <generic-api-resource-dropdown [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
                       *ngIf="formComponent.type == 'dropdown'"></generic-api-resource-dropdown>
     <generic-api-resource-accordion [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
-                       *ngIf="formComponent.type == 'accordion'"></generic-api-resource-accordion>
+                      *ngIf="formComponent.type == 'accordion'"></generic-api-resource-accordion>
+    <generic-api-resource-table [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
+                       *ngIf="formComponent.type == 'table'"></generic-api-resource-table>
   </ng-container>
 
   <p class="detailActions">
