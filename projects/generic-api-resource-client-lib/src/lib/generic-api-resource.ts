@@ -67,13 +67,13 @@ export class GenericApiResource {
   get resourceShowUri(): string { return this.showIsEdit ? this.resourceEditUri : (this._resourceShowUri == null ? `${this.namespace}${this.resourceNamePlural}/:id` : this._resourceShowUri); }
   get resourceNewUri(): string { return this._resourceNewUri == null ? `${this.namespace}${this.resourceNamePlural}/new` : this._resourceNewUri; }
   get resourceEditUri(): string { return this._resourceEditUri == null ? `${this.namespace}${this.resourceNamePlural}/:id/edit` : this._resourceEditUri; }
-  get apiIndexUri(): string { return this._apiIndexUri == null ? `${this.resourceNamePlural}` : this._apiIndexUri; }
-  get apiShowUri(): string { return this.showIsEdit ? this.apiEditUri : (this._apiShowUri == null ? `${this.resourceNamePlural}/:id` : this._apiShowUri); }
-  get apiNewUri(): string { return this._apiNewUri == null ? `${this.resourceNamePlural}/new` : this._apiNewUri; }
-  get apiEditUri(): string { return this._apiEditUri == null ? `${this.resourceNamePlural}/:id/edit` : this._apiEditUri; }
-  get apiCreateUri(): string { return this._apiCreateUri == null ? `${this.resourceNamePlural}` : this._apiCreateUri; }
-  get apiUpdateUri(): string { return this._apiUpdateUri == null ? `${this.resourceNamePlural}/:id` : this._apiUpdateUri; }
-  get apiDestroyUri(): string { return this._apiDestroyUri == null ? `${this.resourceNamePlural}/:id` : this._apiDestroyUri; }
+  get apiIndexUri(): string { return this._apiIndexUri == null ? `/${this.resourceNamePlural}` : this._apiIndexUri; }
+  get apiShowUri(): string { return this.showIsEdit ? this.apiEditUri : (this._apiShowUri == null ? `/${this.resourceNamePlural}/:id` : this._apiShowUri); }
+  get apiNewUri(): string { return this._apiNewUri == null ? `/${this.resourceNamePlural}/new` : this._apiNewUri; }
+  get apiEditUri(): string { return this._apiEditUri == null ? `/${this.resourceNamePlural}/:id/edit` : this._apiEditUri; }
+  get apiCreateUri(): string { return this._apiCreateUri == null ? `/${this.resourceNamePlural}` : this._apiCreateUri; }
+  get apiUpdateUri(): string { return this._apiUpdateUri == null ? `/${this.resourceNamePlural}/:id` : this._apiUpdateUri; }
+  get apiDestroyUri(): string { return this._apiDestroyUri == null ? `/${this.resourceNamePlural}/:id` : this._apiDestroyUri; }
   get enableIndex(): boolean { return this._enableIndex == null ? true : this._enableIndex; }
   get enableShow(): boolean { return this._enableShow == null ? true : this._enableShow; }
   get enableNew(): boolean { return this._enableNew == null ? true : this._enableNew; }
