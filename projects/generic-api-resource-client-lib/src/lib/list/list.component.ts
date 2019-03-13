@@ -108,7 +108,9 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
   }
 
   resourceClicked(resource: any) {
-    this.router.navigateByUrl(this.resourceShowUri.replace(':id', resource.id));
+    if (this.enableShow) {
+      this.router.navigateByUrl(this.resourceShowUri.replace(':id', resource.id));
+    }
   }
 
   loadResources() {
