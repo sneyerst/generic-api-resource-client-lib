@@ -169,7 +169,7 @@ export class FormComponent extends GenericApiResource implements OnInit, OnDestr
   createResource() {
     this.listService.createResource(this.getResourceAttributes()).then(
       (response) => {
-        this.router.navigateByUrl(this.apiCreateUri);
+        this.router.navigateByUrl(this.resourceIndexUri);
         this.showSnackBar("Your changes have been updated.", 'Ok');
       },
       (response) => {
