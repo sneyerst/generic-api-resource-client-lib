@@ -9,10 +9,14 @@ export class GenericApiResource {
   _resourceIndexUri: string;
   _resourceShowUri: string;
   _resourceNewUri: string;
-  _resourceCreateUri: string;
   _resourceEditUri: string;
-  _resourceUpdateUri: string;
-  _resourceDestroyUri: string;
+  _apiIndexUri: string;
+  _apiShowUri: string;
+  _apiNewUri: string;
+  _apiEditUri: string;
+  _apiCreateUri: string;
+  _apiUpdateUri: string;
+  _apiDestroyUri: string;
   _enableIndex: boolean;
   _enableShow: boolean;
   _enableNew: boolean;
@@ -35,10 +39,18 @@ export class GenericApiResource {
     this._resourceShowUri = resourceShowUri;
   }
   @Input() set resourceNewUri(resourceNewUri: string) { this._resourceNewUri = resourceNewUri; }
-  @Input() set resourceCreateUri(resourceCreateUri: string) { this._resourceCreateUri = resourceCreateUri; }
   @Input() set resourceEditUri(resourceEditUri: string) { this._resourceEditUri = resourceEditUri; }
-  @Input() set resourceUpdateUri(resourceUpdateUri: string) { this._resourceUpdateUri = resourceUpdateUri; }
-  @Input() set resourceDestroyUri(resourceDestroyUri: string) { this._resourceDestroyUri = resourceDestroyUri; }
+  @Input() set apiIndexUri(apiIndexUri: string) {
+    this._apiIndexUri = apiIndexUri;
+  }
+  @Input() set apiShowUri(apiShowUri: string) {
+    this._apiShowUri = apiShowUri;
+  }
+  @Input() set apiNewUri(apiNewUri: string) { this._apiNewUri = apiNewUri; }
+  @Input() set apiEditUri(apiEditUri: string) { this._apiEditUri = apiEditUri; }
+  @Input() set apiCreateUri(apiCreateUri: string) { this._apiCreateUri = apiCreateUri; }
+  @Input() set apiUpdateUri(apiUpdateUri: string) { this._apiUpdateUri = apiUpdateUri; }
+  @Input() set apiDestroyUri(apiDestroyUri: string) { this._apiDestroyUri = apiDestroyUri; }
   @Input() set enableIndex(enableIndex: boolean) { this._enableIndex = enableIndex; }
   @Input() set enableShow(enableShow: boolean) { this._enableShow = enableShow; }
   @Input() set enableNew(enableNew: boolean) { this._enableNew = enableNew; }
@@ -54,10 +66,14 @@ export class GenericApiResource {
   get resourceIndexUri(): string { return this._resourceIndexUri == null ? `${this.namespace}${this.resourceNamePlural}` : this._resourceIndexUri; }
   get resourceShowUri(): string { return this.showIsEdit ? this.resourceEditUri : (this._resourceShowUri == null ? `${this.namespace}${this.resourceNamePlural}/:id` : this._resourceShowUri); }
   get resourceNewUri(): string { return this._resourceNewUri == null ? `${this.namespace}${this.resourceNamePlural}/new` : this._resourceNewUri; }
-  get resourceCreateUri(): string { return this._resourceCreateUri == null ? `${this.namespace}${this.resourceNamePlural}` : this._resourceCreateUri; }
   get resourceEditUri(): string { return this._resourceEditUri == null ? `${this.namespace}${this.resourceNamePlural}/:id/edit` : this._resourceEditUri; }
-  get resourceUpdateUri(): string { return this._resourceUpdateUri == null ? `${this.namespace}${this.resourceNamePlural}/:id` : this._resourceUpdateUri; }
-  get resourceDestroyUri(): string { return this._resourceDestroyUri == null ? `${this.namespace}${this.resourceNamePlural}/:id` : this._resourceDestroyUri; }
+  get apiIndexUri(): string { return this._apiIndexUri == null ? `${this.resourceNamePlural}` : this._apiIndexUri; }
+  get apiShowUri(): string { return this.showIsEdit ? this.apiEditUri : (this._apiShowUri == null ? `${this.resourceNamePlural}/:id` : this._apiShowUri); }
+  get apiNewUri(): string { return this._apiNewUri == null ? `${this.resourceNamePlural}/new` : this._apiNewUri; }
+  get apiEditUri(): string { return this._apiEditUri == null ? `${this.resourceNamePlural}/:id/edit` : this._apiEditUri; }
+  get apiCreateUri(): string { return this._apiCreateUri == null ? `${this.resourceNamePlural}` : this._apiCreateUri; }
+  get apiUpdateUri(): string { return this._apiUpdateUri == null ? `${this.resourceNamePlural}/:id` : this._apiUpdateUri; }
+  get apiDestroyUri(): string { return this._apiDestroyUri == null ? `${this.resourceNamePlural}/:id` : this._apiDestroyUri; }
   get enableIndex(): boolean { return this._enableIndex == null ? true : this._enableIndex; }
   get enableShow(): boolean { return this._enableShow == null ? true : this._enableShow; }
   get enableNew(): boolean { return this._enableNew == null ? true : this._enableNew; }

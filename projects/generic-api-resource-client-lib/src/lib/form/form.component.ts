@@ -37,7 +37,7 @@ export class FormComponent extends GenericApiResource implements OnInit, OnDestr
 
   ngOnInit(): void {
     this._apiUrlSubscription = this.apiUrlObservable.subscribe((apiUrl: string) => {
-      this.listService.setApiEndpoint(apiUrl, this.resourceCreateUri, {});
+      this.listService.setApiEndpoint(apiUrl, this.apiCreateUri, {});
       this.setApiEndpoint(apiUrl, this._resourceId);
     });
     this._resourceSubscription = this.formService.resourceObservable.subscribe((resource: any) => this._resource = resource);
@@ -169,7 +169,7 @@ export class FormComponent extends GenericApiResource implements OnInit, OnDestr
   createResource() {
     this.listService.createResource(this.getResourceAttributes()).then(
       (response) => {
-        this.router.navigateByUrl(this.resourceCreateUri);
+        this.router.navigateByUrl(this.apiCreateUri);
         this.showSnackBar("Your changes have been updated.", 'Ok');
       },
       (response) => {
@@ -192,7 +192,7 @@ export class FormComponent extends GenericApiResource implements OnInit, OnDestr
   }
 
   updateResource() {
-    this.formService.updateResource(this.resourceUpdateUri.replace(':id', this._resourceId.toString()), this.getResourceAttributes()).then(
+    this.formService.updateResource(this.apiUpdateUri.replace(':id', this._resourceId.toString()), this.getResourceAttributes()).then(
       (response) => {
         this.router.navigateByUrl(this.resourceIndexUri);
         this.showSnackBar("Your changes have been updated.", 'Ok');
@@ -218,7 +218,7 @@ export class FormComponent extends GenericApiResource implements OnInit, OnDestr
 
   deleteResource() {
     if (confirm('Are you sure? This action is irreversible!')) {
-      this.formService.deleteResource(this.resourceDestroyUri.replace(':id', this._resourceId.toString())).then(
+      this.formService.deleteResource(this.apiDestroyUri.replace(':id', this._resourceId.toString())).then(
         (response) => {
           this.router.navigateByUrl(this.resourceIndexUri);
           this.showSnackBar("Item has been deleted.", 'Ok');
