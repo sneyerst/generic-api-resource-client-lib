@@ -27,7 +27,7 @@ export class FileComponent extends Field {
       if (file.size <= 1000000) {
         reader.readAsDataURL(file);
         reader.onload = () => {
-          this.parentFormGroup.patchValue(JSON.parse(`{'${this.formComponent.name}': '${reader.result}'}`));
+          this.parentFormGroup.patchValue(JSON.parse(`{"${this.formComponent.name}": "${reader.result}"}`));
         }
       } else {
         tooLargeFiles.push(file.name);

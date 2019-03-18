@@ -25,6 +25,7 @@ export class GenericApiResource {
   _resourceNamespace: string;
   _apiNamespace: string;
   _showIsEdit: boolean;
+  _apiNameSingular: string;
 
   @Input() set apiUrl(apiUrl: string) { this._apiUrlObservable.next(apiUrl); }
   @Input() set resourceNameSingular(resourceNameSingular: string) {
@@ -60,6 +61,7 @@ export class GenericApiResource {
   @Input() set resourceNamespace(resourceNamespace: string) { this._resourceNamespace = resourceNamespace; }
   @Input() set apiNamespace(apiNamespace: string) { this._apiNamespace = apiNamespace; }
   @Input() set showIsEdit(showIsEdit: boolean) { this._showIsEdit = showIsEdit; }
+  @Input() set apiNameSingular(apiNameSingular: string) { this._apiNameSingular = apiNameSingular; }
 
   get apiUrlObservable(): BehaviorSubject<string> { return this._apiUrlObservable; }
   get apiUrl(): string { return this._apiUrlObservable.getValue(); }
@@ -84,5 +86,6 @@ export class GenericApiResource {
   get resourceNamespace(): string { return this._resourceNamespace == null ? '' : `/${this._resourceNamespace}`; }
   get apiNamespace(): string { return this._apiNamespace == null ? (this.resourceNamespace) : `/${this._apiNamespace}`; }
   get showIsEdit(): boolean { return this._showIsEdit == null ? true : this._showIsEdit; }
+  get apiNameSingular(): string { return this._apiNameSingular == null ? this.resourceNameSingular : this._apiNameSingular; }
 
 }

@@ -137,7 +137,7 @@ export class FormComponent extends GenericApiResource implements OnInit, OnDestr
   }
 
   getResourceAttributes() {
-    return JSON.parse(`{"${this.resourceNameSingular}":${JSON.stringify(this._resourceFormGroup['value'])}}`);
+    return JSON.parse(`{"${this.apiNameSingular}":${JSON.stringify(this._resourceFormGroup['value'])}}`);
   }
 
 
