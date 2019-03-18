@@ -6,7 +6,7 @@ import {Field} from "./field";
   selector: 'generic-api-resource-files',
   template: `
     <div [formGroup]="parentFormGroup">
-      <h3>{{formComponent.label}}</h3>
+      <h3>Files</h3>
       <ul class="file-list" formArrayName="{{formComponent.name}}"
           *ngFor="let item of getControlsFor(formComponent.name); let i = index;">
         <li [formGroupName]="i">
@@ -20,15 +20,11 @@ import {Field} from "./field";
         </li>
       </ul>
       <p *ngIf="getControlsFor(formComponent.name).length == 0">No uploads yet.</p>
-      
-      <input type="file" id="{{parentFormGroup.value.id}}_{{formComponent.name}}_uploader"
-             (change)="onFileChange($event, formComponent.name)" multiple [hidden]="true" *ngIf="formComponent.multiple == true">
 
       <input type="file" id="{{parentFormGroup.value.id}}_{{formComponent.name}}_uploader"
-             (change)="onFileChange($event, formComponent.name)" [hidden]="true" *ngIf="formComponent.multiple != true">
+             (change)="onFileChange($event, formComponent.name)" multiple [hidden]="true">
 
-      <button mat-raised-button color="primary" (click)="initiateFileSelection(parentFormGroup.value.id + '_' + formComponent.name + '_uploader')" *ngIf="formComponent.multiple == true">Select files for upload</button>
-      <button mat-raised-button color="primary" (click)="initiateFileSelection(parentFormGroup.value.id + '_' + formComponent.name + '_uploader')" *ngIf="formComponent.multiple != true">Select file for upload</button>
+      <button mat-raised-button color="primary" (click)="initiateFileSelection(parentFormGroup.value.id + '_' + formComponent.name + '_uploader')">Select files for upload</button>
       &nbsp;
       <span style="color: #ccc;">Max. 1MB per file.</span>
 
