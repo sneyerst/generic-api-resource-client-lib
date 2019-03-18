@@ -19,6 +19,7 @@ import {FilesComponent} from "./fields/files.component";
 import {TextareaComponent} from "./fields/textarea.component";
 import {TextfieldComponent} from "./fields/textfield.component";
 import {TableComponent} from "./fields/table.component";
+import {FileComponent} from "./fields/file.component";
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import {TableComponent} from "./fields/table.component";
     AccordionComponent,
     CheckboxComponent,
     DropdownComponent,
+    FileComponent,
     FilesComponent,
     TextareaComponent,
     TextfieldComponent,
