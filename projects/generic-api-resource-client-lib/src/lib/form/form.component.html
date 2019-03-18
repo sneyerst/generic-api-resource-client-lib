@@ -12,7 +12,9 @@
     <generic-api-resource-accordion [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
                       *ngIf="formComponent.type == 'accordion'"></generic-api-resource-accordion>
     <generic-api-resource-table [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
-                       *ngIf="formComponent.type == 'table'"></generic-api-resource-table>
+                      *ngIf="formComponent.type == 'table'"></generic-api-resource-table>
+    <generic-api-resource-files [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
+                      *ngIf="formComponent.type == 'files'"></generic-api-resource-files>
   </ng-container>
 
   <p class="detailActions">
