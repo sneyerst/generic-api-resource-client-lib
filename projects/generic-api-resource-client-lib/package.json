@@ -1,6 +1,6 @@
 {
   "name": "generic-api-resource-client-lib",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Simplifies the development of a frontend for Ruby on Rails API applications. Preferably to be used together with generic_api_resource gem for Rails.",
   "author": "Tom Sneyers",
   "repository": {
