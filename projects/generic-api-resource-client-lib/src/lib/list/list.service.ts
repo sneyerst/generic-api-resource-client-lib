@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import {BehaviorSubject} from "rxjs";
-import {AngularTokenService} from "angular-token";
 import {Router} from "@angular/router";
 import {isNull, isUndefined} from "util";
 import {HttpClient} from "@angular/common/http";
@@ -40,7 +39,7 @@ export class ListService {
     this._filters.next(filters);
   }
 
-  constructor(private http: HttpClient, private router: Router, private tokenService: AngularTokenService) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   getResources(query = {}) {

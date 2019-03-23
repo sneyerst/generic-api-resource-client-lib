@@ -1,5 +1,4 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {AngularTokenService} from "angular-token";
 import {DomSanitizer} from "@angular/platform-browser";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Subscription} from "rxjs";

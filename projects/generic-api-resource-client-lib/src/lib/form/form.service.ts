@@ -1,6 +1,5 @@
 import {Injectable} from "@angular/core";
 import {BehaviorSubject} from "rxjs";
-import {AngularTokenService} from "angular-token";
 import {Router} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 
@@ -33,7 +32,7 @@ export class FormService {
     this._values.next(values);
   }
 
-  constructor(private http: HttpClient, private router: Router, private tokenService: AngularTokenService) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   setApiEndpoint(url: string, apiEndpointUri: string) {
