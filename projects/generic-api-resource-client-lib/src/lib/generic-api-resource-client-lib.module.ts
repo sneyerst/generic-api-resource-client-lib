@@ -4,7 +4,7 @@ import {MomentModule} from "ngx-moment";
 import {ReactiveFormsModule} from "@angular/forms";
 import {
   MatButtonModule, MatCardModule,
-  MatCheckboxModule, MatDatepickerModule, MatDialogModule, MatExpansionModule,
+  MatCheckboxModule, MatChipsModule, MatDatepickerModule, MatDialogModule, MatExpansionModule,
   MatFormFieldModule, MatIconModule,
   MatInputModule,
   MatOptionModule, MatProgressSpinnerModule, MatSelectModule, MatSnackBarModule,
@@ -53,7 +53,8 @@ import {ChipsComponent} from "./visualisations/chips.component";
     MatButtonModule,
     MatProgressSpinnerModule,
     MatExpansionModule,
-    MatCardModule
+    MatCardModule,
+    MatChipsModule
   ],
   exports: [
     ListComponent,
