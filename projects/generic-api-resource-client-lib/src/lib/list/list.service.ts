@@ -14,6 +14,7 @@ export class ListService {
   private _resources = new BehaviorSubject([]);
   private _fields = new BehaviorSubject([]);
   private _filters = new BehaviorSubject([]);
+  private _visualisations = new BehaviorSubject([]);
 
   get resourcesObservable() {
     return this._resources.asObservable();
@@ -27,6 +28,10 @@ export class ListService {
     return this._filters.asObservable();
   }
 
+  get visualisationsObservable() {
+    return this._visualisations.asObservable();
+  }
+
   set resources(resources) {
     this._resources.next(resources);
   }
@@ -37,6 +42,10 @@ export class ListService {
 
   set filters(filters) {
     this._filters.next(filters);
+  }
+
+  set visualisations(visualisations) {
+    this._visualisations.next(visualisations);
   }
 
   constructor(private http: HttpClient, private router: Router) {
@@ -52,6 +61,9 @@ export class ListService {
         }
         if (response['response']['metadata'] && response['response']['metadata']['filters']) {
           this.filters = response['response']['metadata']['filters'];
+        }
+        if (response['response']['metadata'] && response['response']['metadata']['visualisations']) {
+          this.visualisations = response['response']['metadata']['visualisations'];
         }
       });
   }

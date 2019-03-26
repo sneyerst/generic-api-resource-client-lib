@@ -26,7 +26,16 @@
 
     <ng-container *ngIf="enableShow">
       <td mat-cell *matCellDef="let resource" (click)="resourceClicked(resource)">
-        {{resource[column]}}
+
+        <ng-container *ngIf="visualisations[column]">
+
+          <ng-container *ngIf="visualisations[column].type == 'chips'">
+            <generic-api-resource-chips [items]="resource[column]"></generic-api-resource-chips>
+          </ng-container>
+
+        </ng-container>
+
+        <ng-container *ngIf="!visualisations[column]">{{resource[column]}}</ng-container>
       </td>
     </ng-container>
 

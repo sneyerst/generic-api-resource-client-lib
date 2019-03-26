@@ -17,7 +17,7 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
   _defaultQuery: {};
   _enableFilters: boolean = false;
 
-  _resources: any[];
+  _resources: any[] = [];
   _resourcesSubscription: Subscription;
   _displayedColumns: string[];
 
@@ -26,6 +26,9 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
   _filtersFormComponents: any[];
   _filtersSubscription: Subscription;
   _apiUrlSubscription: Subscription;
+
+  _visualisations: any[] = [];
+  _visualisationsSubscription: Subscription;
 
   constructor(private apiListService: ListService, private router: Router, private sanitizer: DomSanitizer, private formBuilder: FormBuilder) {
     super();
@@ -36,6 +39,7 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
       this.apiListService.setApiEndpoint(apiUrl, this.apiIndexUri, this.defaultQuery);
     });
     this._resourcesSubscription = this.apiListService.resourcesObservable.subscribe((resources: any[]) => this._resources = resources);
+    this._visualisationsSubscription = this.apiListService.visualisationsObservable.subscribe((visualisations: any[]) => this._visualisations = visualisations);
     this._filtersSubscription = this.apiListService.filtersObservable.subscribe((filters) => {
         this._filters = filters;
         this._filtersFormGroup = this.formBuilder.group(Object.keys(filters).reduce((acc, value) => {
@@ -64,6 +68,7 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
     this._resourcesSubscription.unsubscribe();
     this._filtersSubscription.unsubscribe();
     this._apiUrlSubscription.unsubscribe();
+    this._visualisationsSubscription.unsubscribe();
   }
 
   @Input()
@@ -93,6 +98,11 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
   get resources(): any[] {
     return this._resources;
   }
+
+  get visualisations(): any[] {
+    return this._visualisations;
+  }
+
 
   get displayedColumns(): string[] {
     if (this._displayedColumns == null) {
