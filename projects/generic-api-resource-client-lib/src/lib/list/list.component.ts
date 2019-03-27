@@ -53,21 +53,17 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
     this._filtersSubscription = this.apiListService.filtersObservable.subscribe((filters) => {
         this._filters = filters;
         this._filtersFormGroup = this.formBuilder.group(Object.keys(filters).reduce((acc, value) => {
-          if (this.displayedColumns.indexOf(value) !== -1) {
-            acc[value] = this._filters[value]['value'];
-          }
+          acc[value] = this._filters[value]['value'];
           return acc;
         }, {}));
         this._filtersFormComponents = Object.keys(filters).reduce((acc, value) => {
-          if (this.displayedColumns.indexOf(value) !== -1) {
-            acc.push({
-              name: value,
-              label: this._filters[value]['label'],
-              type: this._filters[value]['type'],
-              initial_value: this._filters[value]['initial_value'],
-              options: this._filters[value]['options']
-            });
-          }
+          acc.push({
+            name: value,
+            label: this._filters[value]['label'],
+            type: this._filters[value]['type'],
+            initial_value: this._filters[value]['initial_value'],
+            options: this._filters[value]['options']
+          });
           return acc;
         }, []);
       }
