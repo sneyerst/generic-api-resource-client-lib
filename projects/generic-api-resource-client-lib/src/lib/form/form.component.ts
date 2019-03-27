@@ -37,7 +37,7 @@ export class FormComponent extends GenericApiResource implements OnInit, OnDestr
 
   ngOnInit(): void {
     this._apiUrlSubscription = this.apiUrlObservable.subscribe((apiUrl: string) => {
-      this.listService.setApiEndpoint(apiUrl, this.apiCreateUri, {});
+      this.listService.setApiEndpoint(apiUrl, this.apiCreateUri, {}, true);
       this.setApiEndpoint(apiUrl, this._resourceId);
     });
     this._resourceSubscription = this.formService.resourceObservable.subscribe((resource: any) => this._resource = resource);

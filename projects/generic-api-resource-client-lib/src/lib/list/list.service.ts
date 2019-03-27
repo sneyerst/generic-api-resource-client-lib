@@ -76,11 +76,13 @@ export class ListService {
     return this.http.get(url, httpOptions);
   }
 
-  setApiEndpoint(url: string, apiEndpointUri: string, defaultQuery: {}) {
+  setApiEndpoint(url: string, apiEndpointUri: string, defaultQuery: {}, disableInitialRequest: boolean = false) {
     this._url = url;
     this._apiEndpointUri = apiEndpointUri;
     this._defaultQuery = defaultQuery;
-    this.getResources();
+    if(!disableInitialRequest) {
+      this.getResources();
+    }
   }
 
   getApiEndpointUrl(additionalQuery?: {}, format?: string) {
