@@ -2,8 +2,8 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  template: '<p>Welcome to the <strong>generic-api-resource-client-tester project</strong></p>\n',
+  styleUrls: []
 })
 export class AppComponent {
   title = 'generic-api-resource-client-tester';
