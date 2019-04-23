@@ -1,12 +1,17 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {Field} from "./field";
+import {FilesService} from "../files/files.service";
+import {DomSanitizer} from "@angular/platform-browser";
 
 @Component({
   selector: 'generic-api-resource-files',
   template: `
     <div [formGroup]="parentFormGroup">
       <h3>Files</h3>
+    
+      <a id="downloadLink" style="display: none;" href="#">Hidden download link</a>
+      
       <ul class="file-list" formArrayName="{{formComponent.name}}"
           *ngFor="let item of getControlsFor(formComponent.name); let i = index;">
         <li [formGroupName]="i">
@@ -15,8 +20,12 @@ import {Field} from "./field";
             <input matInput formControlName="label">
           </mat-form-field>
           &nbsp;
-          <!--<button mat-raised-button>Download</button>&nbsp;-->
-          <mat-checkbox class="file-destroy" formControlName="_destroy">Delete</mat-checkbox>
+          <ng-container *ngIf="item['value']['id']">
+            <button mat-raised-button (click)="downloadFile(formComponent['url'].replace(':id', item['value']['id']))">Download</button>&nbsp;
+
+            <mat-checkbox class="file-destroy" formControlName="_destroy">Delete</mat-checkbox>
+          </ng-container>
+
         </li>
       </ul>
       <p *ngIf="getControlsFor(formComponent.name).length == 0">No uploads yet.</p>
@@ -24,18 +33,24 @@ import {Field} from "./field";
       <input type="file" id="{{parentFormGroup.value.id}}_{{formComponent.name}}_uploader"
              (change)="onFileChange($event, formComponent.name)" multiple [hidden]="true">
 
-      <button mat-raised-button color="primary" (click)="initiateFileSelection(parentFormGroup.value.id + '_' + formComponent.name + '_uploader')">Select files for upload</button>
+      <button mat-raised-button color="primary"
+              (click)="initiateFileSelection(parentFormGroup.value.id + '_' + formComponent.name + '_uploader')">Select
+        files for upload
+      </button>
       &nbsp;
       <span style="color: #ccc;">Max. 1MB per file.</span>
 
     </div>
   `,
   styleUrls: [],
-  providers: []
+  providers: [FilesService]
 })
 export class FilesComponent extends Field {
 
-  constructor(private formBuilder: FormBuilder) {
+  blob;
+  downloadURL;
+
+  constructor(private formBuilder: FormBuilder, private filesService: FilesService, private sanitizer: DomSanitizer) {
     super();
   }
 
@@ -71,6 +86,20 @@ export class FilesComponent extends Field {
 
   initiateFileSelection(name) {
     document.getElementById(name).click();
+  }
+
+  downloadFile(url) {
+    this.filesService.download(url).subscribe((data: any) => {
+
+      this.blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+
+      this.downloadURL = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(data));
+
+      setTimeout(() => {
+        let element: HTMLElement = document.getElementById('downloadLink') as HTMLElement;
+        element.click()
+      }, 100);
+    });;
   }
 
   debugOutput(obj) {
