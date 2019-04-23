@@ -10,7 +10,7 @@ import {DomSanitizer} from "@angular/platform-browser";
     <div [formGroup]="parentFormGroup">
       <h3>Files</h3>
     
-      <a id="downloadLink" style="display: none;" href="#">Hidden download link</a>
+      <a id="downloadLink" [href]="downloadURL" style="display: none;">Hidden download link</a>
       
       <ul class="file-list" formArrayName="{{formComponent.name}}"
           *ngFor="let item of getControlsFor(formComponent.name); let i = index;">
