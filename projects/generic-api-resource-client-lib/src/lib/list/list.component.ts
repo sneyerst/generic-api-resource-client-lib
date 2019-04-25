@@ -5,17 +5,21 @@ import {Subscription} from "rxjs";
 import {FormBuilder, FormGroup} from "@angular/forms";
 import {ListService} from "./list.service";
 import {GenericApiResource} from "../generic-api-resource";
+import {FilesService} from '../files/files.service';
 
 @Component({
   selector: 'generic-api-resource-list',
   templateUrl: 'list.component.html',
   styleUrls: [],
-  providers: [ListService]
+  providers: [ListService, FilesService]
 })
 export class ListComponent extends GenericApiResource implements OnInit, OnDestroy {
 
   _defaultQuery: {};
   _enableFilters: boolean = false;
+
+  _enableExcelDownload: boolean = false;
+  _downloadExcelURL;
 
   _resources: any[] = [];
   _resourcesSubscription: Subscription;
@@ -30,7 +34,13 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
   _visualisations: any[] = [];
   _visualisationsSubscription: Subscription;
 
-  constructor(private apiListService: ListService, private router: Router, private sanitizer: DomSanitizer, private formBuilder: FormBuilder) {
+  constructor(
+    private apiListService: ListService,
+    private router: Router,
+    private sanitizer: DomSanitizer,
+    private filesService: FilesService,
+    private formBuilder: FormBuilder
+  ) {
     super();
   }
 
@@ -81,10 +91,14 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
     this._displayedColumns = displayedColumns;
   }
 
-
   @Input()
   set enableFilters(enableFilters: boolean) {
     this._enableFilters = enableFilters;
+  }
+
+  @Input()
+  set enableExcelDownload(enableExcelDownload: boolean) {
+    this._enableExcelDownload = enableExcelDownload;
   }
 
   get defaultQuery(): {} {
@@ -140,6 +154,21 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
     if (event.code === 'Enter' || event.code === 'NumpadEnter') {
       this.loadResources();
     }
+  }
+
+  downloadExcel() {
+    const url = this.apiListService.getApiEndpointUrl(this._filtersFormGroup['value'], 'xlsx')
+
+    this.filesService.download(url).subscribe((data: any) => {
+      // this.blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
+
+      this._downloadExcelURL = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(data));
+
+      setTimeout(() => {
+        let element: HTMLElement = document.getElementById('downloadExcelLink') as HTMLElement;
+        element.click();
+      }, 100);
+    });
   }
 
   newResource() {

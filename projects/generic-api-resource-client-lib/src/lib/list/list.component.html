@@ -20,6 +20,13 @@
   <button mat-raised-button color="warn" (click)="resetFilters()">Reset filter</button>
 </div>
 
+<div class="downloads">
+  <ng-container *ngIf="_enableExcelDownload">
+    <button mat-raised-button color="primary" (click)="downloadExcel()">Download Excel</button>&nbsp;
+    <a id="downloadExcelLink" [href]="_downloadExcelURL" style="display: none;">Hidden Excel download link</a>
+  </ng-container>
+</div>
+
 <table mat-table [dataSource]="resources" class="mat-elevation-z8" *ngIf="resources.length > 0">
   <ng-container *ngFor="let column of displayedColumns" matColumnDef="{{column}}">
     <th mat-header-cell *matHeaderCellDef>{{column}}</th>
