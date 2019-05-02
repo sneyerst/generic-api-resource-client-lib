@@ -67,24 +67,24 @@ export class GenericApiResource {
   get apiUrl(): string { return this._apiUrlObservable.getValue(); }
   get resourceNameSingular(): string { return this._resourceNameSingular; }
   get resourceNamePlural(): string { return this._resourceNamePlural == null ? this._resourceNameSingular + 's' : this._resourceNamePlural; }
-  get resourceIndexUri(): string { return this._resourceIndexUri == null ? `${this.resourceNamespace}/${this.resourceNamePlural}` : this._resourceIndexUri; }
-  get resourceShowUri(): string { return this.showIsEdit ? this.resourceEditUri : (this._resourceShowUri == null ? `${this.resourceNamespace}/${this.resourceNamePlural}/:id` : this._resourceShowUri); }
-  get resourceNewUri(): string { return this._resourceNewUri == null ? `${this.resourceNamespace}/${this.resourceNamePlural}/new` : this._resourceNewUri; }
-  get resourceEditUri(): string { return this._resourceEditUri == null ? `${this.resourceNamespace}/${this.resourceNamePlural}/:id/edit` : this._resourceEditUri; }
-  get apiIndexUri(): string { return this._apiIndexUri == null ? `${this.apiNamespace}/${this.resourceNamePlural}` : this._apiIndexUri; }
-  get apiShowUri(): string { return this.showIsEdit ? this.apiEditUri : (this._apiShowUri == null ? `${this.apiNamespace}/${this.resourceNamePlural}/:id` : this._apiShowUri); }
-  get apiNewUri(): string { return this._apiNewUri == null ? `${this.apiNamespace}/${this.resourceNamePlural}/new` : this._apiNewUri; }
-  get apiEditUri(): string { return this._apiEditUri == null ? `${this.apiNamespace}/${this.resourceNamePlural}/:id/edit` : this._apiEditUri; }
-  get apiCreateUri(): string { return this._apiCreateUri == null ? `${this.apiNamespace}/${this.resourceNamePlural}` : this._apiCreateUri; }
-  get apiUpdateUri(): string { return this._apiUpdateUri == null ? `${this.apiNamespace}/${this.resourceNamePlural}/:id` : this._apiUpdateUri; }
-  get apiDestroyUri(): string { return this._apiDestroyUri == null ? `${this.apiNamespace}/${this.resourceNamePlural}/:id` : this._apiDestroyUri; }
+  get resourceIndexUri(): string { return this._resourceIndexUri == null ? `${this.resourceNamespace}${this.resourceNamePlural}` : this._resourceIndexUri; }
+  get resourceShowUri(): string { return this.showIsEdit ? this.resourceEditUri : (this._resourceShowUri == null ? `${this.resourceNamespace}${this.resourceNamePlural}/:id` : this._resourceShowUri); }
+  get resourceNewUri(): string { return this._resourceNewUri == null ? `${this.resourceNamespace}${this.resourceNamePlural}/new` : this._resourceNewUri; }
+  get resourceEditUri(): string { return this._resourceEditUri == null ? `${this.resourceNamespace}${this.resourceNamePlural}/:id/edit` : this._resourceEditUri; }
+  get apiIndexUri(): string { return this._apiIndexUri == null ? `${this.apiNamespace}${this.resourceNamePlural}` : this._apiIndexUri; }
+  get apiShowUri(): string { return this.showIsEdit ? this.apiEditUri : (this._apiShowUri == null ? `${this.apiNamespace}${this.resourceNamePlural}/:id` : this._apiShowUri); }
+  get apiNewUri(): string { return this._apiNewUri == null ? `${this.apiNamespace}${this.resourceNamePlural}/new` : this._apiNewUri; }
+  get apiEditUri(): string { return this._apiEditUri == null ? `${this.apiNamespace}${this.resourceNamePlural}/:id/edit` : this._apiEditUri; }
+  get apiCreateUri(): string { return this._apiCreateUri == null ? `${this.apiNamespace}${this.resourceNamePlural}` : this._apiCreateUri; }
+  get apiUpdateUri(): string { return this._apiUpdateUri == null ? `${this.apiNamespace}${this.resourceNamePlural}/:id` : this._apiUpdateUri; }
+  get apiDestroyUri(): string { return this._apiDestroyUri == null ? `${this.apiNamespace}${this.resourceNamePlural}/:id` : this._apiDestroyUri; }
   get enableIndex(): boolean { return this._enableIndex == null ? true : this._enableIndex; }
   get enableShow(): boolean { return this._enableShow == null ? true : this._enableShow; }
   get enableNew(): boolean { return this._enableNew == null ? true : this._enableNew; }
   get enableEdit(): boolean { return this._enableEdit == null ? true : this._enableEdit; }
   get enableDestroy(): boolean { return this._enableDestroy == null ? true : this._enableDestroy; }
-  get resourceNamespace(): string { return this._resourceNamespace == null ? '' : `/${this._resourceNamespace}`; }
-  get apiNamespace(): string { return this._apiNamespace == null ? (this.resourceNamespace) : `/${this._apiNamespace}`; }
+  get resourceNamespace(): string { return this._resourceNamespace == null ? '' : `${this._resourceNamespace}/`; }
+  get apiNamespace(): string { return this._apiNamespace == null ? (this.resourceNamespace) : `${this._apiNamespace}/`; }
   get showIsEdit(): boolean { return this._showIsEdit == null ? true : this._showIsEdit; }
   get apiNameSingular(): string { return this._apiNameSingular == null ? this.resourceNameSingular : this._apiNameSingular; }
 

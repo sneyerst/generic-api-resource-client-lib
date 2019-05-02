@@ -100,7 +100,7 @@ export class ListService {
       apiEndpointUri += '?' + querystring;
     }
 
-    return `${this._url}${apiEndpointUri}`;
+    return `${this._url}/${apiEndpointUri}`;
   }
 
   createResource(resourceAttributes) {
