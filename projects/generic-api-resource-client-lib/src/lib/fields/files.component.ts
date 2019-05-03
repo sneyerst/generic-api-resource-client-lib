@@ -9,8 +9,6 @@ import {DomSanitizer} from "@angular/platform-browser";
   template: `
     <div [formGroup]="parentFormGroup">
       <h3>Files</h3>
-    
-      <a id="downloadLink" [href]="downloadURL" style="display: none;">Hidden download link</a>
       
       <ul class="file-list" formArrayName="{{formComponent.name}}"
           *ngFor="let item of getControlsFor(formComponent.name); let i = index;">
@@ -21,8 +19,9 @@ import {DomSanitizer} from "@angular/platform-browser";
           </mat-form-field>
           &nbsp;
           <ng-container *ngIf="item['value']['id']">
-            <button mat-raised-button (click)="downloadFile(formComponent['url'].replace(':id', item['value']['id']))">Download</button>&nbsp;
-
+            <button mat-raised-button (click)="downloadFile(formComponent['url'].replace(':id', item['value']['id']), item['value']['id'])">Download</button>&nbsp;
+            <a target="_blank" id="{{'downloadLink-' + item['value']['id']}}" [href]="downloadURL" style="display: none;">Hidden download link</a>
+      
             <mat-checkbox class="file-destroy" formControlName="_destroy">Delete</mat-checkbox>
           </ng-container>
 
@@ -47,7 +46,6 @@ import {DomSanitizer} from "@angular/platform-browser";
 })
 export class FilesComponent extends Field {
 
-  blob;
   downloadURL;
 
   constructor(private formBuilder: FormBuilder, private filesService: FilesService, private sanitizer: DomSanitizer) {
@@ -88,18 +86,17 @@ export class FilesComponent extends Field {
     document.getElementById(name).click();
   }
 
-  downloadFile(url) {
+  downloadFile(url, item_id) {
     this.filesService.download(url).subscribe((data: any) => {
-
-      this.blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
 
       this.downloadURL = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(data));
 
-      setTimeout(() => {
-        let element: HTMLElement = document.getElementById('downloadLink') as HTMLElement;
-        element.click()
-      }, 100);
-    });;
+      console.log(this.downloadURL);
+      let element: HTMLElement = document.getElementById('downloadLink-' + item_id) as HTMLElement;
+      element.removeAttribute('style');
+      //element.click();
+
+    });
   }
 
   debugOutput(obj) {
