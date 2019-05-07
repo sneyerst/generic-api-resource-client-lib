@@ -40,6 +40,10 @@
             <generic-api-resource-chips [items]="resource[column]"></generic-api-resource-chips>
           </ng-container>
 
+          <ng-container *ngIf="visualisations[column].type == 'link-buttons'">
+            <generic-api-resource-link-buttons [item]="resource[column]"></generic-api-resource-link-buttons>
+          </ng-container>
+
         </ng-container>
 
         <ng-container *ngIf="!visualisations[column]">{{resource[column]}}</ng-container>
