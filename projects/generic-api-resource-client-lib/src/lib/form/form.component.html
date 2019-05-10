@@ -5,6 +5,8 @@
     <ng-container *ngIf="!displayedFields || displayedFields.includes(formComponent.name)">
       <generic-api-resource-textfield [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
                                       *ngIf="formComponent.type == 'textfield'"></generic-api-resource-textfield>
+      <generic-api-resource-hidden [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
+                                      *ngIf="formComponent.type == 'hidden'"></generic-api-resource-hidden>
       <generic-api-resource-textarea [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
                                      *ngIf="formComponent.type == 'textarea'"></generic-api-resource-textarea>
       <generic-api-resource-checkbox [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
