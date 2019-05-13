@@ -8,9 +8,23 @@ import {Field} from "./field";
     <div [formGroup]="parentFormGroup">
       <mat-form-field>
         <mat-select placeholder="{{formComponent.label}}" formControlName="{{formComponent.name}}">
-          <mat-option *ngFor="let option of formComponent.options" [value]="option.id">
-            {{option.label}}
-          </mat-option>
+
+          <ng-container *ngFor="let option of formComponent.options">
+
+            <mat-option *ngIf="option.label" [value]="option.id">
+              {{option.label}}
+            </mat-option>
+
+            <ng-container *ngIf="option.groups">
+              <mat-optgroup *ngFor="let group of option.groups" [label]="group.label">
+                <mat-option *ngFor="let subOption of group.options" [value]="subOption.id">
+                  {{subOption.label}}
+                </mat-option>
+              </mat-optgroup>
+            </ng-container>
+
+          </ng-container>
+
         </mat-select>
       </mat-form-field>
     </div>
