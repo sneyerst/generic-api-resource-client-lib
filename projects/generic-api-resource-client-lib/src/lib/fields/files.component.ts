@@ -37,7 +37,7 @@ import {DomSanitizer} from "@angular/platform-browser";
         files for upload
       </button>
       &nbsp;
-      <span style="color: #ccc;">Max. 1MB per file.</span>
+      <span style="color: #ccc;">Max. 8MB per file.</span>
 
     </div>
   `,
@@ -59,7 +59,7 @@ export class FilesComponent extends Field {
       for (let file of event.target.files) {
         let reader = new FileReader();
         console.log(file.size);
-        if (file.size <= 1000000) {
+        if (file.size <= 8000000) {
           let fileGroup = {};
           reader.readAsDataURL(file);
 

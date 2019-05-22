@@ -24,7 +24,7 @@ export class FileComponent extends Field {
       const file = event.target.files[0];
 
       let reader = new FileReader();
-      if (file.size <= 1000000) {
+      if (file.size <= 8000000) {
         reader.readAsDataURL(file);
         reader.onload = () => {
           this.parentFormGroup.patchValue(JSON.parse(`{"${this.formComponent.name}": "${reader.result}"}`));
