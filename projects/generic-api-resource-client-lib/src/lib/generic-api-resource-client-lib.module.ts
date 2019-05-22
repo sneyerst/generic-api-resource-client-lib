@@ -22,6 +22,7 @@ import {TableComponent} from './fields/table.component';
 import {FileComponent} from './fields/file.component';
 import {ChipsComponent} from './visualisations/chips.component';
 import {LinkButtonsComponent} from './visualisations/link-buttons.component';
+import {HiddenFieldComponent} from "./fields/hidden_field.component";
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import {LinkButtonsComponent} from './visualisations/link-buttons.component';
     DropdownComponent,
     FileComponent,
     FilesComponent,
+    HiddenFieldComponent,
     TextareaComponent,
     TextfieldComponent,
     TableComponent,
