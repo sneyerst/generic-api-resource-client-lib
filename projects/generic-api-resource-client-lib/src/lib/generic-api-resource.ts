@@ -28,6 +28,7 @@ export class GenericApiResource {
   _showIsEdit: boolean;
   _apiNameSingular: string;
   _apiNamePlural: string;
+  _defaultQuery: {};
 
   @Input() set apiUrl(apiUrl: string) { this._apiUrlObservable.next(apiUrl); }
   @Input() set resourceNameSingular(resourceNameSingular: string) {
@@ -68,6 +69,10 @@ export class GenericApiResource {
   @Input() set showIsEdit(showIsEdit: boolean) { this._showIsEdit = showIsEdit; }
   @Input() set apiNameSingular(apiNameSingular: string) { this._apiNameSingular = apiNameSingular; }
   @Input() set apiNamePlural(apiNamePlural: string) { this._apiNamePlural = apiNamePlural; }
+  @Input()
+  set defaultQuery(defaultQuery: {}) {
+    this._defaultQuery = defaultQuery;
+  }
 
   get apiUrlObservable(): BehaviorSubject<string> { return this._apiUrlObservable; }
   get apiUrl(): string { return this._apiUrlObservable.getValue(); }
@@ -80,7 +85,7 @@ export class GenericApiResource {
   get apiUri(): string { return this._apiUri == null ? `${this.apiNamePlural}` : this._apiUri; }
   get apiIndexUri(): string { return this._apiIndexUri == null ? `${this.apiNamespace}${this.apiUri}` : this._apiIndexUri; }
   get apiShowUri(): string { return this.showIsEdit ? this.apiEditUri : (this._apiShowUri == null ? `${this.apiNamespace}${this.apiUri}/:id` : this._apiShowUri); }
-  get apiNewUri(): string { return this._apiNewUri == null ? `${this.apiNamespace}${this.apiUri}/new` : this._apiNewUri; }
+  get apiNewUri(): string { return this._apiNewUri == null ? `${this.apiNamespace}${this.apiUri}/new${this.apiNewQueryString}` : this._apiNewUri; }
   get apiEditUri(): string { return this._apiEditUri == null ? `${this.apiNamespace}${this.apiUri}/:id/edit` : this._apiEditUri; }
   get apiCreateUri(): string { return this._apiCreateUri == null ? `${this.apiNamespace}${this.apiUri}` : this._apiCreateUri; }
   get apiUpdateUri(): string { return this._apiUpdateUri == null ? `${this.apiNamespace}${this.apiUri}/:id` : this._apiUpdateUri; }
@@ -95,5 +100,21 @@ export class GenericApiResource {
   get showIsEdit(): boolean { return this._showIsEdit == null ? true : this._showIsEdit; }
   get apiNameSingular(): string { return this._apiNameSingular == null ? this.resourceNameSingular : this._apiNameSingular; }
   get apiNamePlural(): string { return this._apiNamePlural == null ? this.apiNameSingular + 's' : this._apiNamePlural; }
+  get defaultQuery(): {} {
+    if (this._defaultQuery == null) {
+      return {};
+    } else {
+      return this._defaultQuery;
+    }
+  }
+  get apiNewQueryString(): string {
+    let queryString = '';
+    if (Object.keys(this.defaultQuery).length > 0) {
+      queryString = '?' + Object.keys(this.defaultQuery).map((key) => {
+        return key + '=' + this.defaultQuery[key];
+      }).join('&');
+    }
+    return queryString;
+  }
 
 }

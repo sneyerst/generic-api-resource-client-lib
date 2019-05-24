@@ -15,7 +15,7 @@ import {FilesService} from '../files/files.service';
 })
 export class ListComponent extends GenericApiResource implements OnInit, OnDestroy {
 
-  _defaultQuery: {};
+
   _enableFilters: boolean = false;
 
   _enableExcelDownload: boolean = false;
@@ -77,10 +77,7 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
     this._visualisationsSubscription.unsubscribe();
   }
 
-  @Input()
-  set defaultQuery(defaultQuery: {}) {
-    this._defaultQuery = defaultQuery;
-  }
+
 
   @Input()
   set displayedColumns(displayedColumns: string[]) {
@@ -95,14 +92,6 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
   @Input()
   set enableExcelDownload(enableExcelDownload: boolean) {
     this._enableExcelDownload = enableExcelDownload;
-  }
-
-  get defaultQuery(): {} {
-    if (this._defaultQuery == null) {
-      return {};
-    } else {
-      return this._defaultQuery;
-    }
   }
 
   get resources(): any[] {
@@ -156,8 +145,6 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
     const url = this.apiListService.getApiEndpointUrl(this._filtersFormGroup['value'], 'xlsx')
 
     this.filesService.download(url).subscribe((data: any) => {
-      // this.blob = new Blob([data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'});
-
       this._downloadExcelURL = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(data));
 
       setTimeout(() => {
