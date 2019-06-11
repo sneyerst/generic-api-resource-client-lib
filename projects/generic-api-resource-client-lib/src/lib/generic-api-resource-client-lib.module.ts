@@ -23,6 +23,7 @@ import {FileComponent} from './fields/file.component';
 import {ChipsComponent} from './visualisations/chips.component';
 import {LinkButtonsComponent} from './visualisations/link-buttons.component';
 import {HiddenFieldComponent} from "./fields/hidden_field.component";
+import {DropdownMultiselectComponent} from "./fields/dropdown_multiselect.component";
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import {HiddenFieldComponent} from "./fields/hidden_field.component";
     AccordionComponent,
     CheckboxComponent,
     DropdownComponent,
+    DropdownMultiselectComponent,
     FileComponent,
     FilesComponent,
     HiddenFieldComponent,

@@ -30,6 +30,9 @@ import {Field} from "./field";
                 <generic-api-resource-dropdown [parentFormGroup]="getControlsFor(formComponent.name)[i]"
                                                [formComponent]="childComponent"
                                                *ngIf="childComponent.type == 'dropdown'"></generic-api-resource-dropdown>
+                <generic-api-resource-dropdown_multiselect [parentFormGroup]="getControlsFor(formComponent.name)[i]"
+                                                           [formComponent]="childComponent"
+                                                           *ngIf="childComponent.type == 'dropdown_multiselect'"></generic-api-resource-dropdown_multiselect>
                 <generic-api-resource-files [parentFormGroup]="getControlsFor(formComponent.name)[i]"
                                             [formComponent]="childComponent"
                                             *ngIf="childComponent.type == 'files'"></generic-api-resource-files>

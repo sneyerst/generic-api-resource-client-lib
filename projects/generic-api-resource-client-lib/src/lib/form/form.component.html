@@ -6,13 +6,15 @@
       <generic-api-resource-textfield [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
                                       *ngIf="formComponent.type == 'textfield'"></generic-api-resource-textfield>
       <generic-api-resource-hidden [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
-                                      *ngIf="formComponent.type == 'hidden'"></generic-api-resource-hidden>
+                                   *ngIf="formComponent.type == 'hidden'"></generic-api-resource-hidden>
       <generic-api-resource-textarea [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
                                      *ngIf="formComponent.type == 'textarea'"></generic-api-resource-textarea>
       <generic-api-resource-checkbox [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
                                      *ngIf="formComponent.type == 'checkbox'"></generic-api-resource-checkbox>
       <generic-api-resource-dropdown [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
                                      *ngIf="formComponent.type == 'dropdown'"></generic-api-resource-dropdown>
+      <generic-api-resource-dropdown_multiselect [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
+                                                 *ngIf="formComponent.type == 'dropdown_multiselect'"></generic-api-resource-dropdown_multiselect>
       <generic-api-resource-accordion [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
                                       *ngIf="formComponent.type == 'accordion'"></generic-api-resource-accordion>
       <generic-api-resource-table [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
