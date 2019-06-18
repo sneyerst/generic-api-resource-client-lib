@@ -34,7 +34,7 @@
             (click)="createResource()">Create
     </button>
     <button mat-raised-button color="secondary" (click)="cancelButtonClicked()">Cancel</button>
-    <button mat-raised-button color="warn" *ngIf="!isNew && _resourceFormGroup.status == 'VALID'"
+    <button mat-raised-button color="warn" *ngIf="!isNew && _resourceFormGroup.status == 'VALID' && enableDestroy"
             (click)="deleteResource()">Delete
     </button>
   </p>
