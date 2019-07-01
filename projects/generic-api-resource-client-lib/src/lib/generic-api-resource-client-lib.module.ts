@@ -24,6 +24,8 @@ import {ChipsComponent} from './visualisations/chips.component';
 import {LinkButtonsComponent} from './visualisations/link-buttons.component';
 import {HiddenFieldComponent} from "./fields/hidden_field.component";
 import {DropdownMultiselectComponent} from "./fields/dropdown_multiselect.component";
+import {UploadModule} from "./upload/upload.module";
+import {FilesAsyncComponent} from "./fields/files_async.component";
 
 @NgModule({
   declarations: [
@@ -40,7 +42,8 @@ import {DropdownMultiselectComponent} from "./fields/dropdown_multiselect.compon
     TextfieldComponent,
     TableComponent,
     ChipsComponent,
-    LinkButtonsComponent
+    LinkButtonsComponent,
+    FilesAsyncComponent
   ],
   imports: [
     CommonModule,
@@ -60,7 +63,8 @@ import {DropdownMultiselectComponent} from "./fields/dropdown_multiselect.compon
     MatProgressSpinnerModule,
     MatExpansionModule,
     MatCardModule,
-    MatChipsModule
+    MatChipsModule,
+    UploadModule
   ],
   exports: [
     ListComponent,
