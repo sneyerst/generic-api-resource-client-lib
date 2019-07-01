@@ -1,12 +1,10 @@
 import { NgModule } from '@angular/core'
 import { CommonModule } from '@angular/common'
 
-import {
-  MatButtonModule,
-  MatDialogModule,
-  MatListModule,
-  MatProgressBarModule,
-} from '@angular/material'
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatListModule } from '@angular/material/list';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { FlexLayoutModule } from '@angular/flex-layout'
 import { HttpClientModule } from '@angular/common/http'

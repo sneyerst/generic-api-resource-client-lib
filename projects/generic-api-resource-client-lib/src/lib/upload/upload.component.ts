@@ -1,5 +1,5 @@
 import {Component, Input} from '@angular/core'
-import { MatDialog } from '@angular/material'
+import { MatDialog } from '@angular/material/dialog';
 import {UploadService} from "./upload.service";
 import {DialogComponent} from "./dialog/dialog.component";
 

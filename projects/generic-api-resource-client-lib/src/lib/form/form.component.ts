@@ -3,7 +3,7 @@ import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 import {DomSanitizer} from "@angular/platform-browser";
 import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import {MatSnackBar} from "@angular/material";
+import { MatSnackBar } from "@angular/material/snack-bar";
 import {GenericApiResource} from "../generic-api-resource";
 import {FormService} from "./form.service";
 import {ListService} from "../list/list.service";

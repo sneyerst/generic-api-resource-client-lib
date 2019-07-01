@@ -1,4 +1,4 @@
-import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material'
+import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {forkJoin} from "rxjs";
 import {UploadService} from "../upload.service";
 import {Component, Inject, ViewChild} from "@angular/core";
