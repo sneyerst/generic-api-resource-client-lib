@@ -22,6 +22,7 @@ export class DialogComponent {
     this.url = data.url;
   }
 
+  //@ViewChild('file', { static: true }) file;
   @ViewChild('file', { static: true }) file;
   public files: Set<File> = new Set();
 
