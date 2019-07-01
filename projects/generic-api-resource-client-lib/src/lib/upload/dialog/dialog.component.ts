@@ -1,7 +1,7 @@
-import {Component, Inject, OnInit, ViewChild} from '@angular/core'
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material'
 import {forkJoin} from "rxjs";
 import {UploadService} from "../upload.service";
+import {Component, Inject, ViewChild} from "@angular/core";
 
 @Component({
   selector: 'app-dialog',
