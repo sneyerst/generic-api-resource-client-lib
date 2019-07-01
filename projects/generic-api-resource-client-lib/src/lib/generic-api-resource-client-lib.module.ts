@@ -33,6 +33,7 @@ import {HiddenFieldComponent} from "./fields/hidden_field.component";
 import {DropdownMultiselectComponent} from "./fields/dropdown_multiselect.component";
 import {UploadModule} from "./upload/upload.module";
 import {FilesAsyncComponent} from "./fields/files_async.component";
+import {UploadComponent} from "./upload/upload.component";
 
 @NgModule({
   declarations: [
@@ -76,7 +77,7 @@ import {FilesAsyncComponent} from "./fields/files_async.component";
   exports: [
     ListComponent,
     FormComponent,
-    FilesAsyncComponent
+    UploadComponent
   ]
 })
 export class GenericApiResourceClientLibModule {
