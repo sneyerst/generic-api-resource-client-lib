@@ -1,14 +1,21 @@
-<input
+<input *ngIf="multiple"
   type="file"
   #file
   style="display: none"
   (change)="onFilesAdded()"
   multiple
 />
+<input *ngIf="!multiple"
+       type="file"
+       #file
+       style="display: none"
+       (change)="onFilesAdded()"
+/>
 <div class="container" fxLayout="column" fxLayoutAlign="space-evenly stretch">
-  <h1 mat-dialog-title>Upload Files</h1>
+  <h1 mat-dialog-title *ngIf="multiple">Upload Files</h1>
+  <h1 mat-dialog-title *ngIf="!multiple">Upload File</h1>
   <div>
-    <button
+    <button *ngIf="multiple"
       [disabled]="uploading || uploadSuccessful"
       mat-raised-button
       color="primary"
@@ -16,6 +23,15 @@
       (click)="addFiles()"
     >
       Add Files
+    </button>
+    <button *ngIf="!multiple"
+            [disabled]="uploading || uploadSuccessful"
+            mat-raised-button
+            color="primary"
+            class="add-files-btn"
+            (click)="addFiles()"
+    >
+      Select File
     </button>
   </div>
 

@@ -14,11 +14,15 @@ export class UploadComponent {
   @Input()
   url: string = 'http://localhost:8000/upload';
 
+  @Input()
+  multiple: boolean = false;
+
   public openUploadDialog() {
     let dialogRef = this.dialog.open(DialogComponent, {
       width: '50%',
       height: '50%',
       data: {
+        multiple: this.multiple,
         url: this.url
       }
     })

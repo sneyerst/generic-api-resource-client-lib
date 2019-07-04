@@ -10,19 +10,20 @@ import {Component, Inject, ViewChild} from "@angular/core";
 })
 export class DialogComponent {
 
-  progress
-  canBeClosed = true
-  primaryButtonText = 'Upload'
-  showCancelButton = true
-  uploading = false
-  uploadSuccessful = false
-  url
+  progress;
+  canBeClosed = true;
+  primaryButtonText = 'Upload';
+  showCancelButton = true;
+  uploading = false;
+  uploadSuccessful = false;
+  url: string;
+  multiple: boolean;
 
   constructor(public dialogRef: MatDialogRef<DialogComponent>, public uploadService: UploadService, @Inject(MAT_DIALOG_DATA) public data: any) {
     this.url = data.url;
+    this.multiple = data.multiple;
   }
 
-  //@ViewChild('file', { static: true }) file;
   @ViewChild('file', { static: true }) file;
   public files: Set<File> = new Set();
 
@@ -32,6 +33,9 @@ export class DialogComponent {
 
   onFilesAdded() {
     const files: { [key: string]: File } = this.file.nativeElement.files;
+    if(!this.multiple) {
+      this.files.clear();
+    }
     for (let key in files) {
       if (!isNaN(parseInt(key))) {
         this.files.add(files[key]);
