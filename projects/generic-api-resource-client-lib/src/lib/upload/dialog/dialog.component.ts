@@ -1,7 +1,7 @@
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import {forkJoin} from "rxjs";
 import {UploadService} from "../upload.service";
-import {Component, Inject, ViewChild} from "@angular/core";
+import {Component, EventEmitter, Inject, Output, ViewChild} from "@angular/core";
 
 @Component({
   selector: 'app-dialog',
@@ -9,6 +9,8 @@ import {Component, Inject, ViewChild} from "@angular/core";
   styleUrls: ['./dialog.component.css'],
 })
 export class DialogComponent {
+
+  @Output() uploadSucceeded = new EventEmitter();
 
   progress;
   canBeClosed = true;
@@ -46,6 +48,7 @@ export class DialogComponent {
   closeDialog() {
     // if everything was uploaded already, just close the dialog
     if (this.uploadSuccessful) {
+      this.uploadSucceeded.emit();
       return this.dialogRef.close();
     }
 

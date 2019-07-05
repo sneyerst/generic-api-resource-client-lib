@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core'
+import {Component, EventEmitter, Input, Output} from '@angular/core'
 import { MatDialog } from '@angular/material/dialog';
 import {UploadService} from "./upload.service";
 import {DialogComponent} from "./dialog/dialog.component";
@@ -17,6 +17,9 @@ export class UploadComponent {
   @Input()
   multiple: boolean = false;
 
+  @Output() uploadSucceeded = new EventEmitter();
+
+
   public openUploadDialog() {
     let dialogRef = this.dialog.open(DialogComponent, {
       width: '50%',
@@ -27,4 +30,9 @@ export class UploadComponent {
       }
     })
   }
+
+  uploadSucceededEvent() {
+    this.uploadSucceeded.emit();
+  }
+
 }
