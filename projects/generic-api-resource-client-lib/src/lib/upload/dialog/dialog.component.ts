@@ -48,6 +48,7 @@ export class DialogComponent {
   closeDialog() {
     // if everything was uploaded already, just close the dialog
     if (this.uploadSuccessful) {
+      console.log('emitting 1');
       this.uploadSucceeded.emit();
       return this.dialogRef.close();
     }

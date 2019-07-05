@@ -32,7 +32,9 @@ export class UploadComponent {
   }
 
   uploadSucceededEvent() {
+    console.log('catched 1');
     this.uploadSucceeded.emit();
+    console.log('emitting 2');
   }
 
 }
