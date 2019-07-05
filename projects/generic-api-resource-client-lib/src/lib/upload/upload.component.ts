@@ -28,13 +28,12 @@ export class UploadComponent {
         multiple: this.multiple,
         url: this.url
       }
-    })
-  }
-
-  uploadSucceededEvent() {
-    console.log('catched 1');
-    this.uploadSucceeded.emit();
-    console.log('emitting 2');
+    });
+    dialogRef.componentInstance.uploadSucceeded.subscribe(() => {
+      console.log('catched 1');
+      this.uploadSucceeded.emit();
+      console.log('emitting 2');
+    });
   }
 
 }
