@@ -14,7 +14,7 @@
       </mat-select>
     </mat-form-field>
 
-    <span *ngIf="formComponent.type == 'checkbox'">
+    <span *ngIf="formComponent.type == 'checkbox'" style="margin-right: 16px;">
       <mat-checkbox [formControlName]="formComponent.name">{{formComponent.label}}</mat-checkbox>
     </span>
 

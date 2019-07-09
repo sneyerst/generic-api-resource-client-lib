@@ -46,12 +46,15 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
 
   ngOnInit(): void {
     this._apiUrlSubscription = this.apiUrlObservable.subscribe((apiUrl: string) => {
-      this.apiListService.setApiEndpoint(apiUrl, this.apiIndexUri, this.defaultQuery);
+      this.apiListService.setApiEndpoint(apiUrl, this.apiIndexUri, this.defaultQuery, true);
     });
     this._resourcesSubscription = this.apiListService.resourcesObservable.subscribe((resources: any[]) => this._resources = resources);
     this._visualisationsSubscription = this.apiListService.visualisationsObservable.subscribe((visualisations: any[]) => this._visualisations = visualisations);
     this._filtersSubscription = this.apiListService.filtersObservable.subscribe((filters) => {
-        this._filters = filters;
+      console.log(JSON.stringify(this._filters));
+      console.log(JSON.stringify({}));
+      const resetFilters = JSON.stringify(this._filters) == undefined || JSON.stringify(this._filters) == JSON.stringify({});
+      this._filters = filters;
         this._filtersFormGroup = this.formBuilder.group(Object.keys(filters).reduce((acc, value) => {
           acc[value] = this._filters[value]['value'];
           return acc;
@@ -66,6 +69,9 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
           });
           return acc;
         }, []);
+        if(resetFilters) {
+          this.resetFilters();
+        }
       }
     );
   }
@@ -76,7 +82,6 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
     this._apiUrlSubscription.unsubscribe();
     this._visualisationsSubscription.unsubscribe();
   }
-
 
 
   @Input()
@@ -122,7 +127,6 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
   }
 
   loadResources() {
-    console.log(this._filtersFormGroup['value']);
     this.apiListService.getResources(this._filtersFormGroup['value']);
   }
 

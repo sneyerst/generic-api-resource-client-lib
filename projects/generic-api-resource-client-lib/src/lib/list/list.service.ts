@@ -13,7 +13,7 @@ export class ListService {
 
   private _resources = new BehaviorSubject([]);
   private _fields = new BehaviorSubject([]);
-  private _filters = new BehaviorSubject([]);
+  private _filters = new BehaviorSubject({});
   private _visualisations = new BehaviorSubject([]);
 
   get resourcesObservable() {
@@ -60,7 +60,9 @@ export class ListService {
           this.fields = response['response']['metadata']['fields'];
         }
         if (response['response']['metadata'] && response['response']['metadata']['filters']) {
-          this.filters = response['response']['metadata']['filters'];
+          if (JSON.stringify(this._filters.getValue()) != JSON.stringify(response['response']['metadata']['filters'])) {
+            this.filters = response['response']['metadata']['filters'];
+          }
         }
         if (response['response']['metadata'] && response['response']['metadata']['visualisations']) {
           this.visualisations = response['response']['metadata']['visualisations'];
