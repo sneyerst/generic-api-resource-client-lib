@@ -14,6 +14,10 @@
       </mat-select>
     </mat-form-field>
 
+    <span *ngIf="formComponent.type == 'checkbox'">
+      <mat-checkbox [formControlName]="formComponent.name">{{formComponent.label}}</mat-checkbox>
+    </span>
+
   </ng-container>
 
   <button mat-raised-button color="primary" (click)="loadResources()">Filter</button>&nbsp;
