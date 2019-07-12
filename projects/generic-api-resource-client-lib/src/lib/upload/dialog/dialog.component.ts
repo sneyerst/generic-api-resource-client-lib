@@ -26,7 +26,7 @@ export class DialogComponent {
     this.multiple = data.multiple;
   }
 
-  @ViewChild('file', { static: true }) file;
+  @ViewChild('file', { static: false }) file;
   public files: Set<File> = new Set();
 
   addFiles() {
