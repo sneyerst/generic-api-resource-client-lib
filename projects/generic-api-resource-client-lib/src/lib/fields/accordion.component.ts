@@ -41,6 +41,9 @@ import {Field} from "./field";
                 <generic-api-resource-files [parentFormGroup]="getControlsFor(formComponent.name)[i]"
                                             [formComponent]="childComponent"
                                             *ngIf="childComponent.type == 'files'"></generic-api-resource-files>
+                <generic-api-resource-files-async [uploadUrl]="childComponent.upload_url" [parentFormGroup]="getControlsFor(formComponent.name)[i]"
+                                            [formComponent]="childComponent"
+                                            *ngIf="childComponent.type == 'files_async'"></generic-api-resource-files-async>
 
               </ng-container>
 

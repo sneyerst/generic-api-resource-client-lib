@@ -57,7 +57,8 @@ export class FormComponent extends GenericApiResource implements OnInit, OnDestr
           children: fields[value]['children'],
           fields: fields[value]['fields'],
           trigger: fields[value]['trigger'],
-          new: fields[value]['new']
+          new: fields[value]['new'],
+          upload_url: fields[value]['upload_url']
         });
         return acc;
       }, []);
