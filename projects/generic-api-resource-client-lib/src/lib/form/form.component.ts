@@ -1,12 +1,10 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {forkJoin, Subscription} from "rxjs";
+import {Component, Input} from '@angular/core';
+import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 import {DomSanitizer} from "@angular/platform-browser";
-import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
+import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {GenericApiResource} from "../generic-api-resource";
-import {FormService} from "./form.service";
-import {ListService} from "../list/list.service";
 import {ResourceService} from "../services/resource.service";
 
 
