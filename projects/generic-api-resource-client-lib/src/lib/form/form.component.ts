@@ -164,6 +164,7 @@ export class FormComponent extends GenericApiResource {
         this.activateSpinner = false;
       },
       (response) => {
+        this.activateSpinner = false;
         switch (response.status) {
           case 403: {
             this.showSnackBar("You do not have permission for this action.", 'Ok');
@@ -191,6 +192,7 @@ export class FormComponent extends GenericApiResource {
         this.activateSpinner = false;
       },
       (response) => {
+        this.activateSpinner = false;
         switch (response.status) {
           case 403: {
             this.showSnackBar("You do not have permission for this action.", 'Ok');
@@ -219,6 +221,7 @@ export class FormComponent extends GenericApiResource {
           this.activateSpinner = false;
         },
         (response) => {
+          this.activateSpinner = false;
           switch (response.status) {
             case 403: {
               this.showSnackBar("You do not have permission for this action.", 'Ok');

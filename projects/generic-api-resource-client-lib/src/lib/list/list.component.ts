@@ -12,10 +12,9 @@ import {ResourceService} from "../services/resource.service";
   selector: 'generic-api-resource-list',
   templateUrl: 'list.component.html',
   styleUrls: [],
-  providers: [ListService, FilesService]
+  providers: [ResourceService, FilesService]
 })
-export class ListComponent extends GenericApiResource implements OnInit, OnDestroy {
-
+export class ListComponent extends GenericApiResource {
 
   _enableFilters: boolean = false;
 
@@ -23,60 +22,76 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
   _downloadExcelURL;
 
   _resources: any[] = [];
-  _resourcesSubscription: Subscription;
   _displayedColumns: string[];
 
   _filters;
+  _visualisations: any[] = [];
+
+  _apiUrl = null;
   _filtersFormGroup: FormGroup;
   _filtersFormComponents: any[];
-  _filtersSubscription: Subscription;
   _apiUrlSubscription: Subscription;
 
-  _visualisations: any[] = [];
-  _visualisationsSubscription: Subscription;
 
   constructor(private resourceService: ResourceService, private router: Router, private sanitizer: DomSanitizer, private filesService: FilesService, private formBuilder: FormBuilder) {
     super();
     this._apiUrlSubscription = this.apiUrlObservable.subscribe((apiUrl: string) => {
-      //this.apiListService.setApiEndpoint(apiUrl, this.apiIndexUri, this.defaultQuery, true);
+      this._apiUrl = apiUrl;
+      this.setApiEndpoint(apiUrl, this.defaultQuery);
     });
   }
 
-  ngOnInit(): void {
-
-    this._resourcesSubscription = this.apiListService.resourcesObservable.subscribe((resources: any[]) => this._resources = resources);
-    this._visualisationsSubscription = this.apiListService.visualisationsObservable.subscribe((visualisations: any[]) => this._visualisations = visualisations);
-    this._filtersSubscription = this.apiListService.filtersObservable.subscribe((filters) => {
-      console.log(JSON.stringify(this._filters));
-      console.log(JSON.stringify({}));
-      const resetFilters = JSON.stringify(this._filters) == undefined || JSON.stringify(this._filters) == JSON.stringify({});
-      this._filters = filters;
-        this._filtersFormGroup = this.formBuilder.group(Object.keys(filters).reduce((acc, value) => {
-          acc[value] = this._filters[value]['value'];
-          return acc;
-        }, {}));
-        this._filtersFormComponents = Object.keys(filters).reduce((acc, value) => {
-          acc.push({
-            name: value,
-            label: this._filters[value]['label'],
-            type: this._filters[value]['type'],
-            initial_value: this._filters[value]['initial_value'],
-            options: this._filters[value]['options']
-          });
-          return acc;
-        }, []);
-        if(resetFilters) {
-          this.resetFilters();
-        }
-      }
-    );
+  @Input() set resourceNameSingular(resourceNameSingular: string) {
+    console.log('setting resourceNameSingular to ' + resourceNameSingular);
+    this._resourceNameSingular = resourceNameSingular;
+    this.setApiEndpoint(this._apiUrl, this.defaultQuery);
   }
 
-  ngOnDestroy(): void {
-    this._resourcesSubscription.unsubscribe();
-    this._filtersSubscription.unsubscribe();
-    this._apiUrlSubscription.unsubscribe();
-    this._visualisationsSubscription.unsubscribe();
+  initComponent() {
+    this.loadData();
+  }
+
+  loadData() {
+    this.activateSpinner = true;
+    this.resourceService.getResources().then((response) => {
+      this._resources = response['response']['data'];
+      this._visualisations = response['response']['metadata']['visualisations'];
+
+      const filters = response['response']['metadata']['filters'];
+      const resetFilters = JSON.stringify(this._filters) == undefined || JSON.stringify(this._filters) == JSON.stringify({});
+      this._filters = filters;
+      this._filtersFormGroup = this.formBuilder.group(Object.keys(filters).reduce((acc, value) => {
+        acc[value] = this._filters[value]['value'];
+        return acc;
+      }, {}));
+      this._filtersFormComponents = Object.keys(filters).reduce((acc, value) => {
+        acc.push({
+          name: value,
+          label: this._filters[value]['label'],
+          type: this._filters[value]['type'],
+          initial_value: this._filters[value]['initial_value'],
+          options: this._filters[value]['options']
+        });
+        return acc;
+      }, []);
+      if (resetFilters) {
+        this.resetFilters();
+      }
+      this.activateSpinner = false;
+    });
+  }
+
+  setApiEndpoint(apiUrl, defaultQuery) {
+    this.resourceService.setApiEndpoint(apiUrl, this.apiIndexUri);
+    this.resourceService.setDefaultQuery(defaultQuery);
+    console.log('setApiEndpoint');
+    console.log('apiUrl: ' + apiUrl);
+    console.log('this.apiIndexUri: ' + this.apiIndexUri);
+    console.log('this.resourceNameSingular: ' + this.resourceNameSingular);
+
+    if (apiUrl && defaultQuery && this.resourceNameSingular) {
+      this.initComponent();
+    }
   }
 
 
@@ -123,7 +138,8 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
   }
 
   loadResources() {
-    this.apiListService.getResources(this._filtersFormGroup['value']);
+    //this.resourceService.getResources(this._filtersFormGroup['value']);
+    this.resourceService.getResources();
   }
 
   resetFilters() {
@@ -141,18 +157,18 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
     }
   }
 
-  downloadExcel() {
-    const url = this.apiListService.getApiEndpointUrl(this._filtersFormGroup['value'], 'xlsx')
-
-    this.filesService.download(url).subscribe((data: any) => {
-      this._downloadExcelURL = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(data));
-
-      setTimeout(() => {
-        let element: HTMLElement = document.getElementById('downloadExcelLink') as HTMLElement;
-        element.click();
-      }, 100);
-    });
-  }
+  // downloadExcel() {
+  //   const url = this.resourceService.getApiEndpointUrl(this._filtersFormGroup['value'], 'xlsx')
+  //
+  //   this.filesService.download(url).subscribe((data: any) => {
+  //     this._downloadExcelURL = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(data));
+  //
+  //     setTimeout(() => {
+  //       let element: HTMLElement = document.getElementById('downloadExcelLink') as HTMLElement;
+  //       element.click();
+  //     }, 100);
+  //   });
+  // }
 
   newResource() {
     this.router.navigateByUrl(this.resourceNewUri);

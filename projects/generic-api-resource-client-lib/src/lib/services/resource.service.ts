@@ -9,6 +9,7 @@ export class ResourceService {
   private _url: string;
   private _apiIndexUri: string;
   private _apiResourceUri: string;
+  private _defaultQuery: any = {};
 
   constructor(private http: HttpClient) {
   }
@@ -17,6 +18,14 @@ export class ResourceService {
     this._url = url;
     this._apiIndexUri = apiIndexUri;
     this._apiResourceUri = apiResourceUri;
+  }
+
+  setDefaultQuery(defaultQuery: any = {}) {
+    this._defaultQuery = defaultQuery;
+  }
+
+  getResources() {
+    return this.http.get(this.getIndexUrl()).toPromise();
   }
 
   getResource() {
@@ -46,5 +55,7 @@ export class ResourceService {
       return `${this._url}/${this._apiResourceUri}`;
     }
   }
+
+
 
 }
