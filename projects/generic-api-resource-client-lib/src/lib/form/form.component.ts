@@ -43,6 +43,7 @@ export class FormComponent extends GenericApiResource {
   }
 
   loadData() {
+    this.activateSpinner = true;
       this.resourceService.getResource().then((response) => {
         this._resource = response['response']['data'];
         this._fields = response['response']['metadata']['fields'];
@@ -62,7 +63,7 @@ export class FormComponent extends GenericApiResource {
           });
           return acc;
         }, []);
-
+        this.activateSpinner = false;
       }
     )
   }
@@ -157,10 +158,12 @@ export class FormComponent extends GenericApiResource {
   }
 
   createResource() {
+    this.activateSpinner = true;
     this.resourceService.createResource(this.getResourceAttributes()).then(
       (response) => {
         this.router.navigateByUrl(this.resourceIndexUri);
         this.showSnackBar("Your changes have been updated.", 'Ok');
+        this.activateSpinner = false;
       },
       (response) => {
         switch (response.status) {
@@ -182,10 +185,12 @@ export class FormComponent extends GenericApiResource {
   }
 
   updateResource() {
+    this.activateSpinner = true;
     this.resourceService.updateResource(this.getResourceAttributes()).then(
       (response) => {
         this.router.navigateByUrl(this.resourceIndexUri);
         this.showSnackBar("Your changes have been updated.", 'Ok');
+        this.activateSpinner = false;
       },
       (response) => {
         switch (response.status) {
@@ -208,10 +213,12 @@ export class FormComponent extends GenericApiResource {
 
   deleteResource() {
     if (confirm('Are you sure? This action is irreversible!')) {
+      this.activateSpinner = true;
       this.resourceService.deleteResource().then(
         (response) => {
           this.router.navigateByUrl(this.resourceIndexUri);
           this.showSnackBar("Item has been deleted.", 'Ok');
+          this.activateSpinner = false;
         },
         (response) => {
           switch (response.status) {

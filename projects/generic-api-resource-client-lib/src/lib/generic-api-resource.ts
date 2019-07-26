@@ -29,6 +29,7 @@ export class GenericApiResource {
   _apiNameSingular: string;
   _apiNamePlural: string;
   _defaultQuery: {};
+  _activateSpinner: boolean = false;
 
   @Input() set apiUrl(apiUrl: string) { this._apiUrlObservable.next(apiUrl); }
   @Input() set resourceNameSingular(resourceNameSingular: string) {
@@ -73,6 +74,9 @@ export class GenericApiResource {
   set defaultQuery(defaultQuery: {}) {
     this._defaultQuery = defaultQuery;
   }
+  set activateSpinner(activateSpinner: boolean) {
+    this._activateSpinner = activateSpinner;
+  }
 
   get apiUrlObservable(): BehaviorSubject<string> { return this._apiUrlObservable; }
   get apiUrl(): string { return this._apiUrlObservable.getValue(); }
@@ -115,6 +119,9 @@ export class GenericApiResource {
       }).join('&');
     }
     return queryString;
+  }
+  get activateSpinner(): boolean {
+    return this._activateSpinner;
   }
 
 }
