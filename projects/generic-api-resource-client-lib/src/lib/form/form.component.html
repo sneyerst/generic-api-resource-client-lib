@@ -32,14 +32,14 @@
     </ng-container>
 
     <p class="detailActions">
-      <button mat-raised-button color="primary" *ngIf="!isNew && _resourceFormGroup.status == 'VALID'"
+      <button mat-raised-button [disabled]="activateSpinner" color="primary" *ngIf="!isNew && _resourceFormGroup.status == 'VALID'"
               (click)="updateResource()">Update
       </button>
-      <button mat-raised-button color="primary" *ngIf="isNew && _resourceFormGroup.status == 'VALID'"
+      <button mat-raised-button [disabled]="activateSpinner" color="primary" *ngIf="isNew && _resourceFormGroup.status == 'VALID'"
               (click)="createResource()">Create
       </button>
-      <button mat-raised-button color="secondary" (click)="cancelButtonClicked()">Cancel</button>
-      <button mat-raised-button color="warn" *ngIf="!isNew && _resourceFormGroup.status == 'VALID' && enableDestroy"
+      <button mat-raised-button [disabled]="activateSpinner" color="secondary" (click)="cancelButtonClicked()">Cancel</button>
+      <button mat-raised-button [disabled]="activateSpinner" color="warn" *ngIf="!isNew && _resourceFormGroup.status == 'VALID' && enableDestroy"
               (click)="deleteResource()">Delete
       </button>
     </p>

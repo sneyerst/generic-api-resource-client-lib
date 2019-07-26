@@ -6,6 +6,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {ListService} from "./list.service";
 import {GenericApiResource} from "../generic-api-resource";
 import {FilesService} from '../files/files.service';
+import {ResourceService} from "../services/resource.service";
 
 @Component({
   selector: 'generic-api-resource-list',
@@ -34,20 +35,15 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
   _visualisations: any[] = [];
   _visualisationsSubscription: Subscription;
 
-  constructor(
-    private apiListService: ListService,
-    private router: Router,
-    private sanitizer: DomSanitizer,
-    private filesService: FilesService,
-    private formBuilder: FormBuilder
-  ) {
+  constructor(private resourceService: ResourceService, private router: Router, private sanitizer: DomSanitizer, private filesService: FilesService, private formBuilder: FormBuilder) {
     super();
+    this._apiUrlSubscription = this.apiUrlObservable.subscribe((apiUrl: string) => {
+      //this.apiListService.setApiEndpoint(apiUrl, this.apiIndexUri, this.defaultQuery, true);
+    });
   }
 
   ngOnInit(): void {
-    this._apiUrlSubscription = this.apiUrlObservable.subscribe((apiUrl: string) => {
-      this.apiListService.setApiEndpoint(apiUrl, this.apiIndexUri, this.defaultQuery, true);
-    });
+
     this._resourcesSubscription = this.apiListService.resourcesObservable.subscribe((resources: any[]) => this._resources = resources);
     this._visualisationsSubscription = this.apiListService.visualisationsObservable.subscribe((visualisations: any[]) => this._visualisations = visualisations);
     this._filtersSubscription = this.apiListService.filtersObservable.subscribe((filters) => {
