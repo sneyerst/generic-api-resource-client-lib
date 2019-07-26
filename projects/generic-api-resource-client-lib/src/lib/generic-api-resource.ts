@@ -66,7 +66,7 @@ export class GenericApiResource {
   @Input() set enableDestroy(enableDestroy: boolean) { this._enableDestroy = enableDestroy; }
   @Input() set resourceNamespace(resourceNamespace: string) { this._resourceNamespace = resourceNamespace; }
   @Input() set apiNamespace(apiNamespace: string) { this._apiNamespace = apiNamespace; }
-  @Input() set showIsEdit(showIsEdit: boolean) { this._showIsEdit = showIsEdit; }
+  @Input() set showIsEdit(showIsEdit: boolean) { console.log('DEPRECATION NOTICE: showIsEdit is no longer used'); this._showIsEdit = showIsEdit; }
   @Input() set apiNameSingular(apiNameSingular: string) { this._apiNameSingular = apiNameSingular; }
   @Input() set apiNamePlural(apiNamePlural: string) { this._apiNamePlural = apiNamePlural; }
   @Input()
@@ -84,7 +84,7 @@ export class GenericApiResource {
   get resourceEditUri(): string { return this._resourceEditUri == null ? `${this.resourceNamespace}${this.resourceNamePlural}/:id/edit` : this._resourceEditUri; }
   get apiUri(): string { return this._apiUri == null ? `${this.apiNamePlural}` : this._apiUri; }
   get apiIndexUri(): string { return this._apiIndexUri == null ? `${this.apiNamespace}${this.apiUri}` : this._apiIndexUri; }
-  get apiShowUri(): string { return this.showIsEdit ? this.apiEditUri : (this._apiShowUri == null ? `${this.apiNamespace}${this.apiUri}/:id` : this._apiShowUri); }
+  get apiShowUri(): string { return this._apiShowUri == null ? `${this.apiNamespace}${this.apiUri}/:id` : this._apiShowUri; }
   get apiNewUri(): string { return this._apiNewUri == null ? `${this.apiNamespace}${this.apiUri}/new${this.apiNewQueryString}` : this._apiNewUri; }
   get apiEditUri(): string { return this._apiEditUri == null ? `${this.apiNamespace}${this.apiUri}/:id/edit` : this._apiEditUri; }
   get apiCreateUri(): string { return this._apiCreateUri == null ? `${this.apiNamespace}${this.apiUri}` : this._apiCreateUri; }

@@ -1,75 +1,70 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
-import {Subscription} from "rxjs";
+import {forkJoin, Subscription} from "rxjs";
 import {Router} from "@angular/router";
 import {DomSanitizer} from "@angular/platform-browser";
 import {FormArray, FormBuilder, FormControl, FormGroup} from "@angular/forms";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import {MatSnackBar} from "@angular/material/snack-bar";
 import {GenericApiResource} from "../generic-api-resource";
 import {FormService} from "./form.service";
 import {ListService} from "../list/list.service";
+import {ResourceService} from "../services/resource.service";
 
 
 @Component({
   selector: 'generic-api-resource-form',
   templateUrl: 'form.component.html',
   styleUrls: [],
-  providers: [FormService, ListService]
+  providers: [ResourceService]
 })
-export class FormComponent extends GenericApiResource implements OnInit, OnDestroy {
+export class FormComponent extends GenericApiResource {
 
   _resourceId: number;
+
   _displayedFields: string[];
 
   _resourceFormGroup: FormGroup;
   _resourceFormComponents: any[];
 
-  _fieldsSubscription: Subscription;
-  _fields: any;
-  _resourceSubscription: Subscription;
-  _resource: any;
-  _valuesSubscription: Subscription;
-  _values: any;
   _apiUrlSubscription: Subscription;
 
-  constructor(private listService: ListService, private formService: FormService, private router: Router, private sanitizer: DomSanitizer, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
-    super();
-  }
+  _resource: any;
+  _fields: any;
+  _values: any;
 
-  ngOnInit(): void {
+  constructor(private resourceService: ResourceService, private router: Router, private sanitizer: DomSanitizer, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
+    super();
     this._apiUrlSubscription = this.apiUrlObservable.subscribe((apiUrl: string) => {
-      this.listService.setApiEndpoint(apiUrl, this.apiCreateUri, {}, true);
       this.setApiEndpoint(apiUrl, this._resourceId);
     });
-    this._resourceSubscription = this.formService.resourceObservable.subscribe((resource: any) => this._resource = resource);
-    this._valuesSubscription = this.formService.valuesObservable.subscribe((values: any) => {
-        this._values = values;
-        this._resourceFormGroup = (this.parseFormGroup(values));
-      }
-    );
-    this._fieldsSubscription = this.formService.fieldsObservable.subscribe((fields: any) => {
-      this._fields = fields;
-      this._resourceFormComponents = Object.keys(fields).reduce((acc, value) => {
-        acc.push({
-          name: value,
-          label: fields[value]['label'],
-          type: fields[value]['type'],
-          options: fields[value]['options'],
-          children: fields[value]['children'],
-          fields: fields[value]['fields'],
-          trigger: fields[value]['trigger'],
-          new: fields[value]['new'],
-          upload_url: fields[value]['upload_url']
-        });
-        return acc;
-      }, []);
-    });
   }
 
-  ngOnDestroy(): void {
-    this._resourceSubscription.unsubscribe();
-    this._valuesSubscription.unsubscribe();
-    this._fieldsSubscription.unsubscribe();
-    this._apiUrlSubscription.unsubscribe();
+  initComponent() {
+    this.loadData();
+  }
+
+  loadData() {
+      this.resourceService.getResource().then((response) => {
+        this._resource = response['response']['data'];
+        this._fields = response['response']['metadata']['fields'];
+        this._values = response['response']['metadata']['values'];
+        this._resourceFormGroup = (this.parseFormGroup(this._values));
+        this._resourceFormComponents = Object.keys(this._fields).reduce((acc, value) => {
+          acc.push({
+            name: value,
+            label: this._fields[value]['label'],
+            type: this._fields[value]['type'],
+            options: this._fields[value]['options'],
+            children: this._fields[value]['children'],
+            fields: this._fields[value]['fields'],
+            trigger: this._fields[value]['trigger'],
+            new: this._fields[value]['new'],
+            upload_url: this._fields[value]['upload_url']
+          });
+          return acc;
+        }, []);
+
+      }
+    )
   }
 
   parseFormGroup(formGroupInput) {
@@ -155,20 +150,14 @@ export class FormComponent extends GenericApiResource implements OnInit, OnDestr
   }
 
   setApiEndpoint(apiUrl, resourceId) {
-    console.log('setApiEndpoint()');
-    console.log('apiUrl: ' + apiUrl);
-    console.log('resourceId: ' + resourceId);
-    if(apiUrl) {
-      if(resourceId) {
-        this.formService.setApiEndpoint(apiUrl, this.apiEditUri.replace(':id', resourceId.toString()));
-      } else {
-        this.formService.setApiEndpoint(apiUrl, this.apiNewUri);
-      }
+    if (apiUrl && resourceId) {
+      this.resourceService.setApiEndpoint(apiUrl, this.apiIndexUri, this.apiShowUri.replace(':id', resourceId.toString()));
+      this.initComponent();
     }
   }
 
   createResource() {
-    this.listService.createResource(this.getResourceAttributes()).then(
+    this.resourceService.createResource(this.getResourceAttributes()).then(
       (response) => {
         this.router.navigateByUrl(this.resourceIndexUri);
         this.showSnackBar("Your changes have been updated.", 'Ok');
@@ -193,7 +182,7 @@ export class FormComponent extends GenericApiResource implements OnInit, OnDestr
   }
 
   updateResource() {
-    this.formService.updateResource(this.apiUpdateUri.replace(':id', this._resourceId.toString()), this.getResourceAttributes()).then(
+    this.resourceService.updateResource(this.getResourceAttributes()).then(
       (response) => {
         this.router.navigateByUrl(this.resourceIndexUri);
         this.showSnackBar("Your changes have been updated.", 'Ok');
@@ -219,7 +208,7 @@ export class FormComponent extends GenericApiResource implements OnInit, OnDestr
 
   deleteResource() {
     if (confirm('Are you sure? This action is irreversible!')) {
-      this.formService.deleteResource(this.apiDestroyUri.replace(':id', this._resourceId.toString())).then(
+      this.resourceService.deleteResource().then(
         (response) => {
           this.router.navigateByUrl(this.resourceIndexUri);
           this.showSnackBar("Item has been deleted.", 'Ok');
