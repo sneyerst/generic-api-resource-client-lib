@@ -1,39 +1,42 @@
-import {Input} from "@angular/core";
+import {EventEmitter, Input} from "@angular/core";
 import {BehaviorSubject} from "rxjs";
 
 export class GenericApiResource {
 
+  resourceNameSingularChanged = new EventEmitter<string>();
+
   _apiUrlObservable = new BehaviorSubject('http://localhost:3000/api/v1');
-  _resourceNameSingular: string;   // This is the only required attribute
-  _resourceNamePlural: string;
-  _resourceIndexUri: string;
-  _resourceShowUri: string;
-  _resourceNewUri: string;
-  _resourceEditUri: string;
-  _apiUri: string;
-  _apiIndexUri: string;
-  _apiShowUri: string;
-  _apiNewUri: string;
-  _apiEditUri: string;
-  _apiCreateUri: string;
-  _apiUpdateUri: string;
-  _apiDestroyUri: string;
-  _enableIndex: boolean;
-  _enableShow: boolean;
-  _enableNew: boolean;
-  _enableEdit: boolean;
-  _enableDestroy: boolean;
-  _resourceNamespace: string;
-  _apiNamespace: string;
-  _showIsEdit: boolean;
-  _apiNameSingular: string;
-  _apiNamePlural: string;
-  _defaultQuery: {};
+  _resourceNameSingular: string = null;   // This is the only required attribute
+  _resourceNamePlural: string = null;
+  _resourceIndexUri: string = null;
+  _resourceShowUri: string = null;
+  _resourceNewUri: string = null;
+  _resourceEditUri: string = null;
+  _apiUri: string = null;
+  _apiIndexUri: string = null;
+  _apiShowUri: string = null;
+  _apiNewUri: string = null;
+  _apiEditUri: string = null;
+  _apiCreateUri: string = null;
+  _apiUpdateUri: string = null;
+  _apiDestroyUri: string = null;
+  _enableIndex: boolean = null;
+  _enableShow: boolean = null;
+  _enableNew: boolean = null;
+  _enableEdit: boolean = null;
+  _enableDestroy: boolean = null;
+  _resourceNamespace: string = null;
+  _apiNamespace: string = null;
+  _showIsEdit: boolean = null;
+  _apiNameSingular: string = null;
+  _apiNamePlural: string = null;
+  _defaultQuery: any = {};
   _activateSpinner: boolean = false;
 
   @Input() set apiUrl(apiUrl: string) { this._apiUrlObservable.next(apiUrl); }
   @Input() set resourceNameSingular(resourceNameSingular: string) {
     this._resourceNameSingular = resourceNameSingular;
+    this.resourceNameSingularChanged.emit(resourceNameSingular);
   }
   @Input() set resourceNamePlural(resourceNamePlural: string) {
     this._resourceNamePlural = resourceNamePlural;

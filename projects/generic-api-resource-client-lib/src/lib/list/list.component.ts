@@ -14,7 +14,7 @@ import {ResourceService} from "../services/resource.service";
   styleUrls: [],
   providers: [ResourceService, FilesService]
 })
-export class ListComponent extends GenericApiResource {
+export class ListComponent extends GenericApiResource implements OnDestroy {
 
   _enableFilters: boolean = false;
 
@@ -39,12 +39,14 @@ export class ListComponent extends GenericApiResource {
       this._apiUrl = apiUrl;
       this.setApiEndpoint(apiUrl, this.defaultQuery);
     });
+    this.resourceNameSingularChanged.subscribe((resourceNameSingular: string) => {
+      this.setApiEndpoint(this._apiUrl, this.defaultQuery);
+    });
   }
 
-  @Input() set resourceNameSingular(resourceNameSingular: string) {
-    console.log('setting resourceNameSingular to ' + resourceNameSingular);
-    this._resourceNameSingular = resourceNameSingular;
-    this.setApiEndpoint(this._apiUrl, this.defaultQuery);
+  ngOnDestroy(): void {
+    this._apiUrlSubscription.unsubscribe();
+    this.resourceNameSingularChanged.unsubscribe();
   }
 
   initComponent() {
@@ -84,10 +86,6 @@ export class ListComponent extends GenericApiResource {
   setApiEndpoint(apiUrl, defaultQuery) {
     this.resourceService.setApiEndpoint(apiUrl, this.apiIndexUri);
     this.resourceService.setDefaultQuery(defaultQuery);
-    console.log('setApiEndpoint');
-    console.log('apiUrl: ' + apiUrl);
-    console.log('this.apiIndexUri: ' + this.apiIndexUri);
-    console.log('this.resourceNameSingular: ' + this.resourceNameSingular);
 
     if (apiUrl && defaultQuery && this.resourceNameSingular) {
       this.initComponent();
