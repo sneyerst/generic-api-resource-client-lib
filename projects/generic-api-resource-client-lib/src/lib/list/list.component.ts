@@ -14,7 +14,7 @@ import {ResourceService} from "../services/resource.service";
   styleUrls: [],
   providers: [ResourceService, FilesService]
 })
-export class ListComponent extends GenericApiResource implements OnDestroy {
+export class ListComponent extends GenericApiResource implements OnInit, OnDestroy {
 
   _enableFilters: boolean = false;
 
@@ -35,6 +35,13 @@ export class ListComponent extends GenericApiResource implements OnDestroy {
 
   constructor(private resourceService: ResourceService, private router: Router, private sanitizer: DomSanitizer, private filesService: FilesService, private formBuilder: FormBuilder) {
     super();
+  }
+
+  ngOnInit() {
+    // Note to myself: with this, all properties are initialized already. No need for weird shit.
+    console.log('ngOnInit');
+    console.log(this.defaultQuery);
+
     this._apiUrlSubscription = this.apiUrlObservable.subscribe((apiUrl: string) => {
       this._apiUrl = apiUrl;
       this.setApiEndpoint(apiUrl, this.defaultQuery);
@@ -55,6 +62,9 @@ export class ListComponent extends GenericApiResource implements OnDestroy {
 
   loadData() {
     this.activateSpinner = true;
+    console.log('loadData: ');
+    console.log(this.defaultQuery);
+    console.log(this._defaultQuery);
     this.resourceService.getResources().then((response) => {
       this._resources = response['response']['data'];
       this._visualisations = response['response']['metadata']['visualisations'];
@@ -84,10 +94,11 @@ export class ListComponent extends GenericApiResource implements OnDestroy {
   }
 
   setApiEndpoint(apiUrl, defaultQuery) {
+    console.log(this.defaultQuery);
     this.resourceService.setApiEndpoint(apiUrl, this.apiIndexUri);
     this.resourceService.setDefaultQuery(defaultQuery);
 
-    if (apiUrl && defaultQuery && this.resourceNameSingular) {
+    if (apiUrl && this.resourceNameSingular) {
       this.initComponent();
     }
   }
