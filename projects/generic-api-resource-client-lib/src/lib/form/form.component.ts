@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 import {DomSanitizer} from "@angular/platform-browser";
@@ -14,7 +14,7 @@ import {ResourceService} from "../services/resource.service";
   styleUrls: [],
   providers: [ResourceService]
 })
-export class FormComponent extends GenericApiResource {
+export class FormComponent extends GenericApiResource implements OnInit {
 
   _resourceId: number;
 
@@ -31,14 +31,14 @@ export class FormComponent extends GenericApiResource {
     super();
   }
 
-  initComponent() {
+  ngOnInit() {
     this.setApiEndpoint(this.apiUrl, this._resourceId);
     this.loadData();
   }
 
   loadData() {
     this.activateSpinner = true;
-      this.resourceService.getResource().then((response) => {
+    this.resourceService.getResource().then((response) => {
         this._resource = response['response']['data'];
         this._fields = response['response']['metadata']['fields'];
         this._values = response['response']['metadata']['values'];
@@ -107,7 +107,6 @@ export class FormComponent extends GenericApiResource {
   @Input()
   set resourceId(resourceId: number) {
     this._resourceId = resourceId;
-    this.setApiEndpoint(this.apiUrl, resourceId);
   }
 
   @Input()
@@ -145,9 +144,10 @@ export class FormComponent extends GenericApiResource {
   }
 
   setApiEndpoint(apiUrl, resourceId) {
-    if (apiUrl && resourceId) {
+    if (this.isNew) {
+      this.resourceService.setApiEndpoint(apiUrl, this.apiIndexUri, this.apiNewUri);
+    } else {
       this.resourceService.setApiEndpoint(apiUrl, this.apiIndexUri, this.apiShowUri.replace(':id', resourceId.toString()));
-      this.initComponent();
     }
   }
 

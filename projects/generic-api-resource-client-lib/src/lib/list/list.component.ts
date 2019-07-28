@@ -5,6 +5,7 @@ import {FormBuilder, FormGroup} from "@angular/forms";
 import {GenericApiResource} from "../generic-api-resource";
 import {FilesService} from '../files/files.service';
 import {ResourceService} from "../services/resource.service";
+import {MatSnackBar} from "@angular/material";
 
 @Component({
   selector: 'generic-api-resource-list',
@@ -26,32 +27,46 @@ export class ListComponent extends GenericApiResource implements OnInit {
   _visualisations: any[] = [];
 
   _filtersFormGroup: FormGroup;
-  _filtersFormComponents: any[];
+  _filtersFormComponents: any[] = [];
 
 
-  constructor(private resourceService: ResourceService, private router: Router, private sanitizer: DomSanitizer, private filesService: FilesService, private formBuilder: FormBuilder) {
+  constructor(private resourceService: ResourceService, private router: Router, private sanitizer: DomSanitizer, private filesService: FilesService, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
     super();
   }
 
   ngOnInit() {
     this.setApiEndpoint(this.apiUrl, this.defaultQuery);
+    this.initComponent();
   }
 
   initComponent() {
-    this.loadData();
+    this.loadFilters().then(() => {
+        this.resetFilters();
+        this.loadResources();
+      }
+    );
   }
 
-  loadData() {
+  loadResources() {
     this.activateSpinner = true;
-    console.log('loadData: ');
-    console.log(this.defaultQuery);
-    console.log(this._defaultQuery);
-    this.resourceService.getResources().then((response) => {
+    this.resourceService.getResources(this._filtersFormGroup.value).then((response) => {
       this._resources = response['response']['data'];
-      this._visualisations = response['response']['metadata']['visualisations'];
+      if (response['response']['metadata']['visualisations']) {
+        this._visualisations = response['response']['metadata']['visualisations'];
+      }
+      this.activateSpinner = false;
+    }).catch((response) => {
+      console.log('catched');
+    });
+  }
 
-      const filters = response['response']['metadata']['filters'];
-      const resetFilters = JSON.stringify(this._filters) == undefined || JSON.stringify(this._filters) == JSON.stringify({});
+  loadFilters() {
+    this.activateSpinner = true;
+    return this.resourceService.getResources({filters_only: true}).then((response) => {
+      let filters = response['response']['metadata']['filters'];
+      if (!filters) {
+        filters = {};
+      }
       this._filters = filters;
       this._filtersFormGroup = this.formBuilder.group(Object.keys(filters).reduce((acc, value) => {
         acc[value] = this._filters[value]['value'];
@@ -67,21 +82,14 @@ export class ListComponent extends GenericApiResource implements OnInit {
         });
         return acc;
       }, []);
-      if (resetFilters) {
-        this.resetFilters();
-      }
+
       this.activateSpinner = false;
     });
   }
 
   setApiEndpoint(apiUrl, defaultQuery) {
-    console.log(this.defaultQuery);
     this.resourceService.setApiEndpoint(apiUrl, this.apiIndexUri);
     this.resourceService.setDefaultQuery(defaultQuery);
-
-    if (apiUrl && this.resourceNameSingular) {
-      this.initComponent();
-    }
   }
 
 
@@ -127,10 +135,6 @@ export class ListComponent extends GenericApiResource implements OnInit {
     }
   }
 
-  loadResources() {
-    //this.resourceService.getResources(this._filtersFormGroup['value']);
-    this.resourceService.getResources();
-  }
 
   resetFilters() {
     this._filtersFormComponents.forEach((c) => {
@@ -162,6 +166,10 @@ export class ListComponent extends GenericApiResource implements OnInit {
 
   newResource() {
     this.router.navigateByUrl(this.resourceNewUri);
+  }
+
+  showSnackBar(message: string, action: string) {
+    this.snackBar.open(message, action, {duration: 2500});
   }
 
 }

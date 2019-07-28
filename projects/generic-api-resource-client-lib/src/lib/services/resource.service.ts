@@ -24,8 +24,9 @@ export class ResourceService {
     this._defaultQuery = defaultQuery;
   }
 
-  getResources() {
-    return this.http.get(this.getIndexUrl()).toPromise();
+  getResources(query: any = {}) {
+    const queryString = this.getQueryString(query);
+    return this.http.get(this.getIndexUrl(queryString)).toPromise();
   }
 
   getResource() {
@@ -44,8 +45,12 @@ export class ResourceService {
     return this.http.delete(this.getResourceUrl()).toPromise();
   }
 
-  getIndexUrl() {
-    return `${this._url}/${this._apiIndexUri}`;
+  getIndexUrl(queryString = null) {
+    if (queryString) {
+      return `${this._url}/${this._apiIndexUri}?${queryString}`;
+    } else {
+      return `${this._url}/${this._apiIndexUri}`;
+    }
   }
 
   getResourceUrl() {
@@ -56,6 +61,10 @@ export class ResourceService {
     }
   }
 
+  getQueryString(query) {
+    const queryObject = {...this._defaultQuery, ...query};
+    return Object.keys(queryObject).map(k => `${encodeURIComponent(k)}=${encodeURIComponent(queryObject[k])}`).join('&');
+  }
 
 
 }

@@ -72,7 +72,7 @@
   <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 </table>
 
-<div *ngIf="resources.length == 0">
+<div *ngIf="resources.length == 0 && !activateSpinner">
   No items found.
 </div>
 <br/>
