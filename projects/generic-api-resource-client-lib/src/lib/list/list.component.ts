@@ -1,9 +1,7 @@
 import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {DomSanitizer} from "@angular/platform-browser";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Subscription} from "rxjs";
 import {FormBuilder, FormGroup} from "@angular/forms";
-import {ListService} from "./list.service";
 import {GenericApiResource} from "../generic-api-resource";
 import {FilesService} from '../files/files.service';
 import {ResourceService} from "../services/resource.service";
@@ -14,7 +12,7 @@ import {ResourceService} from "../services/resource.service";
   styleUrls: [],
   providers: [ResourceService, FilesService]
 })
-export class ListComponent extends GenericApiResource implements OnInit, OnDestroy {
+export class ListComponent extends GenericApiResource implements OnInit {
 
   _enableFilters: boolean = false;
 
@@ -27,10 +25,8 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
   _filters;
   _visualisations: any[] = [];
 
-  _apiUrl = null;
   _filtersFormGroup: FormGroup;
   _filtersFormComponents: any[];
-  _apiUrlSubscription: Subscription;
 
 
   constructor(private resourceService: ResourceService, private router: Router, private sanitizer: DomSanitizer, private filesService: FilesService, private formBuilder: FormBuilder) {
@@ -38,22 +34,7 @@ export class ListComponent extends GenericApiResource implements OnInit, OnDestr
   }
 
   ngOnInit() {
-    // Note to myself: with this, all properties are initialized already. No need for weird shit.
-    console.log('ngOnInit');
-    console.log(this.defaultQuery);
-
-    this._apiUrlSubscription = this.apiUrlObservable.subscribe((apiUrl: string) => {
-      this._apiUrl = apiUrl;
-      this.setApiEndpoint(apiUrl, this.defaultQuery);
-    });
-    this.resourceNameSingularChanged.subscribe((resourceNameSingular: string) => {
-      this.setApiEndpoint(this._apiUrl, this.defaultQuery);
-    });
-  }
-
-  ngOnDestroy(): void {
-    this._apiUrlSubscription.unsubscribe();
-    this.resourceNameSingularChanged.unsubscribe();
+    this.setApiEndpoint(this.apiUrl, this.defaultQuery);
   }
 
   initComponent() {

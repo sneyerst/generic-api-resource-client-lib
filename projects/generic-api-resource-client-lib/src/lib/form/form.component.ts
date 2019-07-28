@@ -23,20 +23,16 @@ export class FormComponent extends GenericApiResource {
   _resourceFormGroup: FormGroup;
   _resourceFormComponents: any[];
 
-  _apiUrlSubscription: Subscription;
-
   _resource: any;
   _fields: any;
   _values: any;
 
   constructor(private resourceService: ResourceService, private router: Router, private sanitizer: DomSanitizer, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
     super();
-    this._apiUrlSubscription = this.apiUrlObservable.subscribe((apiUrl: string) => {
-      this.setApiEndpoint(apiUrl, this._resourceId);
-    });
   }
 
   initComponent() {
+    this.setApiEndpoint(this.apiUrl, this._resourceId);
     this.loadData();
   }
 

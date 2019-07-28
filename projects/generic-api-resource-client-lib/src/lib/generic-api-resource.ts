@@ -3,9 +3,6 @@ import {BehaviorSubject} from "rxjs";
 
 export class GenericApiResource {
 
-  resourceNameSingularChanged = new EventEmitter<string>();
-
-  _apiUrlObservable = new BehaviorSubject('http://localhost:3000/api/v1');
   _resourceNameSingular: string = null;   // This is the only required attribute
   _resourceNamePlural: string = null;
   _resourceIndexUri: string = null;
@@ -13,6 +10,7 @@ export class GenericApiResource {
   _resourceNewUri: string = null;
   _resourceEditUri: string = null;
   _apiUri: string = null;
+  _apiUrl: string = null;
   _apiIndexUri: string = null;
   _apiShowUri: string = null;
   _apiNewUri: string = null;
@@ -33,10 +31,9 @@ export class GenericApiResource {
   _defaultQuery: any = {};
   _activateSpinner: boolean = false;
 
-  @Input() set apiUrl(apiUrl: string) { this._apiUrlObservable.next(apiUrl); }
+  @Input() set apiUrl(apiUrl: string) { this._apiUrl = apiUrl; }
   @Input() set resourceNameSingular(resourceNameSingular: string) {
     this._resourceNameSingular = resourceNameSingular;
-    this.resourceNameSingularChanged.emit(resourceNameSingular);
   }
   @Input() set resourceNamePlural(resourceNamePlural: string) {
     this._resourceNamePlural = resourceNamePlural;
@@ -81,8 +78,7 @@ export class GenericApiResource {
     this._activateSpinner = activateSpinner;
   }
 
-  get apiUrlObservable(): BehaviorSubject<string> { return this._apiUrlObservable; }
-  get apiUrl(): string { return this._apiUrlObservable.getValue(); }
+  get apiUrl(): string { return this._apiUrl; }
   get resourceNameSingular(): string { return this._resourceNameSingular; }
   get resourceNamePlural(): string { return this._resourceNamePlural == null ? this._resourceNameSingular + 's' : this._resourceNamePlural; }
   get resourceIndexUri(): string { return this._resourceIndexUri == null ? `${this.resourceNamespace}${this.resourceNamePlural}` : this._resourceIndexUri; }
