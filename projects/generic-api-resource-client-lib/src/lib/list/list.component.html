@@ -19,7 +19,7 @@
     <span *ngIf="formComponent.type == 'checkbox'" style="margin-right: 16px;">
       <mat-checkbox [formControlName]="formComponent.name">{{formComponent.label}}</mat-checkbox>
     </span>
-
+    &nbsp;
   </ng-container>
 
   <button mat-raised-button color="primary" (click)="loadResources()">Filter</button>&nbsp;
