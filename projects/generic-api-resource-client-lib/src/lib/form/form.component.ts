@@ -141,7 +141,7 @@ export class FormComponent extends GenericApiResource implements OnInit {
   }
 
   showFormErrorSnackBar(action: string, errors: any[]) {
-    this.snackBar.openFromComponent(FormErrorSnackBarComponent, {data: errors});
+    this.snackBar.openFromComponent(FormErrorSnackBarComponent, {duration: 10000, data: errors});
   }
 
   getFormArray(formGroup, name): FormArray {
