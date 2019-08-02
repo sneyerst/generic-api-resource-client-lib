@@ -44,7 +44,9 @@ import {Field} from "./field";
                 <generic-api-resource-files-async [uploadUrl]="childComponent.upload_url" [parentFormGroup]="getControlsFor(formComponent.name)[i]"
                                             [formComponent]="childComponent"
                                             *ngIf="childComponent.type == 'files_async'"></generic-api-resource-files-async>
-
+                  <generic-api-resource-passwordfield [parentFormGroup]="getControlsFor(formComponent.name)[i]"
+                                                      [formComponent]="childComponent"
+                                                      *ngIf="childComponent.type == 'passwordfield'"></generic-api-resource-passwordfield>
               </ng-container>
 
             </mat-expansion-panel>

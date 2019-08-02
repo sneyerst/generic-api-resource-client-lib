@@ -6,6 +6,7 @@ import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {MatSnackBar} from "@angular/material/snack-bar";
 import {GenericApiResource} from "../generic-api-resource";
 import {ResourceService} from "../services/resource.service";
+import {FormErrorSnackBarComponent} from "../components/form-error-snack-bar.component";
 
 
 @Component({
@@ -139,6 +140,10 @@ export class FormComponent extends GenericApiResource implements OnInit {
     this.snackBar.open(message, action, {duration: 2500});
   }
 
+  showFormErrorSnackBar(action: string, errors: any[]) {
+    this.snackBar.openFromComponent(FormErrorSnackBarComponent, {data: errors});
+  }
+
   getFormArray(formGroup, name): FormArray {
     return formGroup.get(name);
   }
@@ -167,7 +172,7 @@ export class FormComponent extends GenericApiResource implements OnInit {
             break;
           }
           case 422: {
-            this.showSnackBar("Couldn't save your changes because of validation errors.", 'Ok');
+            this.showFormErrorSnackBar('Ok', this.getFormErrorsFromReponse(response));
             break;
           }
           default: {
@@ -195,7 +200,7 @@ export class FormComponent extends GenericApiResource implements OnInit {
             break;
           }
           case 422: {
-            this.showSnackBar("Couldn't save your changes because of validation errors.", 'Ok');
+            this.showFormErrorSnackBar('Ok', this.getFormErrorsFromReponse(response));
             break;
           }
           default: {
@@ -231,6 +236,25 @@ export class FormComponent extends GenericApiResource implements OnInit {
         }
       );
     }
+  }
+
+  getFormErrorsFromReponse(response) {
+    let errors = [];
+    for (let key of Object.keys(response.error)) {
+      const component = this._resourceFormComponents.reduce((acc, val) => {
+        if (val['name'] == key) {
+          acc = val;
+        }
+        return acc;
+      }, null);
+
+      if (component) {
+        errors.push(component['label'] + ' ' + response.error[key]);
+      } else {
+        errors.push(key + ' (system name) ' + response.error[key]);
+      }
+    }
+    return errors;
   }
 
 }

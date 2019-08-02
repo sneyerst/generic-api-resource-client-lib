@@ -34,6 +34,8 @@ import {DropdownMultiselectComponent} from "./fields/dropdown_multiselect.compon
 import {UploadModule} from "./upload/upload.module";
 import {FilesAsyncComponent} from "./fields/files_async.component";
 import {UploadComponent} from "./upload/upload.component";
+import {PasswordfieldComponent} from "./fields/passwordfield.component";
+import {FormErrorSnackBarComponent} from "./components/form-error-snack-bar.component";
 
 @NgModule({
   declarations: [
@@ -51,7 +53,9 @@ import {UploadComponent} from "./upload/upload.component";
     TableComponent,
     ChipsComponent,
     LinkButtonsComponent,
-    FilesAsyncComponent
+    FilesAsyncComponent,
+    PasswordfieldComponent,
+    FormErrorSnackBarComponent
   ],
   imports: [
     CommonModule,
@@ -78,6 +82,9 @@ import {UploadComponent} from "./upload/upload.component";
     ListComponent,
     FormComponent,
     UploadComponent
+  ],
+  entryComponents: [
+    FormErrorSnackBarComponent
   ]
 })
 export class GenericApiResourceClientLibModule {

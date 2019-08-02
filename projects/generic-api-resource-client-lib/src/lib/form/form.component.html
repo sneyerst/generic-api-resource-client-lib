@@ -28,6 +28,9 @@
                                    *ngIf="formComponent.type == 'file'"></generic-api-resource-file>
         <generic-api-resource-files-async [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
                                           *ngIf="formComponent.type == 'files_async'"></generic-api-resource-files-async>
+        <generic-api-resource-passwordfield [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
+                                        *ngIf="formComponent.type == 'passwordfield'"></generic-api-resource-passwordfield>
+
       </ng-container>
     </ng-container>
 
