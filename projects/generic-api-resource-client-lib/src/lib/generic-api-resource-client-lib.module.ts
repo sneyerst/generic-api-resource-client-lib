@@ -36,6 +36,8 @@ import {FilesAsyncComponent} from "./fields/files_async.component";
 import {UploadComponent} from "./upload/upload.component";
 import {PasswordfieldComponent} from "./fields/passwordfield.component";
 import {FormErrorSnackBarComponent} from "./components/form-error-snack-bar.component";
+import {DatefieldComponent} from "./fields/datefield.component";
+import {TimefieldComponent} from "./fields/timefield.component";
 
 @NgModule({
   declarations: [
@@ -55,7 +57,9 @@ import {FormErrorSnackBarComponent} from "./components/form-error-snack-bar.comp
     LinkButtonsComponent,
     FilesAsyncComponent,
     PasswordfieldComponent,
-    FormErrorSnackBarComponent
+    FormErrorSnackBarComponent,
+    DatefieldComponent,
+    TimefieldComponent
   ],
   imports: [
     CommonModule,
