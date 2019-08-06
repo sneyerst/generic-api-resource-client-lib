@@ -47,6 +47,7 @@ import {Field} from "./field";
                               <generic-api-resource-files-async [uploadUrl]="childComponent.upload_url"
                                                                 [parentFormGroup]="getControlsFor(formComponent.name)[i]"
                                                                 [formComponent]="childComponent"
+                                                                (uploadSucceeded)="uploadSucceeded()"
                                                                 *ngIf="childComponent.type == 'files_async'"></generic-api-resource-files-async>
                               <generic-api-resource-passwordfield
                                       [parentFormGroup]="getControlsFor(formComponent.name)[i]"
@@ -84,6 +85,10 @@ export class AccordionComponent extends Field {
 
   debugOutput(obj) {
     console.log(obj);
+  }
+
+  uploadSucceeded() {
+    console.log('files async component upload OK');
   }
 
 }

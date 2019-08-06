@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {Field} from "./field";
 import {FilesService} from "../files/files.service";
@@ -27,7 +27,7 @@ import {DomSanitizer} from "@angular/platform-browser";
         </li>
       </ul>
       
-      <app-upload [url]="uploadUrl" [multiple]="true" url="http://localhost:3000/upload"></app-upload>
+      <app-upload [url]="uploadUrl" [multiple]="true" url="http://localhost:3000/upload" (uploadSucceeded)="emitUploadSuccessful()"></app-upload>
     </div>
   `,
   styleUrls: [],
@@ -40,6 +40,9 @@ export class FilesAsyncComponent extends Field {
 
   @Input()
   uploadUrl: string = 'http://localhost:3000';
+
+  @Output() uploadSucceeded = new EventEmitter();
+
 
   constructor(private formBuilder: FormBuilder, private filesService: FilesService, private sanitizer: DomSanitizer) {
     super();
@@ -57,6 +60,10 @@ export class FilesAsyncComponent extends Field {
       //setTimeout("this.clickedElement.click();", 1000);
       //element.click();
     });
+  }
+
+  emitUploadSuccessful() {
+    this.uploadSucceeded.emit();
   }
 
 }
