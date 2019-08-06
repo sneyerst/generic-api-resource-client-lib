@@ -38,6 +38,7 @@ import {PasswordfieldComponent} from "./fields/passwordfield.component";
 import {FormErrorSnackBarComponent} from "./components/form-error-snack-bar.component";
 import {DatefieldComponent} from "./fields/datefield.component";
 import {TimefieldComponent} from "./fields/timefield.component";
+import {MarkupComponent} from "./fields/markup.component";
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import {TimefieldComponent} from "./fields/timefield.component";
     PasswordfieldComponent,
     FormErrorSnackBarComponent,
     DatefieldComponent,
-    TimefieldComponent
+    TimefieldComponent,
+    MarkupComponent
   ],
   imports: [
     CommonModule,

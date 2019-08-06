@@ -9,8 +9,10 @@
                                         *ngIf="formComponent.type == 'textfield'"></generic-api-resource-textfield>
         <generic-api-resource-datefield [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
                                         *ngIf="formComponent.type == 'datefield'"></generic-api-resource-datefield>
-       <generic-api-resource-timefield [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
+        <generic-api-resource-timefield [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
                                         *ngIf="formComponent.type == 'timefield'"></generic-api-resource-timefield>
+        <generic-api-resource-markup [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
+                                        *ngIf="formComponent.type == 'markup'"></generic-api-resource-markup>
         <generic-api-resource-hidden [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
                                      *ngIf="formComponent.type == 'hidden'"></generic-api-resource-hidden>
         <generic-api-resource-textarea [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"

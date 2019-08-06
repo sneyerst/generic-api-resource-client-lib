@@ -23,9 +23,12 @@ import {Field} from "./field";
 
               <ng-container *ngFor="let childComponent of formComponent.children[i].fields">
 
-                <generic-api-resource-textfield [parentFormGroup]="getControlsFor(formComponent.name)[i]"
-                                                [formComponent]="childComponent"
-                                                *ngIf="childComponent.type == 'textfield'"></generic-api-resource-textfield>
+                  <generic-api-resource-textfield [parentFormGroup]="getControlsFor(formComponent.name)[i]"
+                                                  [formComponent]="childComponent"
+                                                  *ngIf="childComponent.type == 'textfield'"></generic-api-resource-textfield>
+                  <generic-api-resource-markup [parentFormGroup]="getControlsFor(formComponent.name)[i]"
+                                                  [formComponent]="childComponent"
+                                                  *ngIf="childComponent.type == 'markup'"></generic-api-resource-markup>
                 <generic-api-resource-textarea [parentFormGroup]="getControlsFor(formComponent.name)[i]"
                                                [formComponent]="childComponent"
                                                *ngIf="childComponent.type == 'textarea'"></generic-api-resource-textarea>

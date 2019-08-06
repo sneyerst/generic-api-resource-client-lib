@@ -54,7 +54,8 @@ export class FormComponent extends GenericApiResource implements OnInit {
             fields: this._fields[value]['fields'],
             trigger: this._fields[value]['trigger'],
             new: this._fields[value]['new'],
-            upload_url: this._fields[value]['upload_url']
+            upload_url: this._fields[value]['upload_url'],
+            markup: this._fields[value]['markup']
           });
           return acc;
         }, []);
