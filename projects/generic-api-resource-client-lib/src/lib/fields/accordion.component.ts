@@ -5,65 +5,68 @@ import {Field} from "./field";
 @Component({
   selector: 'generic-api-resource-accordion',
   template: `
-    <div [formGroup]="parentFormGroup">
-      <h2>{{formComponent.label}}</h2>
-      <mat-accordion>
+      <div [formGroup]="parentFormGroup">
+          <h2>{{formComponent.label}}</h2>
+          <mat-accordion>
 
-        <ng-container formArrayName="{{formComponent.name}}"
-                      *ngFor="let item of getControlsFor(formComponent.name); let i = index;">
-          <ng-container [formGroupName]="i">
-            <mat-expansion-panel>
-              <mat-expansion-panel-header>
+              <ng-container formArrayName="{{formComponent.name}}"
+                            *ngFor="let item of getControlsFor(formComponent.name); let i = index;">
+                  <ng-container [formGroupName]="i">
+                      <mat-expansion-panel>
+                          <mat-expansion-panel-header>
                 <span *ngIf="formComponent.children[i].trigger && item.value[formComponent.children[i].trigger]"
                       style="text-decoration: line-through">{{formComponent.children[i].label}}</span>
-                <span
-                  *ngIf="!formComponent.children[i].trigger || !item.value[formComponent.children[i].trigger]">{{formComponent.children[i].label}}</span>
+                              <span
+                                      *ngIf="!formComponent.children[i].trigger || !item.value[formComponent.children[i].trigger]">{{formComponent.children[i].label}}</span>
 
-              </mat-expansion-panel-header>
+                          </mat-expansion-panel-header>
 
-              <ng-container *ngFor="let childComponent of formComponent.children[i].fields">
+                          <ng-container *ngFor="let childComponent of formComponent.children[i].fields">
+                              {{debugOutput(childComponent)}}
+                              <generic-api-resource-textfield [parentFormGroup]="getControlsFor(formComponent.name)[i]"
+                                                              [formComponent]="childComponent"
+                                                              *ngIf="childComponent.type == 'textfield'"></generic-api-resource-textfield>
+                              <generic-api-resource-markup [formComponent]="childComponent"
+                                                           *ngIf="childComponent.type == 'markup'"></generic-api-resource-markup>
+                              <generic-api-resource-textarea [parentFormGroup]="getControlsFor(formComponent.name)[i]"
+                                                             [formComponent]="childComponent"
+                                                             *ngIf="childComponent.type == 'textarea'"></generic-api-resource-textarea>
+                              <generic-api-resource-checkbox [parentFormGroup]="getControlsFor(formComponent.name)[i]"
+                                                             [formComponent]="childComponent"
+                                                             *ngIf="childComponent.type == 'checkbox'"></generic-api-resource-checkbox>
+                              <generic-api-resource-dropdown [parentFormGroup]="getControlsFor(formComponent.name)[i]"
+                                                             [formComponent]="childComponent"
+                                                             *ngIf="childComponent.type == 'dropdown'"></generic-api-resource-dropdown>
+                              <generic-api-resource-dropdown_multiselect
+                                      [parentFormGroup]="getControlsFor(formComponent.name)[i]"
+                                      [formComponent]="childComponent"
+                                      *ngIf="childComponent.type == 'dropdown_multiselect'"></generic-api-resource-dropdown_multiselect>
+                              <generic-api-resource-files [parentFormGroup]="getControlsFor(formComponent.name)[i]"
+                                                          [formComponent]="childComponent"
+                                                          *ngIf="childComponent.type == 'files'"></generic-api-resource-files>
+                              <generic-api-resource-files-async [uploadUrl]="childComponent.upload_url"
+                                                                [parentFormGroup]="getControlsFor(formComponent.name)[i]"
+                                                                [formComponent]="childComponent"
+                                                                *ngIf="childComponent.type == 'files_async'"></generic-api-resource-files-async>
+                              <generic-api-resource-passwordfield
+                                      [parentFormGroup]="getControlsFor(formComponent.name)[i]"
+                                      [formComponent]="childComponent"
+                                      *ngIf="childComponent.type == 'passwordfield'"></generic-api-resource-passwordfield>
+                          </ng-container>
 
-                  <generic-api-resource-textfield [parentFormGroup]="getControlsFor(formComponent.name)[i]"
-                                                  [formComponent]="childComponent"
-                                                  *ngIf="childComponent.type == 'textfield'"></generic-api-resource-textfield>
-                  <generic-api-resource-markup [parentFormGroup]="getControlsFor(formComponent.name)[i]"
-                                                  [formComponent]="childComponent"
-                                                  *ngIf="childComponent.type == 'markup'"></generic-api-resource-markup>
-                <generic-api-resource-textarea [parentFormGroup]="getControlsFor(formComponent.name)[i]"
-                                               [formComponent]="childComponent"
-                                               *ngIf="childComponent.type == 'textarea'"></generic-api-resource-textarea>
-                <generic-api-resource-checkbox [parentFormGroup]="getControlsFor(formComponent.name)[i]"
-                                               [formComponent]="childComponent"
-                                               *ngIf="childComponent.type == 'checkbox'"></generic-api-resource-checkbox>
-                <generic-api-resource-dropdown [parentFormGroup]="getControlsFor(formComponent.name)[i]"
-                                               [formComponent]="childComponent"
-                                               *ngIf="childComponent.type == 'dropdown'"></generic-api-resource-dropdown>
-                <generic-api-resource-dropdown_multiselect [parentFormGroup]="getControlsFor(formComponent.name)[i]"
-                                               [formComponent]="childComponent"
-                                               *ngIf="childComponent.type == 'dropdown_multiselect'"></generic-api-resource-dropdown_multiselect>
-                <generic-api-resource-files [parentFormGroup]="getControlsFor(formComponent.name)[i]"
-                                            [formComponent]="childComponent"
-                                            *ngIf="childComponent.type == 'files'"></generic-api-resource-files>
-                <generic-api-resource-files-async [uploadUrl]="childComponent.upload_url" [parentFormGroup]="getControlsFor(formComponent.name)[i]"
-                                            [formComponent]="childComponent"
-                                            *ngIf="childComponent.type == 'files_async'"></generic-api-resource-files-async>
-                  <generic-api-resource-passwordfield [parentFormGroup]="getControlsFor(formComponent.name)[i]"
-                                                      [formComponent]="childComponent"
-                                                      *ngIf="childComponent.type == 'passwordfield'"></generic-api-resource-passwordfield>
+                      </mat-expansion-panel>
+                  </ng-container>
               </ng-container>
 
-            </mat-expansion-panel>
-          </ng-container>
-        </ng-container>
+          </mat-accordion>
 
-      </mat-accordion>
-
-      <button mat-raised-button color="primary" (click)="addChild(formComponent.new, formComponent.fields)" *ngIf="formComponent.new">Add
-        item
-      </button>
+          <button mat-raised-button color="primary" (click)="addChild(formComponent.new, formComponent.fields)"
+                  *ngIf="formComponent.new">Add
+              item
+          </button>
 
 
-    </div>
+      </div>
   `,
   styleUrls: [],
   providers: []
@@ -75,13 +78,12 @@ export class AccordionComponent extends Field {
   }
 
   addChild(data, fields) {
-    console.log('addChild()');
     (this.parentFormGroup.get(this.formComponent.name) as FormArray).push(this.formBuilder.group(data));
     this.formComponent.children.push({label: 'New item', fields: fields});
-    console.log('this.parentFormGroup');
-    console.log(this.parentFormGroup);
-    console.log('this.formComponent');
-    console.log(this.formComponent);
+  }
+
+  debugOutput(obj) {
+    console.log(obj);
   }
 
 }
