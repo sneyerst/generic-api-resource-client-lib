@@ -5,7 +5,7 @@ import {Field} from "./field";
 @Component({
   selector: 'generic-api-resource-markup',
   template: `
-   {{formComponent.markup}}
+      <div [innerHTML]="formComponent.markup"></div>
   `,
   styleUrls: [],
   providers: []
