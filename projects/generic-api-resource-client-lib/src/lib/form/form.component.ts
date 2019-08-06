@@ -185,7 +185,7 @@ export class FormComponent extends GenericApiResource implements OnInit {
     );
   }
 
-  updateResource(redirect = false) {
+  updateResource(redirect = true) {
     this.activateSpinner = true;
     this.resourceService.updateResource(this.getResourceAttributes()).then(
       (response) => {
