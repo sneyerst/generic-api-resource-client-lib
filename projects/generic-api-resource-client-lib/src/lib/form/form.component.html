@@ -25,7 +25,7 @@
                                                    [formComponent]="formComponent"
                                                    *ngIf="formComponent.type == 'dropdown_multiselect'"></generic-api-resource-dropdown_multiselect>
         <generic-api-resource-accordion [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
-                                        *ngIf="formComponent.type == 'accordion'"></generic-api-resource-accordion>
+                                        *ngIf="formComponent.type == 'accordion'" (fileUploaded)="fileUploaded()"></generic-api-resource-accordion>
         <generic-api-resource-table [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
                                     *ngIf="formComponent.type == 'table'"></generic-api-resource-table>
         <generic-api-resource-files [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"

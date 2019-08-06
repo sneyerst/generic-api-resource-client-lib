@@ -185,11 +185,13 @@ export class FormComponent extends GenericApiResource implements OnInit {
     );
   }
 
-  updateResource() {
+  updateResource(redirect = false) {
     this.activateSpinner = true;
     this.resourceService.updateResource(this.getResourceAttributes()).then(
       (response) => {
-        this.router.navigateByUrl(this.resourceIndexUri);
+        if(redirect) {
+          this.router.navigateByUrl(this.resourceIndexUri);
+        }
         this.showSnackBar("Your changes have been updated.", 'Ok');
         this.activateSpinner = false;
       },
@@ -256,6 +258,11 @@ export class FormComponent extends GenericApiResource implements OnInit {
       }
     }
     return errors;
+  }
+
+  fileUploaded() {
+    this.updateResource(false);
+    this.loadData();
   }
 
 }

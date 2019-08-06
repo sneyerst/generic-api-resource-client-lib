@@ -1,4 +1,4 @@
-import {Component, Input, OnDestroy, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {Form, FormArray, FormBuilder, FormGroup} from "@angular/forms";
 import {Field} from "./field";
 
@@ -22,7 +22,6 @@ import {Field} from "./field";
                           </mat-expansion-panel-header>
 
                           <ng-container *ngFor="let childComponent of formComponent.children[i].fields">
-                              {{debugOutput(childComponent)}}
                               <generic-api-resource-textfield [parentFormGroup]="getControlsFor(formComponent.name)[i]"
                                                               [formComponent]="childComponent"
                                                               *ngIf="childComponent.type == 'textfield'"></generic-api-resource-textfield>
@@ -74,6 +73,9 @@ import {Field} from "./field";
 })
 export class AccordionComponent extends Field {
 
+  @Output() fileUploaded = new EventEmitter();
+
+
   constructor(private formBuilder: FormBuilder) {
     super();
   }
@@ -88,7 +90,7 @@ export class AccordionComponent extends Field {
   }
 
   uploadSucceeded() {
-    console.log('files async component upload OK');
+    this.fileUploaded.emit();
   }
 
 }
