@@ -55,6 +55,9 @@
   <!-- This are the actions of the dialog, containing the primary and the cancel button-->
   <mat-dialog-actions class="actions">
     <button *ngIf="showCancelButton" mat-button mat-dialog-close>Cancel</button>
+    <ng-container *ngIf="!canBeClosed">
+      <mat-spinner diameter="16"></mat-spinner>
+    </ng-container>
     <button
       mat-raised-button
       color="primary"

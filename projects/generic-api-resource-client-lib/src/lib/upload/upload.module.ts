@@ -11,6 +11,7 @@ import { HttpClientModule } from '@angular/common/http'
 import {UploadService} from "./upload.service";
 import {DialogComponent} from "./dialog/dialog.component";
 import {UploadComponent} from "./upload.component";
+import {MatProgressSpinnerModule} from "@angular/material";
 
 @NgModule({
   imports: [
@@ -22,6 +23,7 @@ import {UploadComponent} from "./upload.component";
     HttpClientModule,
     BrowserAnimationsModule,
     MatProgressBarModule,
+    MatProgressSpinnerModule
   ],
   declarations: [UploadComponent, DialogComponent],
   exports: [UploadComponent],
