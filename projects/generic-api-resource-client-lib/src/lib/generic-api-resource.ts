@@ -1,5 +1,6 @@
 import {EventEmitter, Input} from "@angular/core";
 import {BehaviorSubject} from "rxjs";
+import {Router} from "@angular/router";
 
 export class GenericApiResource {
 
@@ -30,6 +31,10 @@ export class GenericApiResource {
   _apiNamePlural: string = null;
   _defaultQuery: any = {};
   _activateSpinner: boolean = false;
+  _goBackUri: string = null;
+  _enableGoBack: boolean = null;
+
+  constructor() {}
 
   @Input() set apiUrl(apiUrl: string) { this._apiUrl = apiUrl; }
   @Input() set resourceNameSingular(resourceNameSingular: string) {
@@ -67,9 +72,11 @@ export class GenericApiResource {
   @Input() set enableDestroy(enableDestroy: boolean) { this._enableDestroy = enableDestroy; }
   @Input() set resourceNamespace(resourceNamespace: string) { this._resourceNamespace = resourceNamespace; }
   @Input() set apiNamespace(apiNamespace: string) { this._apiNamespace = apiNamespace; }
-  @Input() set showIsEdit(showIsEdit: boolean) { console.log('DEPRECATION NOTICE: showIsEdit is no longer used'); this._showIsEdit = showIsEdit; }
+  @Input() set showIsEdit(showIsEdit: boolean) { this._showIsEdit = showIsEdit; }
   @Input() set apiNameSingular(apiNameSingular: string) { this._apiNameSingular = apiNameSingular; }
   @Input() set apiNamePlural(apiNamePlural: string) { this._apiNamePlural = apiNamePlural; }
+  @Input() set goBackUri(goBackUri: string) { this._goBackUri = goBackUri; }
+  @Input() set enableGoBack(enableGoBack: boolean) { this._enableGoBack = enableGoBack; }
   @Input()
   set defaultQuery(defaultQuery: {}) {
     this._defaultQuery = defaultQuery;
@@ -103,6 +110,8 @@ export class GenericApiResource {
   get showIsEdit(): boolean { return this._showIsEdit == null ? true : this._showIsEdit; }
   get apiNameSingular(): string { return this._apiNameSingular == null ? this.resourceNameSingular : this._apiNameSingular; }
   get apiNamePlural(): string { return this._apiNamePlural == null ? this.apiNameSingular + 's' : this._apiNamePlural; }
+  get goBackUri(): string { return this._goBackUri == null ? '/' : this._goBackUri; }
+  get enableGoBack(): boolean { return this._enableGoBack == null ? true : this._enableGoBack; }
   get defaultQuery(): {} {
     if (this._defaultQuery == null) {
       return {};

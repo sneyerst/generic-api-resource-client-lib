@@ -32,10 +32,16 @@ export class FormComponent extends GenericApiResource implements OnInit {
     super();
   }
 
+  goBack() {
+    this.router.navigateByUrl(this.goBackUri);
+  }
+
   ngOnInit() {
     this.setApiEndpoint(this.apiUrl, this._resourceId);
     this.loadData();
   }
+
+  get goBackUri(): string { return this._goBackUri == null ? this.resourceIndexUri : this._goBackUri; }
 
   loadData() {
     this.activateSpinner = true;

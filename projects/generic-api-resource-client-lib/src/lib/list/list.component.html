@@ -1,3 +1,8 @@
+<ng-container *ngIf="enableGoBack" >
+  <button mat-flat-button (click)="goBack()">&larr; Go back</button>
+  <br/>
+</ng-container>
+
 <mat-spinner *ngIf="activateSpinner" diameter="16"></mat-spinner>
 
 <div class="filters" [formGroup]="_filtersFormGroup" *ngIf="_filtersFormComponents && _filtersFormComponents.length > 0 && _enableFilters">

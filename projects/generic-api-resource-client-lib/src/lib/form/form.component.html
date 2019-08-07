@@ -1,4 +1,10 @@
+<ng-container *ngIf="enableGoBack" >
+<button mat-flat-button (click)="goBack()">&larr; Go back</button>
+<br/>
+</ng-container>
+
 <mat-spinner *ngIf="activateSpinner" diameter="16"></mat-spinner>
+
 <ng-container *ngIf="_resourceFormGroup">
   <div [formGroup]="_resourceFormGroup" class="form-group">
 

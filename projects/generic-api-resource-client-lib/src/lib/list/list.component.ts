@@ -39,6 +39,11 @@ export class ListComponent extends GenericApiResource implements OnInit {
     this.initComponent();
   }
 
+  goBack() {
+    this.router.navigateByUrl(this.goBackUri);
+  }
+
+
   initComponent() {
     this.loadFilters().then(() => {
         this.resetFilters();
