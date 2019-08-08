@@ -1,7 +1,7 @@
-import {Injectable} from "@angular/core";
-import {BehaviorSubject} from "rxjs";
-import {Router} from "@angular/router";
-import {HttpClient} from "@angular/common/http";
+import {Injectable} from '@angular/core';
+import {BehaviorSubject} from 'rxjs';
+import {Router} from '@angular/router';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable()
 export class ResourceService {
@@ -24,9 +24,17 @@ export class ResourceService {
     this._defaultQuery = defaultQuery;
   }
 
-  getResources(query: any = {}) {
+  getResources(query: any = {}, format = null) {
+    let httpOptions = {};
+
+    if (format) {
+      httpOptions = {
+        responseType: 'blob' as 'json'
+      };
+    }
+
     const queryString = this.getQueryString(query);
-    return this.http.get(this.getIndexUrl(queryString)).toPromise();
+    return this.http.get(this.getIndexUrl(queryString, format), httpOptions).toPromise();
   }
 
   getResource() {
@@ -45,11 +53,19 @@ export class ResourceService {
     return this.http.delete(this.getResourceUrl()).toPromise();
   }
 
-  getIndexUrl(queryString = null) {
-    if (queryString) {
-      return `${this._url}/${this._apiIndexUri}?${queryString}`;
+  getIndexUrl(queryString = null, format = null) {
+    if (format) {
+      if (queryString) {
+        return `${this._url}/${this._apiIndexUri}.${format}?${queryString}`;
+      } else {
+        return `${this._url}/${this._apiIndexUri}.${format}`;
+      }
     } else {
-      return `${this._url}/${this._apiIndexUri}`;
+      if (queryString) {
+        return `${this._url}/${this._apiIndexUri}?${queryString}`;
+      } else {
+        return `${this._url}/${this._apiIndexUri}`;
+      }
     }
   }
 

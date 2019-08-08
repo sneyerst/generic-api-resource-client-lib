@@ -34,7 +34,7 @@
 
 <div class="downloads">
   <ng-container *ngIf="_enableExcelDownload">
-    <button mat-raised-button color="primary">Download Excel</button>&nbsp;
+    <button [disabled]="activateSpinner" mat-raised-button color="primary" (click)="downloadExcel()">Download Excel</button>&nbsp;
     <a id="downloadExcelLink" [href]="_downloadExcelURL" style="display: none;">Hidden Excel download link</a>
   </ng-container>
 </div>

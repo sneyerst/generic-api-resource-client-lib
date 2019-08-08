@@ -156,18 +156,27 @@ export class ListComponent extends GenericApiResource implements OnInit {
     }
   }
 
-  // downloadExcel() {
-  //   const url = this.resourceService.getApiEndpointUrl(this._filtersFormGroup['value'], 'xlsx')
-  //
-  //   this.filesService.download(url).subscribe((data: any) => {
-  //     this._downloadExcelURL = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(data));
-  //
-  //     setTimeout(() => {
-  //       let element: HTMLElement = document.getElementById('downloadExcelLink') as HTMLElement;
-  //       element.click();
-  //     }, 100);
-  //   });
-  // }
+  downloadExcel() {
+    this.activateSpinner = true;
+    this.resourceService.getResources(this._filtersFormGroup.value, 'xlsx').then((response) => {
+
+      console.log('test');
+      this._downloadExcelURL = this.sanitizer.bypassSecurityTrustResourceUrl(window.URL.createObjectURL(response));
+
+      setTimeout(() => {
+        console.log('timeout');
+        let element: HTMLElement = document.getElementById('downloadExcelLink') as HTMLElement;
+        element.click();
+      }, 100);
+
+      console.log('done');
+
+
+      this.activateSpinner = false;
+    }).catch((response) => {
+      console.log('catched');
+    });
+  }
 
   newResource() {
     this.router.navigateByUrl(this.resourceNewUri);
