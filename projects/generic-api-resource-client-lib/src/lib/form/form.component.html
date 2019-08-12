@@ -6,7 +6,11 @@
 
 <mat-spinner *ngIf="activateSpinner" diameter="16"></mat-spinner>
 
-<ng-container *ngIf="_resourceFormGroup">
+<p *ngIf="_disabled">
+  This component is currently disabled.
+</p>
+
+<ng-container *ngIf="_resourceFormGroup && !_disabled">
   <div [formGroup]="_resourceFormGroup" class="form-group">
 
     <ng-container *ngFor="let formComponent of _resourceFormComponents">

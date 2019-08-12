@@ -29,6 +29,7 @@ export class ListComponent extends GenericApiResource implements OnInit {
   _filtersFormGroup: FormGroup;
   _filtersFormComponents: any[] = [];
 
+  _disabled: boolean = false;
 
   constructor(private resourceService: ResourceService, private router: Router, private sanitizer: DomSanitizer, private filesService: FilesService, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
     super();
@@ -56,6 +57,7 @@ export class ListComponent extends GenericApiResource implements OnInit {
     this.activateSpinner = true;
     this.resourceService.getResources(this._filtersFormGroup.value).then((response) => {
       this._resources = response['response']['data'];
+      this._disabled = response['response']['disabled'] ? response['response']['disabled'] : false;
       if (response['response']['metadata']['visualisations']) {
         this._visualisations = response['response']['metadata']['visualisations'];
       }
@@ -68,6 +70,7 @@ export class ListComponent extends GenericApiResource implements OnInit {
   loadFilters() {
     this.activateSpinner = true;
     return this.resourceService.getResources({filters_only: true}).then((response) => {
+      this._disabled = response['response']['disabled'] ? response['response']['disabled'] : false;
       let filters = response['response']['metadata']['filters'];
       if (!filters) {
         filters = {};

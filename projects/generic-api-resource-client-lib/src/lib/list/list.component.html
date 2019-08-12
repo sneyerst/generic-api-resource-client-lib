@@ -1,4 +1,4 @@
-<ng-container *ngIf="enableGoBack" >
+<ng-container *ngIf="enableGoBack">
   <button mat-flat-button (click)="goBack()">&larr; Go back</button>
   <br/>
   <br/>
@@ -6,82 +6,91 @@
 
 <mat-spinner *ngIf="activateSpinner" diameter="16"></mat-spinner>
 
-<div class="filters" [formGroup]="_filtersFormGroup" *ngIf="_filtersFormComponents && _filtersFormComponents.length > 0 && _enableFilters">
-  <ng-container *ngFor="let formComponent of _filtersFormComponents">
+<ng-container *ngIf="!_disabled">
+  <div class="filters" [formGroup]="_filtersFormGroup"
+       *ngIf="_filtersFormComponents && _filtersFormComponents.length > 0 && _enableFilters">
+    <ng-container *ngFor="let formComponent of _filtersFormComponents">
 
-    <mat-form-field *ngIf="formComponent.type == 'textfield'">
-      <mat-label>{{formComponent.label}}</mat-label>
-      <input matInput formControlName="{{formComponent.name}}" (keyup)="filterKeyup($event)">
-    </mat-form-field>&nbsp;
+      <mat-form-field *ngIf="formComponent.type == 'textfield'">
+        <mat-label>{{formComponent.label}}</mat-label>
+        <input matInput formControlName="{{formComponent.name}}" (keyup)="filterKeyup($event)">
+      </mat-form-field>&nbsp;
 
-    <mat-form-field *ngIf="formComponent.type == 'dropdown'">
-      <mat-select placeholder="{{formComponent.label}}" formControlName="{{formComponent.name}}">
-        <mat-option *ngFor="let option of formComponent.options" [value]="option.id">
-          {{option.label}}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
+      <mat-form-field *ngIf="formComponent.type == 'dropdown'">
+        <mat-select placeholder="{{formComponent.label}}" formControlName="{{formComponent.name}}">
+          <mat-option *ngFor="let option of formComponent.options" [value]="option.id">
+            {{option.label}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
 
-    <span *ngIf="formComponent.type == 'checkbox'" style="margin-right: 16px;">
+      <span *ngIf="formComponent.type == 'checkbox'" style="margin-right: 16px;">
       <mat-checkbox [formControlName]="formComponent.name">{{formComponent.label}}</mat-checkbox>
     </span>
-    &nbsp;
-  </ng-container>
-
-  <button mat-raised-button color="primary" (click)="loadResources()">Filter</button>&nbsp;
-  <button mat-raised-button color="warn" (click)="resetFilters()">Reset filter</button>
-</div>
-
-<div class="downloads">
-  <ng-container *ngIf="_enableExcelDownload">
-    <button [disabled]="activateSpinner" mat-raised-button color="primary" (click)="downloadExcel()">Download Excel</button>&nbsp;
-    <a id="downloadExcelLink" [href]="_downloadExcelURL" style="display: none;">Hidden Excel download link</a>
-  </ng-container>
-</div>
-
-<table mat-table [dataSource]="resources" class="mat-elevation-z8" *ngIf="resources.length > 0">
-  <ng-container *ngFor="let column of displayedColumns" matColumnDef="{{column}}">
-    <th mat-header-cell *matHeaderCellDef>{{column}}</th>
-
-    <ng-container *ngIf="enableShow">
-      <td mat-cell *matCellDef="let resource" (click)="resourceClicked(resource)">
-
-        <ng-container *ngIf="visualisations[column]">
-
-          <ng-container *ngIf="visualisations[column].type == 'chips'">
-            <generic-api-resource-chips [items]="resource[column]"></generic-api-resource-chips>
-          </ng-container>
-
-          <ng-container *ngIf="visualisations[column].type == 'link-buttons'">
-            <generic-api-resource-link-buttons [item]="resource[column]"></generic-api-resource-link-buttons>
-          </ng-container>
-
-          <ul *ngIf="visualisations[column].type == 'unordered-list'">
-            <li *ngFor="let item of resource[column]">{{item}}</li>
-          </ul>
-
-        </ng-container>
-
-        <ng-container *ngIf="!visualisations[column]">{{resource[column]}}</ng-container>
-      </td>
+      &nbsp;
     </ng-container>
 
-    <ng-container *ngIf="!enableShow">
-      <td mat-cell *matCellDef="let resource">
-        {{resource[column]}}
-      </td>
+    <button mat-raised-button color="primary" (click)="loadResources()">Filter</button>&nbsp;
+    <button mat-raised-button color="warn" (click)="resetFilters()">Reset filter</button>
+  </div>
+
+  <div class="downloads">
+    <ng-container *ngIf="_enableExcelDownload">
+      <button [disabled]="activateSpinner" mat-raised-button color="primary" (click)="downloadExcel()">Download Excel
+      </button>&nbsp;
+      <a id="downloadExcelLink" [href]="_downloadExcelURL" style="display: none;">Hidden Excel download link</a>
+    </ng-container>
+  </div>
+
+  <table mat-table [dataSource]="resources" class="mat-elevation-z8" *ngIf="resources.length > 0">
+    <ng-container *ngFor="let column of displayedColumns" matColumnDef="{{column}}">
+      <th mat-header-cell *matHeaderCellDef>{{column}}</th>
+
+      <ng-container *ngIf="enableShow">
+        <td mat-cell *matCellDef="let resource" (click)="resourceClicked(resource)">
+
+          <ng-container *ngIf="visualisations[column]">
+
+            <ng-container *ngIf="visualisations[column].type == 'chips'">
+              <generic-api-resource-chips [items]="resource[column]"></generic-api-resource-chips>
+            </ng-container>
+
+            <ng-container *ngIf="visualisations[column].type == 'link-buttons'">
+              <generic-api-resource-link-buttons [item]="resource[column]"></generic-api-resource-link-buttons>
+            </ng-container>
+
+            <ul *ngIf="visualisations[column].type == 'unordered-list'">
+              <li *ngFor="let item of resource[column]">{{item}}</li>
+            </ul>
+
+          </ng-container>
+
+          <ng-container *ngIf="!visualisations[column]">{{resource[column]}}</ng-container>
+        </td>
+      </ng-container>
+
+      <ng-container *ngIf="!enableShow">
+        <td mat-cell *matCellDef="let resource">
+          {{resource[column]}}
+        </td>
+      </ng-container>
+
     </ng-container>
 
-  </ng-container>
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
 
-  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-</table>
+  <div *ngIf="resources.length == 0 && !activateSpinner">
+    No items found.
+  </div>
+  <br/>
+  <button mat-raised-button color="primary" (click)="newResource()" *ngIf="enableNew">
+    Create
+  </button>
+</ng-container>
 
-<div *ngIf="resources.length == 0 && !activateSpinner">
-  No items found.
-</div>
-<br/>
-<button mat-raised-button color="primary" (click)="newResource()" *ngIf="enableNew">
-  Create
-</button>
+
+<p *ngIf="_disabled">
+  This component is currently disabled.
+</p>

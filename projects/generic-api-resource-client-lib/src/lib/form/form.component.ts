@@ -27,6 +27,7 @@ export class FormComponent extends GenericApiResource implements OnInit {
   _resource: any;
   _fields: any;
   _values: any;
+  _disabled: boolean = false;
 
   constructor(private resourceService: ResourceService, private router: Router, private sanitizer: DomSanitizer, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
     super();
@@ -41,12 +42,15 @@ export class FormComponent extends GenericApiResource implements OnInit {
     this.loadData();
   }
 
-  get goBackUri(): string { return this._goBackUri == null ? this.resourceIndexUri : this._goBackUri; }
+  get goBackUri(): string {
+    return this._goBackUri == null ? this.resourceIndexUri : this._goBackUri;
+  }
 
   loadData() {
     this.activateSpinner = true;
     this.resourceService.getResource().then((response) => {
         this._resource = response['response']['data'];
+        this._disabled = response['response']['metadata']['disabled'] ? response['response']['metadata']['disabled'] : false;
         this._fields = response['response']['metadata']['fields'];
         this._values = response['response']['metadata']['values'];
         this._resourceFormGroup = (this.parseFormGroup(this._values));
@@ -195,7 +199,7 @@ export class FormComponent extends GenericApiResource implements OnInit {
     this.activateSpinner = true;
     this.resourceService.updateResource(this.getResourceAttributes()).then(
       (response) => {
-        if(redirect) {
+        if (redirect) {
           this.router.navigateByUrl(this.resourceIndexUri);
         }
         this.showSnackBar("Your changes have been updated.", 'Ok');
