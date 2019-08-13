@@ -30,4 +30,23 @@ export class GridlistComponent extends ListComponent implements OnInit {
     return Array(num).fill(0).map((x,i)=>i);
   }
 
+  getResourceListFor(i, max) {
+    const itemsPerPart = Math.ceil(this.resources.length / max);
+    const startIndex = i * itemsPerPart;
+    return this.resources.slice(startIndex, startIndex + itemsPerPart);
+  }
+
+  debugOutput(obj) {
+    console.log(obj);
+  }
+
+  rowHeight() {
+    const returnValue = this.getResourceListFor(0, this.cols)[0].length * 16;
+    if(isNaN(returnValue)) {
+      return 30 * 16;
+    } else {
+      return returnValue;
+    }
+  }
+
 }
