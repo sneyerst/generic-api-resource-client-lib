@@ -26,4 +26,8 @@ export class GridlistComponent extends ListComponent implements OnInit {
     return (this._cols ? this._cols : 4);
   }
 
+  getArray(num) {
+    return Array(num).fill(0).map((x,i)=>i);
+  }
+
 }

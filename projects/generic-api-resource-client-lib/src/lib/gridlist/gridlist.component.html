@@ -39,9 +39,13 @@
   </ng-container>
 </div>
 
-<div *ngIf="resources.length > 0">
-  Here comes the gridlist!
-</div>
+<mat-grid-list cols="_cols" *ngIf="resources.length > 0">
+  <mat-grid-tile
+    *ngFor="let i of getArray(_cols)">
+    {{i}}
+  </mat-grid-tile>
+</mat-grid-list>
+
 
 <!--<table mat-table [dataSource]="resources" class="mat-elevation-z8" *ngIf="resources.length > 0">-->
 <!--  <ng-container *ngFor="let column of displayedColumns" matColumnDef="{{column}}">-->

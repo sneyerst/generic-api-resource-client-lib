@@ -40,6 +40,7 @@ import {DatefieldComponent} from "./fields/datefield.component";
 import {TimefieldComponent} from "./fields/timefield.component";
 import {MarkupComponent} from "./fields/markup.component";
 import {GridlistComponent} from "./gridlist/gridlist.component";
+import {MatGridListModule} from "@angular/material";
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import {GridlistComponent} from "./gridlist/gridlist.component";
     MatExpansionModule,
     MatCardModule,
     MatChipsModule,
-    UploadModule
+    UploadModule,
+    MatGridListModule
   ],
   exports: [
     ListComponent,
