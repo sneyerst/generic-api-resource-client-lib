@@ -39,6 +39,7 @@ import {FormErrorSnackBarComponent} from "./components/form-error-snack-bar.comp
 import {DatefieldComponent} from "./fields/datefield.component";
 import {TimefieldComponent} from "./fields/timefield.component";
 import {MarkupComponent} from "./fields/markup.component";
+import {GridlistComponent} from "./gridlist/gridlist.component";
 
 @NgModule({
   declarations: [
@@ -61,7 +62,8 @@ import {MarkupComponent} from "./fields/markup.component";
     FormErrorSnackBarComponent,
     DatefieldComponent,
     TimefieldComponent,
-    MarkupComponent
+    MarkupComponent,
+    GridlistComponent
   ],
   imports: [
     CommonModule,
@@ -87,7 +89,8 @@ import {MarkupComponent} from "./fields/markup.component";
   exports: [
     ListComponent,
     FormComponent,
-    UploadComponent
+    UploadComponent,
+    GridlistComponent
   ],
   entryComponents: [
     FormErrorSnackBarComponent
