@@ -27,7 +27,7 @@ import {DomSanitizer} from "@angular/platform-browser";
         </li>
       </ul>
       
-      <app-upload [url]="uploadUrl" [multiple]="true" url="http://localhost:3000/upload" (uploadSucceeded)="emitUploadSuccessful()"></app-upload>
+      <app-upload [url]="uploadUrl" [multiple]="true" (uploadSucceeded)="emitUploadSuccessful()"></app-upload>
     </div>
   `,
   styleUrls: [],
