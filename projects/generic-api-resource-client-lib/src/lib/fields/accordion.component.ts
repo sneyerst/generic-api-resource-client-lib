@@ -52,6 +52,13 @@ import {Field} from "./field";
                                       [parentFormGroup]="getControlsFor(formComponent.name)[i]"
                                       [formComponent]="childComponent"
                                       *ngIf="childComponent.type == 'passwordfield'"></generic-api-resource-passwordfield>
+
+                              <generic-api-resource-accordion [parentFormGroup]="getControlsFor(formComponent.name)[i]" [formComponent]="childComponent"
+                                                              *ngIf="childComponent.type == 'accordion'"></generic-api-resource-accordion>
+                              <generic-api-resource-table [parentFormGroup]="getControlsFor(formComponent.name)[i]" [formComponent]="childComponent"
+                                                          *ngIf="childComponent.type == 'table'"></generic-api-resource-table>
+                              
+                              
                           </ng-container>
 
                       </mat-expansion-panel>
