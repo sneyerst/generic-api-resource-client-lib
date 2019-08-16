@@ -17,13 +17,22 @@ import {ListComponent} from "../list/list.component";
 export class GridlistComponent extends ListComponent implements OnInit {
 
   _cols: number;
+  _renderer = null;
 
   @Input() set cols(cols) {
     this._cols = cols;
   }
 
+  @Input() set renderer(renderer) {
+    this._renderer = renderer;
+  }
+
   get cols() {
     return (this._cols ? this._cols : 4);
+  }
+
+  get renderer() {
+    return (this._renderer ? this._renderer : function(resource = null) { return 'no renderer defined'; });
   }
 
   getArray(num) {

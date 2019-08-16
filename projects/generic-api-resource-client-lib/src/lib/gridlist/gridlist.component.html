@@ -43,7 +43,7 @@
   <mat-grid-tile
     *ngFor="let i of getArray(cols)">
     <ul>
-      <li *ngFor="let resource of getResourceListFor(i, cols)">{{resource['name']}}</li>
+      <li *ngFor="let resource of getResourceListFor(i, cols)">{{renderer(resource)}}</li>
     </ul>
   </mat-grid-tile>
 </mat-grid-list>
