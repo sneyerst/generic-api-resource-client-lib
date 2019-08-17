@@ -189,4 +189,8 @@ export class ListComponent extends GenericApiResource implements OnInit {
     this.snackBar.open(message, action, {duration: 2500});
   }
 
+  debugOutput(obj) {
+    console.log(obj);
+  }
+
 }

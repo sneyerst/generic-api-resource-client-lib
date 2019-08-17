@@ -3,8 +3,11 @@ import {Router} from '@angular/router';
 
 @Component({
   selector: 'generic-api-resource-link-buttons',
-  template: `
-    <button mat-raised-button color="primary" (click)="linkButtonClicked(_item); $event.stopPropagation()">
+  template: `    
+    <ng-container *ngIf="!_item.uri">
+        {{_item.label}}
+    </ng-container>
+    <button *ngIf="_item.uri" mat-raised-button color="primary" (click)="linkButtonClicked(_item); $event.stopPropagation()">
       {{_item.label}}
     </button>
   `,

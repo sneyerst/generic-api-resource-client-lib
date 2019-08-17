@@ -49,6 +49,7 @@
       <ng-container *ngIf="enableShow">
         <td mat-cell *matCellDef="let resource" (click)="resourceClicked(resource)">
 
+          <!-- TODO: prevent duplication if enableShow is disabled -->
           <ng-container *ngIf="visualisations[column]">
 
             <ng-container *ngIf="visualisations[column].type == 'chips'">
@@ -71,7 +72,23 @@
 
       <ng-container *ngIf="!enableShow">
         <td mat-cell *matCellDef="let resource">
-          {{resource[column]}}
+          <ng-container *ngIf="visualisations[column]">
+
+            <ng-container *ngIf="visualisations[column].type == 'chips'">
+              <generic-api-resource-chips [items]="resource[column]"></generic-api-resource-chips>
+            </ng-container>
+
+            <ng-container *ngIf="visualisations[column].type == 'link-buttons'">
+              <generic-api-resource-link-buttons [item]="resource[column]"></generic-api-resource-link-buttons>
+            </ng-container>
+
+            <ul *ngIf="visualisations[column].type == 'unordered-list'">
+              <li *ngFor="let item of resource[column]">{{item}}</li>
+            </ul>
+
+          </ng-container>
+
+          <ng-container *ngIf="!visualisations[column]">{{resource[column]}}</ng-container>
         </td>
       </ng-container>
 
