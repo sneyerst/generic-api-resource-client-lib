@@ -30,6 +30,7 @@ export class ListComponent extends GenericApiResource implements OnInit {
   _filtersFormComponents: any[] = [];
 
   _disabled: boolean = false;
+  _rowClasses: string[] = null;
 
   constructor(private resourceService: ResourceService, private router: Router, private sanitizer: DomSanitizer, private filesService: FilesService, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
     super();
@@ -116,6 +117,11 @@ export class ListComponent extends GenericApiResource implements OnInit {
     this._enableExcelDownload = enableExcelDownload;
   }
 
+  @Input()
+  set rowClasses(rowClasses: string[]) {
+    this._rowClasses = rowClasses;
+  }
+
   get resources(): any[] {
     return this._resources;
   }
@@ -124,6 +130,9 @@ export class ListComponent extends GenericApiResource implements OnInit {
     return this._visualisations;
   }
 
+  get rowClasses() {
+    return this._rowClasses ? this._rowClasses : [];
+  }
 
   get displayedColumns(): string[] {
     if (this._displayedColumns == null) {
@@ -191,6 +200,17 @@ export class ListComponent extends GenericApiResource implements OnInit {
 
   debugOutput(obj) {
     console.log(obj);
+  }
+
+  assignClasses(row) {
+    if (this.rowClasses) {
+      let classes = [];
+      for(let field of this.rowClasses) {
+        classes.push(row[field]);
+      }
+      return classes.join(' ');
+    }
+    return '';
   }
 
 }
