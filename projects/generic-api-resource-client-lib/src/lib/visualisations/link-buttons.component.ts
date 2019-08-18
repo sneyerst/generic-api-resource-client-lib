@@ -29,7 +29,11 @@ export class LinkButtonsComponent {
   }
 
   linkButtonClicked(resource: any) {
-    this.router.navigateByUrl(resource.uri);
+    if(resource.uri.startsWith('http')) {
+      window.location = resource.uri;
+    } else {
+      this.router.navigateByUrl(resource.uri);
+    }
   }
 
 }
