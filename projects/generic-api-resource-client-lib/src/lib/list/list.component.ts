@@ -64,7 +64,7 @@ export class ListComponent extends GenericApiResource implements OnInit {
       }
       this.activateSpinner = false;
     }).catch((response) => {
-      console.log('catched');
+      alert("Couldn't connect to the backend API.");
     });
   }
 
@@ -93,6 +93,8 @@ export class ListComponent extends GenericApiResource implements OnInit {
       }, []);
 
       this.activateSpinner = false;
+    }).catch((response) => {
+      alert("Couldn't connect to the backend API.");
     });
   }
 
@@ -186,7 +188,7 @@ export class ListComponent extends GenericApiResource implements OnInit {
 
       this.activateSpinner = false;
     }).catch((response) => {
-      console.log('catched');
+      alert("Couldn't connect to the backend API.");
     });
   }
 
