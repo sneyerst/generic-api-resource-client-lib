@@ -48,17 +48,12 @@ export class FilesAsyncComponent extends Field {
       // It is necessary to create a new blob object with mime-type explicitly set
       // otherwise only Chrome works like it should
 
-      let contentType = 'application/pdf';
-      if(filename.endsWith('.xlsx')) {
-        contentType = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
-      }
-
-      const newBlob = new Blob([(data)], { type: contentType });
+      const blob = new Blob([(data)], { type: 'application/octet-stream' });
 
       // IE doesn't allow using a blob object directly as link href
       // instead it is necessary to use msSaveOrOpenBlob
       if (window.navigator && window.navigator.msSaveOrOpenBlob) {
-        window.navigator.msSaveOrOpenBlob(newBlob);
+        window.navigator.msSaveOrOpenBlob(blob);
         return;
       }
 
@@ -67,11 +62,16 @@ export class FilesAsyncComponent extends Field {
       // const downloadURL = URL.createObjectURL(newBlob);
       // window.open(downloadURL);
 
-      const downloadURL = window.URL.createObjectURL(data);
+      const downloadURL = window.URL.createObjectURL(blob);
       let link = document.createElement('a');
       link.href = downloadURL;
       link.download = filename;
+      document.body.appendChild(link);
       link.click();
+      setTimeout(function(){
+        document.body.removeChild(link);
+        window.URL.revokeObjectURL(downloadURL);
+      }, 100);
 
     });
   }
