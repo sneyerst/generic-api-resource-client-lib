@@ -58,6 +58,7 @@ export class FormComponent extends GenericApiResource implements OnInit {
           acc.push({
             name: value,
             label: this._fields[value]['label'],
+            label_fields: this._fields[value]['label_fields'],
             type: this._fields[value]['type'],
             options: this._fields[value]['options'],
             children: this._fields[value]['children'],

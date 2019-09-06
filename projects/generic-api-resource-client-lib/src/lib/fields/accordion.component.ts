@@ -15,9 +15,8 @@ import {Field} from "./field";
                       <mat-expansion-panel>
                           <mat-expansion-panel-header>
                 <span *ngIf="formComponent.children[i].trigger && item.value[formComponent.children[i].trigger]"
-                      class="{{getTriggeredClass(formComponent.children[i])}}">{{formComponent.children[i].label}}</span>
-                <span
-                        *ngIf="!formComponent.children[i].trigger || !item.value[formComponent.children[i].trigger]">{{formComponent.children[i].label}}</span>
+                      class="{{getTriggeredClass(formComponent.children[i])}}">{{getLabel(formComponent.children[i], item)}}</span>
+                <span *ngIf="!formComponent.children[i].trigger || !item.value[formComponent.children[i].trigger]">{{getLabel(formComponent.children[i], item)}}</span>
 
                           </mat-expansion-panel-header>
 
