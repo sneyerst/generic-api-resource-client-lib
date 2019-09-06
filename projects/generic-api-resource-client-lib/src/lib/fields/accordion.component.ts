@@ -102,7 +102,7 @@ export class AccordionComponent extends Field {
     const newFormGroup = this.formComponent.new_form_group;
     const newChild = this.formComponent.new_child;
 
-    (this.parentFormGroup.get(this.formComponent.name) as FormArray).push(this.parseFormGroup(newFormGroup));
+    (this.parentFormGroup.get(this.formComponent.name) as FormArray).push(this.parseFormGroup(newFormGroup['value']));
     this.formComponent.children.push(newChild);
   }
 
