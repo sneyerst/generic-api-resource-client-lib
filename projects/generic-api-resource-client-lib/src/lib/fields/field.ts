@@ -27,4 +27,8 @@ export class Field {
     return (this.parentFormGroup.get(formComponent) as FormArray).controls;
   }
 
+  getTriggeredClass(formComponent) {
+    return formComponent.trigger_class ? formComponent.trigger_class : 'strikethrough';
+  }
+
 }
