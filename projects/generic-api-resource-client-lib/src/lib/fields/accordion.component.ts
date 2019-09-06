@@ -73,7 +73,7 @@ import {Field} from "./field";
 
           <button mat-raised-button color="primary" (click)="addFormGroupChild(formComponent)"
                   *ngIf="formComponent.new_form_group && formComponent.new_child">Add
-              item (2)
+              item
           </button>
 
 
