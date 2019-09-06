@@ -63,7 +63,9 @@ export class FormComponent extends GenericApiResource implements OnInit {
             children: this._fields[value]['children'],
             fields: this._fields[value]['fields'],
             trigger: this._fields[value]['trigger'],
-            new: this._fields[value]['new'],
+            new: this._fields[value]['new'], /* TODO: remove this in the future, is replaced by new_form_group (values) and new_child (fields) */
+            new_form_group: this._fields[value]['new_form_group'],
+            new_child: this._fields[value]['new_child'],
             upload_url: this._fields[value]['upload_url'],
             markup: this._fields[value]['markup']
           });

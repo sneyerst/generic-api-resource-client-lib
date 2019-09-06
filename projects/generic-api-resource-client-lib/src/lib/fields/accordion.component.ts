@@ -72,6 +72,11 @@ import {Field} from "./field";
               item
           </button>
 
+          <button mat-raised-button color="primary" (click)="addFormGroupChild(formComponent)"
+                  *ngIf="formComponent.new_form_group && formComponent.new_child">Add
+              item (2)
+          </button>
+
 
       </div>
   `,
@@ -88,8 +93,59 @@ export class AccordionComponent extends Field {
   }
 
   addChild(data, fields) {
+    // TODO: this method has to go in the future
     (this.parentFormGroup.get(this.formComponent.name) as FormArray).push(this.formBuilder.group(data));
     this.formComponent.children.push({label: 'New item', fields: fields});
+  }
+
+  addFormGroupChild(formComponent) {
+    const newFormGroup = this.formComponent.new_form_group;
+    const newChild = this.formComponent.new_child;
+
+    (this.parentFormGroup.get(this.formComponent.name) as FormArray).push(this.parseFormGroup(newFormGroup));
+    this.formComponent.children.push(newChild);
+  }
+
+  parseFormGroup(formGroupInput) {
+    let formGroup = {};
+    for (let key of Object.keys(formGroupInput)) {
+      switch (formGroupInput[key]['type']) {
+        case 'form-control': {
+          formGroup[key] = formGroupInput[key]['value'];
+          break;
+        }
+        case 'form-array': {
+          formGroup[key] = this.parseFormArray(formGroupInput[key]['value']);
+          break;
+        }
+        case 'form-group': {
+          formGroup[key] = this.parseFormGroup(formGroupInput[key]['value']);
+          break;
+        }
+      }
+    }
+    return this.formBuilder.group(formGroup);
+  }
+
+  parseFormArray(formArrayInput) {
+    let formArray = [];
+    for (let i = 0; i < formArrayInput.length; i++) {
+      switch (formArrayInput[i]['type']) {
+        case 'form-control': {
+          formArray[i] = formArrayInput[i]['value'];
+          break;
+        }
+        case 'form-array': {
+          formArray[i] = this.parseFormArray(formArrayInput[i]['value']);
+          break;
+        }
+        case 'form-group': {
+          formArray[i] = this.parseFormGroup(formArrayInput[i]['value']);
+          break;
+        }
+      }
+    }
+    return this.formBuilder.array(formArray);
   }
 
   debugOutput(obj) {
