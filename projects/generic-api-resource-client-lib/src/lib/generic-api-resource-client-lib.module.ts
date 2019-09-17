@@ -98,7 +98,8 @@ import {GalleryButtonComponent} from "./visualisations/gallery-button.component"
     ListComponent,
     FormComponent,
     UploadComponent,
-    GridlistComponent
+    GridlistComponent,
+    GalleryComponent
   ],
   entryComponents: [
     FormErrorSnackBarComponent
