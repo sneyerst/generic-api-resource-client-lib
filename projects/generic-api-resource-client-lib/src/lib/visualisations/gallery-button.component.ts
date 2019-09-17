@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 @Component({
   selector: 'generic-api-resource-gallery-button',
   template: `    
-    <button *ngIf="_item.length > 0" mat-raised-button color="primary" (click)="openGallery(_item); $event.stopPropagation()">
+    <button mat-raised-button color="primary" (click)="openGallery(_item); $event.stopPropagation()">
       View in gallery
     </button>
   `,
