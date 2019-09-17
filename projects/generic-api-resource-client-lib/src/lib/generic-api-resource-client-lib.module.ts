@@ -43,6 +43,7 @@ import {GridlistComponent} from "./gridlist/gridlist.component";
 import {MatGridListModule} from "@angular/material";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {GalleryComponent} from "./gallery/gallery.component";
+import {GalleryPswpComponent} from "./gallery/gallery_pswp.component";
 
 @NgModule({
   declarations: [
@@ -67,7 +68,8 @@ import {GalleryComponent} from "./gallery/gallery.component";
     TimefieldComponent,
     MarkupComponent,
     GridlistComponent,
-    GalleryComponent
+    GalleryComponent,
+    GalleryPswpComponent
   ],
   imports: [
     CommonModule,
