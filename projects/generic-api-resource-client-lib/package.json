@@ -17,6 +17,7 @@
     "angular-material-fileupload": "^2.0.0",
     "angular-token": "^7.0.1",
     "moment": "^2.24.0",
-    "ngx-moment": "^3.3.0"
+    "ngx-moment": "^3.3.0",
+    "photoswipe": "^4.1.3"
   }
 }

@@ -42,6 +42,7 @@ import {MarkupComponent} from "./fields/markup.component";
 import {GridlistComponent} from "./gridlist/gridlist.component";
 import {MatGridListModule} from "@angular/material";
 import {FlexLayoutModule} from "@angular/flex-layout";
+import {GalleryComponent} from "./gallery/gallery.component";
 
 @NgModule({
   declarations: [
@@ -65,7 +66,8 @@ import {FlexLayoutModule} from "@angular/flex-layout";
     DatefieldComponent,
     TimefieldComponent,
     MarkupComponent,
-    GridlistComponent
+    GridlistComponent,
+    GalleryComponent
   ],
   imports: [
     CommonModule,
