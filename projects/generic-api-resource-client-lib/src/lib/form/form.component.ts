@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Subscription} from "rxjs";
 import {Router} from "@angular/router";
 import {DomSanitizer} from "@angular/platform-browser";
@@ -15,7 +15,7 @@ import {FormErrorSnackBarComponent} from "../components/form-error-snack-bar.com
   styleUrls: [],
   providers: [ResourceService]
 })
-export class FormComponent extends GenericApiResource implements OnInit {
+export class FormComponent extends GenericApiResource implements OnInit, AfterViewInit {
 
   _resourceId: number;
 
@@ -28,6 +28,8 @@ export class FormComponent extends GenericApiResource implements OnInit {
   _fields: any;
   _values: any;
   _disabled: boolean = false;
+
+  @Output() formLoaded = new EventEmitter();
 
   constructor(private resourceService: ResourceService, private router: Router, private sanitizer: DomSanitizer, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
     super();
@@ -76,6 +78,10 @@ export class FormComponent extends GenericApiResource implements OnInit {
         this.activateSpinner = false;
       }
     )
+  }
+
+  ngAfterViewInit(): void {
+    this.formLoaded.emit(true);
   }
 
   parseFormGroup(formGroupInput) {
