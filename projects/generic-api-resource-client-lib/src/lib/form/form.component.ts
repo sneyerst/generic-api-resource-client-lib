@@ -71,7 +71,8 @@ export class FormComponent extends GenericApiResource implements OnInit, AfterVi
             new_form_group: this._fields[value]['new_form_group'],
             new_child: this._fields[value]['new_child'],
             upload_url: this._fields[value]['upload_url'],
-            markup: this._fields[value]['markup']
+            markup: this._fields[value]['markup'],
+            url: this._fields[value]['url']
           });
           return acc;
         }, []);
