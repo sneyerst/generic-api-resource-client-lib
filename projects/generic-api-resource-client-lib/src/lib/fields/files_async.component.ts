@@ -8,7 +8,7 @@ import {DomSanitizer} from "@angular/platform-browser";
   selector: 'generic-api-resource-files-async',
   template: `
     <div [formGroup]="parentFormGroup">
-        <h3 *ngIf="formComponent.label">{{formComponent.label}}}</h3>
+        <h3 *ngIf="formComponent.label">{{formComponent.label}}</h3>
 
         <ul class="file-list" formArrayName="{{formComponent.name}}"
           *ngFor="let item of getControlsFor(formComponent.name); let i = index;">
