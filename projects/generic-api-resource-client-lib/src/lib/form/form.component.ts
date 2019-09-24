@@ -76,6 +76,7 @@ export class FormComponent extends GenericApiResource implements OnInit, AfterVi
           return acc;
         }, []);
         this.activateSpinner = false;
+        this.formLoaded.emit(true);
       }
     )
   }

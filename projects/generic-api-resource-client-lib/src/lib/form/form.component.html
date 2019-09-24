@@ -44,7 +44,7 @@
         <generic-api-resource-file [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
                                    *ngIf="formComponent.type == 'file'"></generic-api-resource-file>
         <generic-api-resource-files-async [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
-                                          *ngIf="formComponent.type == 'files_async'"></generic-api-resource-files-async>
+                                          *ngIf="formComponent.type == 'files_async'" [uploadUrl]="formComponent.upload_url"></generic-api-resource-files-async>
         <generic-api-resource-passwordfield [parentFormGroup]="_resourceFormGroup" [formComponent]="formComponent"
                                         *ngIf="formComponent.type == 'passwordfield'"></generic-api-resource-passwordfield>
 
