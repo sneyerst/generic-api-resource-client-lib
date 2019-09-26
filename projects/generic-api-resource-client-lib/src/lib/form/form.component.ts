@@ -266,7 +266,7 @@ export class FormComponent extends GenericApiResource implements OnInit, AfterVi
   getFormErrorsFromReponse(response) {
     let errors = [];
     for (let key of Object.keys(response.error)) {
-        errors.push(response.error[1]);
+      errors.push(response.error[key]);
     }
     return errors;
   }
