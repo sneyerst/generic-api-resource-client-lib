@@ -278,4 +278,8 @@ export class FormComponent extends GenericApiResource implements OnInit, AfterVi
     this.loadData();
   }
 
+  getResourceFormGroup() {
+    return this._resourceFormGroup;
+  }
+
 }
