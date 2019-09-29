@@ -86,6 +86,10 @@
               <generic-api-resource-gallery-button [item]="resource[column]"></generic-api-resource-gallery-button>
             </ng-container>
 
+            <ng-container *ngIf="visualisations[column].type == 'status-icons'">
+              <generic-api-resource-status-icons [items]="resource[column]"></generic-api-resource-status-icons>
+            </ng-container>
+
             <ul *ngIf="visualisations[column].type == 'unordered-list'">
               <li *ngFor="let item of resource[column]">{{item}}</li>
             </ul>
