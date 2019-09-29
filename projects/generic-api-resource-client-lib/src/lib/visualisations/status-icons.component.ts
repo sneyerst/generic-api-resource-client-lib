@@ -4,7 +4,7 @@ import {Component, Input} from '@angular/core';
   selector: 'generic-api-resource-status-icons',
   template: `
     <div class="status-icon {{getClass(item)}}" *ngFor="let item of _items; let i=index">
-        <div class="index-value">{{i+1}}</div>
+        <div class="index-value" (click)="showMessage(item)">{{i+1}}</div>
         <mat-icon aria-hidden="false" aria-label="Truck" (click)="showMessage(item)">
             {{_icon}}
         </mat-icon>
