@@ -44,6 +44,7 @@ import {MatGridListModule} from "@angular/material";
 import {FlexLayoutModule} from "@angular/flex-layout";
 import {GalleryComponent} from "./gallery/gallery.component";
 import {GalleryButtonComponent} from "./visualisations/gallery-button.component";
+import {StatusIconsComponent} from "./visualisations/status-icons.component";
 
 @NgModule({
   declarations: [
@@ -60,6 +61,7 @@ import {GalleryButtonComponent} from "./visualisations/gallery-button.component"
     TextfieldComponent,
     TableComponent,
     ChipsComponent,
+    StatusIconsComponent,
     LinkButtonsComponent,
     FilesAsyncComponent,
     PasswordfieldComponent,
