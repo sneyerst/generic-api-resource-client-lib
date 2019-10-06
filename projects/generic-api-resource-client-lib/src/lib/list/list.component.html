@@ -86,6 +86,10 @@
               <generic-api-resource-link-buttons [item]="resource[column]"></generic-api-resource-link-buttons>
             </ng-container>
 
+            <ng-container *ngIf="visualisations[column].type == 'file-buttons'">
+              <generic-api-resource-file-buttons [item]="resource[column]"></generic-api-resource-file-buttons>
+            </ng-container>
+
             <ng-container *ngIf="visualisations[column].type == 'gallery-button'">
               <generic-api-resource-gallery-button [item]="resource[column]"></generic-api-resource-gallery-button>
             </ng-container>
