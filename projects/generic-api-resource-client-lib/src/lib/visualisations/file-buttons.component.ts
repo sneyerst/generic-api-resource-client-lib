@@ -53,7 +53,7 @@ export class FileButtonsComponent {
       const downloadURL = window.URL.createObjectURL(blob);
       let link = document.createElement('a');
       link.href = downloadURL;
-      link.download = resource.label;
+      link.download = 'download.pdf';
       document.body.appendChild(link);
       link.click();
       setTimeout(function(){
