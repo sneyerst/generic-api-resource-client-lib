@@ -45,6 +45,7 @@ import {FlexLayoutModule} from "@angular/flex-layout";
 import {GalleryComponent} from "./gallery/gallery.component";
 import {GalleryButtonComponent} from "./visualisations/gallery-button.component";
 import {StatusIconsComponent} from "./visualisations/status-icons.component";
+import {FileButtonsComponent} from "./visualisations/file-buttons.component";
 
 @NgModule({
   declarations: [
@@ -71,7 +72,8 @@ import {StatusIconsComponent} from "./visualisations/status-icons.component";
     MarkupComponent,
     GridlistComponent,
     GalleryComponent,
-    GalleryButtonComponent
+    GalleryButtonComponent,
+    FileButtonsComponent
   ],
   imports: [
     CommonModule,
