@@ -60,6 +60,10 @@
               <generic-api-resource-link-buttons [item]="resource[column]"></generic-api-resource-link-buttons>
             </ng-container>
 
+            <ng-container *ngIf="visualisations[column].type == 'file-buttons'">
+              <generic-api-resource-file-buttons [item]="resource[column]"></generic-api-resource-file-buttons>
+            </ng-container>
+
             <ul *ngIf="visualisations[column].type == 'unordered-list'">
               <li *ngFor="let item of resource[column]">{{item}}</li>
             </ul>
