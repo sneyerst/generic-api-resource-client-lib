@@ -11,11 +11,10 @@ import {Observable, Subject} from "rxjs";
 export class UploadService {
   constructor(private http: HttpClient) {}
 
-  public upload(files: Set<File>, url: string):
-    { [key: string]: { progress: Observable<number> } } {
+  public upload(files: Set<File>, url: string): { [key: string]: { progress: Observable<number>, comments: Observable<string[]> } } {
 
     // this will be the our resulting map
-    const status: { [key: string]: { progress: Observable<number> } } = {};
+    const status: { [key: string]: { progress: Observable<number>, comments: Observable<string[]> } } = {};
 
     files.forEach(file => {
       // create a new multipart-form for every file
@@ -30,6 +29,7 @@ export class UploadService {
 
       // create a new progress-subject for every file
       const progress = new Subject<number>();
+      const comments = new Subject<string[]>();
 
       // send the http-request and subscribe for progress-updates
       this.http.request(req).subscribe(event => {
@@ -41,7 +41,8 @@ export class UploadService {
           // pass the percentage into the progress-stream
           progress.next(percentDone);
         } else if (event instanceof HttpResponse) {
-
+          console.log(event);
+          comments.next(event.body['response'].comments);
           // Close the progress-stream if we get an answer form the API
           // The upload is complete
           progress.complete();
@@ -50,7 +51,8 @@ export class UploadService {
 
       // Save every progress-observable in a map of all observables
       status[file.name] = {
-        progress: progress.asObservable()
+        progress: progress.asObservable(),
+        comments: comments.asObservable()
       };
     });
 

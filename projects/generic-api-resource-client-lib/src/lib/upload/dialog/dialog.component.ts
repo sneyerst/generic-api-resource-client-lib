@@ -20,6 +20,8 @@ export class DialogComponent {
   uploadSuccessful = false;
   url: string;
   multiple: boolean;
+  comments= [];
+  commentsSubscriptions = [];
 
   constructor(public dialogRef: MatDialogRef<DialogComponent>, public uploadService: UploadService, @Inject(MAT_DIALOG_DATA) public data: any) {
     this.url = data.url;
@@ -55,6 +57,7 @@ export class DialogComponent {
 
     // set the component state to "uploading"
     this.uploading = true;
+    this.comments = [];
 
     // start the upload and save the progress map
     this.progress = this.uploadService.upload(this.files, this.url);
@@ -63,6 +66,11 @@ export class DialogComponent {
     let allProgressObservables = [];
     for (let key in this.progress) {
       allProgressObservables.push(this.progress[key].progress);
+      this.commentsSubscriptions.push(this.progress[key].comments.subscribe((comments) => {
+        for (let comment of comments) {
+          this.comments.push(comment);
+        }
+      }));
     }
 
     // Adjust the state variables
@@ -88,7 +96,12 @@ export class DialogComponent {
 
       // ... and the component is no longer uploading
       this.uploading = false;
+
+      for(let subscr of this.commentsSubscriptions) {
+        subscr.unsubscribe();
+      }
     });
+
   }
 
 }

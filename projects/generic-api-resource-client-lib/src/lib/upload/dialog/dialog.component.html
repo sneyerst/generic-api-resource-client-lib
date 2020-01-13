@@ -50,6 +50,11 @@
         ></mat-progress-bar>
       </mat-list-item>
     </mat-list>
+
+    <ul>
+      <li *ngFor="let comment of comments">{{comment}}</li>
+    </ul>
+
   </mat-dialog-content>
 
   <!-- This are the actions of the dialog, containing the primary and the cancel button-->
