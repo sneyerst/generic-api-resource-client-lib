@@ -32,6 +32,7 @@ export class ListComponent extends GenericApiResource implements OnInit {
   _disabled: boolean = false;
   _rowClasses: string[] = null;
   _refreshInterval: number = 0;
+  _timer;
 
   constructor(private resourceService: ResourceService, private router: Router, private sanitizer: DomSanitizer, private filesService: FilesService, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
     super();
@@ -67,7 +68,8 @@ export class ListComponent extends GenericApiResource implements OnInit {
 
       // Reload if interval is set
       if (this._refreshInterval > 0) {
-        setTimeout(() => {
+        clearTimeout(this._timer);
+        this._timer = setTimeout(() => {
           this.loadResources();
         }, this._refreshInterval * 1000);
       }
