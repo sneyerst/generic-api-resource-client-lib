@@ -72,6 +72,11 @@
               <generic-api-resource-status-icons [items]="resource[column]"></generic-api-resource-status-icons>
             </ng-container>
 
+            <ng-container *ngIf="visualisations[column].type == 'spinner'">
+              <mat-spinner mode="indeterminate"></mat-spinner>
+            </ng-container>
+
+
           </ng-container>
 
           <ng-container *ngIf="!visualisations[column]">{{resource[column]}}</ng-container>
@@ -100,6 +105,10 @@
 
             <ng-container *ngIf="visualisations[column].type == 'status-icons'">
               <generic-api-resource-status-icons [items]="resource[column]"></generic-api-resource-status-icons>
+            </ng-container>
+
+            <ng-container *ngIf="visualisations[column].type == 'spinner'">
+              <mat-spinner mode="indeterminate"></mat-spinner>
             </ng-container>
 
             <ul *ngIf="visualisations[column].type == 'unordered-list'">
