@@ -73,7 +73,7 @@
             </ng-container>
 
             <ng-container *ngIf="visualisations[column].type == 'spinner'">
-              <mat-spinner mode="indeterminate"></mat-spinner>
+              <mat-spinner mode="indeterminate" diameter="16" *ngIf="resource[column]"></mat-spinner>
             </ng-container>
 
 
@@ -108,7 +108,7 @@
             </ng-container>
 
             <ng-container *ngIf="visualisations[column].type == 'spinner'">
-              <mat-spinner mode="indeterminate"></mat-spinner>
+              <mat-spinner mode="indeterminate" diameter="16" *ngIf="resource[column]"></mat-spinner>
             </ng-container>
 
             <ul *ngIf="visualisations[column].type == 'unordered-list'">
