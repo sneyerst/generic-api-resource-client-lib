@@ -31,6 +31,7 @@ export class ListComponent extends GenericApiResource implements OnInit {
 
   _disabled: boolean = false;
   _rowClasses: string[] = null;
+  _refreshInterval: number = 0;
 
   constructor(private resourceService: ResourceService, private router: Router, private sanitizer: DomSanitizer, private filesService: FilesService, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
     super();
@@ -63,6 +64,14 @@ export class ListComponent extends GenericApiResource implements OnInit {
         this._visualisations = response['response']['metadata']['visualisations'];
       }
       this.activateSpinner = false;
+
+      // Reload if interval is set
+      if (this._refreshInterval > 0) {
+        setTimeout(() => {
+          this.loadResources();
+        }, this._refreshInterval * 1000);
+      }
+
     }).catch((response) => {
       alert("Couldn't connect to the backend API.");
     });
@@ -122,6 +131,11 @@ export class ListComponent extends GenericApiResource implements OnInit {
   @Input()
   set rowClasses(rowClasses: string[]) {
     this._rowClasses = rowClasses;
+  }
+
+  @Input()
+  set refreshInterval(refreshInterval: number) {
+    this._refreshInterval = refreshInterval;
   }
 
   get resources(): any[] {
