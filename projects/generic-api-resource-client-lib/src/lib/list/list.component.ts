@@ -75,7 +75,7 @@ export class ListComponent extends GenericApiResource implements OnInit {
       }
 
     }).catch((response) => {
-      alert("Couldn't connect to the backend API.");
+      alert("Couldn't connect to the backend API. Please refresh this page.");
     });
   }
 
@@ -105,7 +105,7 @@ export class ListComponent extends GenericApiResource implements OnInit {
 
       this.activateSpinner = false;
     }).catch((response) => {
-      alert("Couldn't connect to the backend API.");
+      alert("Couldn't connect to the backend API. Please refresh this page.");
     });
   }
 
@@ -204,7 +204,7 @@ export class ListComponent extends GenericApiResource implements OnInit {
 
       this.activateSpinner = false;
     }).catch((response) => {
-      alert("Couldn't connect to the backend API.");
+      alert("Couldn't connect to the backend API. Please refresh this page.");
     });
   }
 
