@@ -4,7 +4,7 @@
   <br/>
 </ng-container>
 
-<mat-spinner *ngIf="activateSpinner" diameter="16"></mat-spinner>
+<mat-spinner *ngIf="activateSpinner && _refreshInterval == 0" diameter="16"></mat-spinner>
 
 <ng-container *ngIf="!_disabled">
   <div class="filters" [formGroup]="_filtersFormGroup"
