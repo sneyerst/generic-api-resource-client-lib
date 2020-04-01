@@ -13,7 +13,7 @@ import {MatSnackBar} from "@angular/material";
   styleUrls: [],
   providers: [ResourceService, FilesService]
 })
-export class ListComponent extends GenericApiResource implements OnInit {
+export class ListComponent extends GenericApiResource implements OnInit, OnDestroy {
 
   _enableFilters: boolean = false;
 
@@ -36,6 +36,10 @@ export class ListComponent extends GenericApiResource implements OnInit {
 
   constructor(private resourceService: ResourceService, private router: Router, private sanitizer: DomSanitizer, private filesService: FilesService, private formBuilder: FormBuilder, private snackBar: MatSnackBar) {
     super();
+  }
+
+  ngOnDestroy(): void {
+    clearTimeout(this._timer);
   }
 
   ngOnInit() {
