@@ -78,8 +78,20 @@ export class FormComponent extends GenericApiResource implements OnInit, AfterVi
         }, []);
         this.activateSpinner = false;
         this.formLoaded.emit(true);
-      }
-    )
+      },
+      (response) => {
+        switch (response.status) {
+          case 401: {
+            alert('You do not seem to be logged in. Please try to log in and try again.');
+            this.router.navigateByUrl('/');
+            break;
+          }
+          default: {
+            this.showSnackBar("An error occured. Couldn't load.", 'Ok');
+            break;
+          }
+        }
+      });
   }
 
   ngAfterViewInit(): void {
